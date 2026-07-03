@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mom's Time — 07 Register</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..700,0..1,-50..200">
+<link rel="stylesheet" href="../assets/css/common.css">
+<style>
+  /* 스텝 인디케이터 */
+  .stepper { display: flex; align-items: flex-start; padding: 20px 24px 8px; }
+  .stepper__item { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 56px; }
+  .stepper__num {
+    width: 34px; height: 34px; border-radius: 50%;
+    background: #F3DDE4; color: var(--text-secondary);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px; font-weight: 700;
+  }
+  .stepper__item.is-active .stepper__num {
+    background: var(--primary-strong); color: #fff;
+    box-shadow: 0 4px 10px rgba(242,84,127,.3);
+  }
+  .stepper__label { font-size: 12px; color: var(--text-secondary); white-space: nowrap; }
+  .stepper__item.is-active .stepper__label { color: var(--primary-strong); font-weight: 700; }
+  .stepper__line { flex: 1; height: 2px; background: #F3DDE4; margin-top: 17px; }
+
+  /* OCR 카드 */
+  .ocr-card { position: relative; }
+  .ocr-card__title { display: flex; align-items: center; gap: 8px; font-size: 17px; font-weight: 800; }
+  .ocr-card__title .chip { height: 24px; font-size: 11px; }
+  .ocr-card__desc { margin-top: 8px; font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+  .ocr-card__robot { position: absolute; top: 14px; right: 16px; font-size: 44px; }
+  .ocr-drop {
+    margin-top: 16px;
+    border: 1.5px dashed var(--primary);
+    border-radius: 16px;
+    background: #FFF7F9;
+    padding: 26px 16px;
+    display: flex; align-items: center; justify-content: center; gap: 14px;
+    width: 100%;
+  }
+  .ocr-drop .material-symbols-rounded { font-size: 36px; color: var(--primary-strong); }
+  .ocr-drop__main { font-size: 17px; font-weight: 800; color: var(--primary-strong); text-align: left; }
+  .ocr-drop__sub { font-size: 13px; color: var(--text-secondary); font-weight: 400; }
+  .ocr-hint { display: flex; align-items: center; gap: 6px; margin-top: 12px; font-size: 12px; color: var(--text-disabled); }
+  .ocr-hint .material-symbols-rounded { font-size: 15px; }
+
+  /* 폼 */
+  .form-title { margin: 28px 0 12px; font-size: 18px; font-weight: 800; }
+  .form-card { padding: 6px 20px; }
+  .form-row { display: flex; align-items: center; gap: 12px; padding: 14px 0; }
+  .form-row + .form-row { border-top: 1px solid var(--divider); }
+  .form-row__label { width: 88px; font-size: 14px; font-weight: 600; flex-shrink: 0; }
+  .form-row__label .req { color: var(--primary-strong); }
+  .form-row .input { flex: 1; height: 48px; border-radius: 12px; }
+  .ocr-use-btn {
+    height: 40px; padding: 0 14px; border: 1px solid var(--primary);
+    border-radius: 999px; color: var(--primary-strong);
+    font-size: 13px; font-weight: 700; flex-shrink: 0;
+  }
+  .img-add {
+    width: 96px; height: 96px;
+    border: 1.5px dashed var(--border);
+    border-radius: 14px; background: var(--surface);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+    color: var(--text-disabled); font-size: 11px;
+  }
+  .img-add .material-symbols-rounded { font-size: 26px; }
+  .img-add-desc { flex: 1; font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+
+  /* 복용 방법 선택 */
+  .opt-chips { display: flex; flex-wrap: wrap; gap: 8px; flex: 1; }
+  .opt-chip {
+    height: 42px; padding: 0 14px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; font-size: 13px; font-weight: 600; color: var(--text-secondary);
+  }
+  .opt-chip.is-active {
+    border-color: var(--primary-strong); color: var(--primary-strong);
+    background: #FFF0F4; font-weight: 700;
+  }
+  /* 수량 스테퍼 */
+  .qty { display: flex; align-items: center; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); overflow: hidden; }
+  .qty button { width: 44px; height: 48px; font-size: 20px; color: var(--text-secondary); }
+  .qty input { width: 52px; height: 48px; text-align: center; border: 0; outline: 0; font-size: 16px; font-weight: 700; background: transparent; }
+
+  .memo-count { text-align: right; font-size: 12px; color: var(--text-disabled); margin-top: 6px; }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header class="appbar">
+    <button type="button" class="appbar__btn" data-back aria-label="뒤로가기">
+      <span class="material-symbols-rounded">arrow_back_ios_new</span>
+    </button>
+    <h1 class="appbar__title">약 등록</h1>
+    <button type="button" class="appbar__action">임시저장</button>
+  </header>
+
+  <!-- 스텝 -->
+  <div class="stepper">
+    <div class="stepper__item is-active"><span class="stepper__num">1</span><span class="stepper__label">기본 정보</span></div>
+    <span class="stepper__line"></span>
+    <div class="stepper__item"><span class="stepper__num">2</span><span class="stepper__label">복용 정보</span></div>
+    <span class="stepper__line"></span>
+    <div class="stepper__item"><span class="stepper__num">3</span><span class="stepper__label">알림 설정</span></div>
+    <span class="stepper__line"></span>
+    <div class="stepper__item"><span class="stepper__num">4</span><span class="stepper__label">확인</span></div>
+  </div>
+
+  <div class="content">
+
+    <!-- OCR 등록 -->
+    <div class="card ocr-card">
+      <span class="ocr-card__robot" aria-hidden="true"><i data-illust="robot" style="width:48px;height:50px;"></i></span>
+      <h2 class="ocr-card__title">약 사진으로 등록하기 (OCR) <span class="chip">추천</span></h2>
+      <p class="ocr-card__desc">약 봉투나 박스, 약품 정보를 촬영하면<br>AI가 정보를 자동으로 인식해요.</p>
+      <button type="button" class="ocr-drop">
+        <span class="material-symbols-rounded">photo_camera</span>
+        <span class="ocr-drop__main">사진 촬영하기<br><span class="ocr-drop__sub">또는 이미지 선택</span></span>
+      </button>
+      <p class="ocr-hint"><span class="material-symbols-rounded">info</span> 선명하게 촬영할수록 정확도가 높아져요.</p>
+    </div>
+
+    <!-- 기본 정보 -->
+    <h2 class="form-title">기본 정보</h2>
+    <div class="card form-card">
+      <div class="form-row">
+        <span class="form-row__label">약 이름 <span class="req">*</span></span>
+        <div class="input"><input type="text" placeholder="약 이름을 입력해주세요"></div>
+        <button type="button" class="ocr-use-btn">OCR 사용</button>
+      </div>
+      <div class="form-row">
+        <span class="form-row__label">약 종류 <span class="req">*</span></span>
+        <div class="input">
+          <select>
+            <option>선택해주세요</option>
+            <option>처방약</option>
+            <option>일반약</option>
+            <option>영양제</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <span class="form-row__label">제조사</span>
+        <div class="input"><input type="text" placeholder="제조사를 입력해주세요 (선택)"></div>
+      </div>
+      <div class="form-row">
+        <span class="form-row__label">약 이미지</span>
+        <button type="button" class="img-add"><span class="material-symbols-rounded">add</span>이미지 추가</button>
+        <p class="img-add-desc">약 봉투나 약 박스 이미지를 추가하면 관리하기 쉬워요.</p>
+      </div>
+    </div>
+
+    <!-- 복용 정보 -->
+    <h2 class="form-title">복용 정보</h2>
+    <div class="card form-card">
+      <div class="form-row">
+        <span class="form-row__label">복용 방법 <span class="req">*</span></span>
+        <div class="opt-chips">
+          <button type="button" class="opt-chip is-active">경구 (먹는 약)</button>
+          <button type="button" class="opt-chip">외용 (바르는 약)</button>
+          <button type="button" class="opt-chip">흡입</button>
+          <button type="button" class="opt-chip">기타</button>
+        </div>
+      </div>
+      <div class="form-row">
+        <span class="form-row__label">1회 복용량 <span class="req">*</span></span>
+        <div class="qty">
+          <button type="button" aria-label="감소">−</button>
+          <input type="text" value="1" readonly>
+          <button type="button" aria-label="증가">+</button>
+        </div>
+        <div class="input" style="width:110px;flex:none;height:48px;border-radius:12px;">
+          <select><option>정</option><option>캡슐</option><option>포</option><option>ml</option></select>
+        </div>
+      </div>
+      <div class="form-row">
+        <span class="form-row__label">복용 주기 <span class="req">*</span></span>
+        <div class="input">
+          <select>
+            <option>매일</option>
+            <option>격일</option>
+            <option>요일 지정</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- 메모 -->
+    <h2 class="form-title">메모 (선택)</h2>
+    <textarea class="textarea" placeholder="메모를 입력해주세요" maxlength="100"></textarea>
+    <p class="memo-count">0/100</p>
+
+  </div>
+
+  <div class="bottom-cta">
+    <button type="button" class="btn btn--primary">다음 <span class="material-symbols-rounded">chevron_right</span></button>
+  </div>
+
+</div>
+<script src="../assets/js/illustrations.js"></script>
+<script src="../assets/js/common.js"></script>
+<script>
+  // 복용 방법 칩 단일 선택
+  document.querySelectorAll('.opt-chips').forEach(function (group) {
+    group.addEventListener('click', function (e) {
+      var chip = e.target.closest('.opt-chip');
+      if (!chip) return;
+      group.querySelectorAll('.opt-chip').forEach(function (c) { c.classList.remove('is-active'); });
+      chip.classList.add('is-active');
+    });
+  });
+  // 수량 스테퍼
+  document.querySelectorAll('.qty').forEach(function (qty) {
+    var input = qty.querySelector('input');
+    qty.querySelectorAll('button').forEach(function (btn, i) {
+      btn.addEventListener('click', function () {
+        var v = parseInt(input.value, 10) || 1;
+        input.value = Math.max(1, i === 0 ? v - 1 : v + 1);
+      });
+    });
+  });
+</script>
+</body>
+</html>

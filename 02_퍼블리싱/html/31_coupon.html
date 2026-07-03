@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mom's Time — 31 Coupon</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..700,0..1,-50..200">
+<link rel="stylesheet" href="../assets/css/common.css">
+<style>
+  /* 쿠폰 : 퍼플 톤 */
+  .tabs--purple .tabs__btn.is-active { color: #6D4FD0; border-bottom-color: #6D4FD0; }
+
+  .cpn-banner { display: flex; align-items: center; gap: 14px; background: #F4F0FE; box-shadow: none; padding: 16px 18px; }
+  .cpn-banner__icon {
+    width: 46px; height: 46px; border-radius: 12px; background: #E5DDF8;
+    display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0;
+  }
+  .cpn-banner__title { font-size: 14px; font-weight: 800; }
+  .cpn-banner__sub { margin-top: 2px; font-size: 12.5px; color: var(--text-secondary); }
+
+  /* 쿠폰 티켓 */
+  .cpn-card {
+    display: flex; align-items: stretch;
+    background: var(--surface); border: 1px solid var(--divider); border-radius: 18px;
+    overflow: hidden; margin-top: 14px;
+  }
+  .cpn-card__left {
+    width: 130px; flex-shrink: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+    position: relative;
+  }
+  .cpn-card__left::after {
+    content: ''; position: absolute; right: 0; top: 8px; bottom: 8px;
+    border-right: 2px dashed var(--border);
+  }
+  .cpn-card--purple .cpn-card__left { background: #EFE9FC; }
+  .cpn-card--pink   .cpn-card__left { background: #FDEFF3; }
+  .cpn-card--green  .cpn-card__left { background: #E8F5EC; }
+  .cpn-card__percent { font-size: 34px; font-weight: 800; }
+  .cpn-card__percent small { font-size: 17px; }
+  .cpn-card--purple .cpn-card__percent { color: #6D4FD0; }
+  .cpn-card--pink   .cpn-card__percent { color: var(--primary-strong); }
+  .cpn-card__free-icon { font-size: 34px; }
+  .cpn-card__label { font-size: 13px; font-weight: 700; }
+  .cpn-card--purple .cpn-card__label { color: #6D4FD0; }
+  .cpn-card--pink   .cpn-card__label { color: var(--primary-strong); }
+  .cpn-card--green  .cpn-card__label { color: #22A050; }
+  .cpn-card__body { flex: 1; padding: 18px 16px; }
+  .cpn-card__tag { display: inline-block; padding: 4px 10px; border-radius: 999px; font-size: 10.5px; font-weight: 700; }
+  .cpn-card--purple .cpn-card__tag { background: #E5DDF8; color: #6D4FD0; }
+  .cpn-card--pink   .cpn-card__tag { background: #FDE1EA; color: var(--primary-strong); }
+  .cpn-card--green  .cpn-card__tag { background: #D6EEDC; color: #22A050; }
+  .cpn-card__title { margin-top: 10px; font-size: 16px; font-weight: 800; }
+  .cpn-card__desc { margin-top: 4px; font-size: 12px; color: var(--text-secondary); }
+  .cpn-card__foot { display: flex; align-items: center; justify-content: space-between; margin-top: 12px; }
+  .cpn-card__min { padding: 4px 10px; border-radius: 6px; background: #F4F4F5; font-size: 11px; color: var(--text-secondary); }
+  .cpn-card__exp { font-size: 12px; color: var(--text-secondary); }
+  .cpn-card__use {
+    position: absolute; top: 18px; right: 16px;
+    height: 40px; padding: 0 18px;
+    border-radius: 10px; border: 1.5px solid;
+    font-size: 14px; font-weight: 700; background: var(--surface);
+  }
+  .cpn-card { position: relative; }
+  .cpn-card--purple .cpn-card__use { border-color: #6D4FD0; color: #6D4FD0; }
+  .cpn-card--pink   .cpn-card__use { border-color: var(--primary); color: var(--primary-strong); }
+  .cpn-card--green  .cpn-card__use { border-color: #22A050; color: #22A050; }
+
+  /* 쿠폰 사용 안내 */
+  .cpn-guide__item { display: flex; align-items: center; gap: 14px; padding: 14px 0; }
+  .cpn-guide__item + .cpn-guide__item { border-top: 1px solid var(--divider); }
+  .cpn-guide__icon {
+    width: 44px; height: 44px; border-radius: 50%; background: #EFE9FC;
+    display: flex; align-items: center; justify-content: center; color: #6D4FD0; font-size: 20px; flex-shrink: 0;
+  }
+  .cpn-guide__text { font-size: 13.5px; color: var(--text-secondary); }
+
+  .cpn-cta { border: 1.5px solid #6D4FD0; color: #6D4FD0; background: var(--surface); }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header class="appbar">
+    <button type="button" class="appbar__btn" data-back aria-label="뒤로가기">
+      <span class="material-symbols-rounded">arrow_back_ios_new</span>
+    </button>
+    <h1 class="appbar__title">쿠폰</h1>
+    <button type="button" class="appbar__action" style="color:#6D4FD0;">쿠폰 등록</button>
+  </header>
+
+  <!-- 탭 -->
+  <div class="tabs tabs--purple">
+    <button type="button" class="tabs__btn is-active">보유 쿠폰</button>
+    <button type="button" class="tabs__btn">사용 내역</button>
+    <button type="button" class="tabs__btn">만료된 쿠폰</button>
+  </div>
+
+  <div class="content">
+
+    <!-- 배너 -->
+    <div class="card cpn-banner">
+      <span class="cpn-banner__icon">🎟️</span>
+      <div class="flex-1">
+        <p class="cpn-banner__title">보유한 쿠폰으로 Premium을 더 합리적으로 이용하세요!</p>
+        <p class="cpn-banner__sub">총 3장의 쿠폰을 보유하고 있어요.</p>
+      </div>
+      <span class="material-symbols-rounded" style="color:var(--text-disabled);">expand_more</span>
+    </div>
+
+    <!-- 사용 가능한 쿠폰 -->
+    <div class="section">
+      <div class="section__head"><h2 class="section__title">사용 가능한 쿠폰 (3)</h2></div>
+
+      <div class="cpn-card cpn-card--purple">
+        <div class="cpn-card__left">
+          <span class="cpn-card__percent">20<small>%</small></span>
+          <span class="cpn-card__label">할인</span>
+        </div>
+        <div class="cpn-card__body">
+          <span class="cpn-card__tag">Premium 전용</span>
+          <button type="button" class="cpn-card__use">사용하기</button>
+          <p class="cpn-card__title">Premium 20% 할인 쿠폰</p>
+          <p class="cpn-card__desc">1개월/6개월/12개월 플랜 모두 사용 가능</p>
+          <div class="cpn-card__foot">
+            <span class="cpn-card__min">최대 10,000원 할인</span>
+            <span class="cpn-card__exp">~ 2024.06.30 까지</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="cpn-card cpn-card--pink">
+        <div class="cpn-card__left">
+          <span class="cpn-card__percent">10<small>%</small></span>
+          <span class="cpn-card__label">할인</span>
+        </div>
+        <div class="cpn-card__body">
+          <span class="cpn-card__tag">Premium 전용</span>
+          <button type="button" class="cpn-card__use">사용하기</button>
+          <p class="cpn-card__title">Premium 10% 할인 쿠폰</p>
+          <p class="cpn-card__desc">1개월/6개월/12개월 플랜 모두 사용 가능</p>
+          <div class="cpn-card__foot">
+            <span class="cpn-card__min">최대 5,000원 할인</span>
+            <span class="cpn-card__exp">~ 2024.06.30 까지</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="cpn-card cpn-card--green">
+        <div class="cpn-card__left">
+          <span class="cpn-card__free-icon">🚚</span>
+          <span class="cpn-card__label">무료 배송</span>
+        </div>
+        <div class="cpn-card__body">
+          <span class="cpn-card__tag">Mom&rsquo;s Time 스토어</span>
+          <button type="button" class="cpn-card__use">사용하기</button>
+          <p class="cpn-card__title">스토어 무료 배송 쿠폰</p>
+          <p class="cpn-card__desc">스토어 전 상품 사용 가능 (일부 상품 제외)</p>
+          <div class="cpn-card__foot">
+            <span class="cpn-card__min">최소 주문 금액 없음</span>
+            <span class="cpn-card__exp">~ 2024.06.25 까지</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 쿠폰 사용 안내 -->
+    <div class="section">
+      <div class="section__head"><h2 class="section__title">쿠폰 사용 안내</h2></div>
+      <div class="card" style="padding:4px 20px;">
+        <div class="cpn-guide__item">
+          <span class="cpn-guide__icon"><span class="material-symbols-rounded">sell</span></span>
+          <span class="cpn-guide__text">쿠폰은 결제 단계에서 선택하여 사용할 수 있어요.</span>
+        </div>
+        <div class="cpn-guide__item">
+          <span class="cpn-guide__icon"><span class="material-symbols-rounded">schedule</span></span>
+          <span class="cpn-guide__text">쿠폰의 유효기간을 꼭 확인해 주세요.</span>
+        </div>
+        <div class="cpn-guide__item">
+          <span class="cpn-guide__icon"><span class="material-symbols-rounded">error</span></span>
+          <span class="cpn-guide__text">일부 상품 및 프로모션에는 쿠폰 사용이 제한될 수 있어요.</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="bottom-cta">
+    <button type="button" class="btn cpn-cta"><span class="material-symbols-rounded" style="font-size:19px;">confirmation_number</span> 쿠폰 등록하기</button>
+  </div>
+
+</div>
+<script src="../assets/js/common.js"></script>
+</body>
+</html>

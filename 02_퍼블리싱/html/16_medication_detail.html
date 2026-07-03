@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mom's Time — 16 Medication Detail</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..700,0..1,-50..200">
+<link rel="stylesheet" href="../assets/css/common.css">
+<style>
+  /* 약 기본 정보 */
+  .drug-hero { display: flex; gap: 18px; padding: 8px 20px 0; }
+  .drug-hero__img {
+    width: 148px; height: 186px; border-radius: 18px;
+    background: #FBE3EA;
+    display: flex; align-items: center; justify-content: center; font-size: 64px;
+    flex-shrink: 0;
+  }
+  .drug-hero__type {
+    display: inline-block; padding: 4px 12px; border-radius: 999px;
+    background: var(--primary-light); color: var(--primary-strong);
+    font-size: 12px; font-weight: 700;
+  }
+  .drug-hero__name { margin-top: 8px; font-size: 22px; font-weight: 800; display: flex; align-items: center; gap: 8px; }
+  .drug-hero__name .star { color: var(--text-disabled); font-size: 22px; }
+  .drug-hero__cat { margin-top: 4px; font-size: 13px; color: var(--primary-strong); font-weight: 700; }
+  .drug-hero__desc { margin-top: 8px; padding-bottom: 12px; font-size: 13px; color: var(--text-secondary); border-bottom: 1px solid var(--divider); }
+  .drug-hero__meta { display: flex; gap: 16px; margin-top: 12px; }
+  .drug-meta { display: flex; align-items: center; gap: 8px; }
+  .drug-meta__icon {
+    width: 38px; height: 38px; border-radius: 12px; background: var(--primary-light);
+    display: flex; align-items: center; justify-content: center; font-size: 18px;
+  }
+  .drug-meta__label { font-size: 10px; color: var(--text-secondary); }
+  .drug-meta__value { font-size: 13px; font-weight: 700; }
+
+  /* 복용 정보 4칸 */
+  .dose-grid { display: grid; grid-template-columns: repeat(4, 1fr); background: #FDEFF3; border-radius: var(--radius-card); padding: 18px 8px; margin-top: 20px; }
+  .dose-item { text-align: center; }
+  .dose-item + .dose-item { border-left: 1px dashed #F2CFDC; }
+  .dose-item__head { display: flex; align-items: center; justify-content: center; gap: 4px; font-size: 11px; color: var(--text-secondary); }
+  .dose-item__head .material-symbols-rounded { font-size: 15px; color: var(--primary-strong); }
+  .dose-item__value { margin-top: 8px; font-size: 17px; font-weight: 800; }
+  .dose-item__value small { font-size: 12px; font-weight: 600; }
+  .dose-item__sub { margin-top: 4px; font-size: 10.5px; color: var(--text-secondary); }
+
+  /* 정보 리스트 */
+  .info-row { display: flex; align-items: center; gap: 12px; padding: 15px 0; }
+  .info-row + .info-row { border-top: 1px solid var(--divider); }
+  .info-row__icon {
+    width: 40px; height: 40px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0;
+  }
+  .info-row__label { width: 84px; font-size: 14px; font-weight: 700; flex-shrink: 0; }
+  .info-row__value { flex: 1; font-size: 13px; color: var(--text-secondary); }
+
+  /* 다음 복용 알림 */
+  .next-dose { display: flex; align-items: center; gap: 16px; background: #FDEFF3; box-shadow: none; }
+  .next-dose__title { font-size: 16px; font-weight: 800; width: 100%; margin-bottom: 12px; }
+  .next-dose__tag {
+    display: inline-block; padding: 3px 10px; border-radius: 8px;
+    background: var(--surface); font-size: 11px; color: var(--text-secondary);
+  }
+  .next-dose__time { margin-top: 6px; font-size: 30px; font-weight: 800; }
+  .next-dose__right { border-left: 1px dashed #F2CFDC; padding-left: 16px; }
+  .next-dose__label { font-size: 12px; color: var(--text-secondary); }
+  .next-dose__count { margin-top: 4px; font-size: 24px; font-weight: 800; }
+  .next-dose__count small { font-size: 13px; font-weight: 600; }
+  .next-dose__sub { font-size: 11px; color: var(--text-secondary); }
+  .alarm-edit {
+    display: inline-flex; align-items: center; gap: 4px;
+    height: 44px; padding: 0 16px; margin-left: auto;
+    border: 1.5px solid var(--primary); border-radius: 999px;
+    color: var(--primary-strong); font-size: 13px; font-weight: 700; background: var(--surface);
+    flex-shrink: 0;
+  }
+
+  /* 주의사항 */
+  .caution { background: #EAF1FC; box-shadow: none; }
+  .caution__title { font-size: 15px; font-weight: 800; }
+  .caution__body { display: flex; gap: 14px; margin-top: 10px; }
+  .caution__icon { font-size: 40px; flex-shrink: 0; }
+  .caution ul li { position: relative; padding-left: 12px; font-size: 12.5px; color: var(--text-secondary); line-height: 1.7; }
+  .caution ul li::before { content: '•'; position: absolute; left: 0; color: #3B82F6; }
+
+  /* 사진 메모 */
+  .photo-memo { display: flex; gap: 10px; }
+  .photo-memo__img {
+    width: 96px; height: 96px; border-radius: 14px; background: #F2E7DC;
+    display: flex; align-items: center; justify-content: center; font-size: 38px;
+  }
+  .photo-add {
+    width: 96px; height: 96px;
+    border: 1.5px dashed var(--border); border-radius: 14px; background: var(--surface);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+    color: var(--text-disabled); font-size: 11px;
+  }
+
+  /* 하단 버튼 3개 */
+  .detail-cta { display: flex; gap: 10px; }
+  .detail-cta .btn { font-size: 14px; height: 52px; }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header class="appbar">
+    <button type="button" class="appbar__btn" data-back aria-label="뒤로가기">
+      <span class="material-symbols-rounded">arrow_back_ios_new</span>
+    </button>
+    <h1 class="appbar__title">복약 상세</h1>
+    <button type="button" class="appbar__btn" aria-label="더보기"><span class="material-symbols-rounded">more_vert</span></button>
+  </header>
+
+  <!-- 약 기본 정보 -->
+  <div class="drug-hero">
+    <div class="drug-hero__img" aria-hidden="true">💊</div>
+    <div class="flex-1">
+      <span class="drug-hero__type">처방약</span>
+      <h2 class="drug-hero__name">아목시실린정 250mg <span class="material-symbols-rounded star">star</span></h2>
+      <p class="drug-hero__cat">항생제</p>
+      <p class="drug-hero__desc">세균 감염 치료에 사용되는 항생제 입니다.</p>
+      <div class="drug-hero__meta">
+        <div class="drug-meta">
+          <span class="drug-meta__icon">📅</span>
+          <span><span class="drug-meta__label">처방일</span><br><span class="drug-meta__value">2024.06.02</span></span>
+        </div>
+        <div class="drug-meta">
+          <span class="drug-meta__icon">🧑‍⚕️</span>
+          <span><span class="drug-meta__label">처방의</span><br><span class="drug-meta__value">김하나 내과</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- 복용 정보 -->
+    <div class="dose-grid">
+      <div class="dose-item">
+        <p class="dose-item__head"><span class="material-symbols-rounded">schedule</span> 복용 시간</p>
+        <p class="dose-item__value">아침 · 저녁</p>
+        <p class="dose-item__sub">식후 30분</p>
+      </div>
+      <div class="dose-item">
+        <p class="dose-item__head"><span class="material-symbols-rounded">pill</span> 1회 복용량</p>
+        <p class="dose-item__value">1 <small>정</small></p>
+        <p class="dose-item__sub">(250mg)</p>
+      </div>
+      <div class="dose-item">
+        <p class="dose-item__head"><span class="material-symbols-rounded">event</span> 복용 기간</p>
+        <p class="dose-item__value">7 <small>일</small></p>
+        <p class="dose-item__sub">(06.02 ~ 06.08)</p>
+      </div>
+      <div class="dose-item">
+        <p class="dose-item__head"><span class="material-symbols-rounded">sync</span> 복용 횟수</p>
+        <p class="dose-item__value">총 14 <small>회</small></p>
+        <p class="dose-item__sub">(7일)</p>
+      </div>
+    </div>
+
+    <!-- 탭 -->
+    <div class="tabs mt-24">
+      <button type="button" class="tabs__btn is-active">기본 정보</button>
+      <button type="button" class="tabs__btn">복약 기록</button>
+      <button type="button" class="tabs__btn">주의사항</button>
+      <button type="button" class="tabs__btn">약물 정보</button>
+    </div>
+
+    <!-- 기본 정보 목록 -->
+    <div class="card mt-16" style="padding:4px 20px;">
+      <div class="info-row">
+        <span class="info-row__icon" style="background:#FDEFF3;">🎯</span>
+        <span class="info-row__label">효능 · 효과</span>
+        <span class="info-row__value">중이염, 인후염, 피부 감염 등</span>
+        <span class="material-symbols-rounded" style="color:var(--text-disabled);font-size:20px;">chevron_right</span>
+      </div>
+      <div class="info-row">
+        <span class="info-row__icon" style="background:#FDF3E4;">🧪</span>
+        <span class="info-row__label">성분 / 함량</span>
+        <span class="info-row__value">Amoxicillin 250mg (아목시실린 250mg)</span>
+        <span class="material-symbols-rounded" style="color:var(--text-disabled);font-size:20px;">chevron_right</span>
+      </div>
+      <div class="info-row">
+        <span class="info-row__icon" style="background:#E9EFFC;">💊</span>
+        <span class="info-row__label">제형 / 색상</span>
+        <span class="info-row__value">백색의 타원형 정제</span>
+        <span class="material-symbols-rounded" style="color:var(--text-disabled);font-size:20px;">chevron_right</span>
+      </div>
+      <div class="info-row">
+        <span class="info-row__icon" style="background:var(--ai-purple-light);">🧴</span>
+        <span class="info-row__label">보관 방법</span>
+        <span class="info-row__value">실온(1~30℃) 보관, 직사광선을 피하세요.</span>
+        <span class="material-symbols-rounded" style="color:var(--text-disabled);font-size:20px;">chevron_right</span>
+      </div>
+      <div class="info-row">
+        <span class="info-row__icon" style="background:#E4F5F2;">🏭</span>
+        <span class="info-row__label">제조 / 판매</span>
+        <span class="info-row__value">OO제약&nbsp;&nbsp;/&nbsp;&nbsp;대한민국</span>
+        <span class="material-symbols-rounded" style="color:var(--text-disabled);font-size:20px;">chevron_right</span>
+      </div>
+    </div>
+
+    <!-- 다음 복용 알림 -->
+    <div class="card next-dose mt-16" style="flex-wrap:wrap;">
+      <p class="next-dose__title">다음 복용 알림</p>
+      <div>
+        <span class="next-dose__tag">저녁 식후</span>
+        <p class="next-dose__time">오후 7:30</p>
+      </div>
+      <div class="next-dose__right">
+        <p class="next-dose__label">남은 복용 횟수</p>
+        <p class="next-dose__count">8 <small>회</small></p>
+        <p class="next-dose__sub">(4일 남음)</p>
+      </div>
+      <button type="button" class="alarm-edit"><span class="material-symbols-rounded" style="font-size:17px;">notifications</span> 알림 수정</button>
+    </div>
+
+    <!-- 복용 시 주의사항 -->
+    <div class="card caution mt-16">
+      <p class="caution__title">복용 시 주의사항</p>
+      <div class="caution__body">
+        <span class="caution__icon" aria-hidden="true">🛡️</span>
+        <ul>
+          <li>항생제는 의사의 지시에 따라 끝까지 복용해야 합니다.</li>
+          <li>복용 중 설사, 발진, 알레르기 증상이 나타나면 복용을 중단하고 의사와 상담하세요.</li>
+          <li>다른 약과 함께 복용할 경우 약사 또는 의사와 상담하세요.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 사진 메모 -->
+    <div class="card mt-16">
+      <div class="flex-between mb-12">
+        <h2 class="section__title" style="font-size:16px;">사진 메모</h2>
+        <a href="#" class="section__more" style="color:var(--primary-strong);font-weight:700;">전체 보기 <span class="material-symbols-rounded">chevron_right</span></a>
+      </div>
+      <div class="photo-memo">
+        <div class="photo-memo__img" aria-hidden="true">💊</div>
+        <button type="button" class="photo-add"><span class="material-symbols-rounded">add</span>사진 추가</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="bottom-cta">
+    <div class="detail-cta">
+      <a href="19_medication_edit.html" class="btn btn--secondary"><span class="material-symbols-rounded" style="font-size:18px;">edit_square</span> 복약 계획 수정</a>
+      <button type="button" class="btn btn--secondary"><span class="material-symbols-rounded" style="font-size:18px;">delete</span> 복약 삭제</button>
+      <button type="button" class="btn btn--primary"><span class="material-symbols-rounded" style="font-size:18px;">notifications</span> 알림 설정</button>
+    </div>
+  </div>
+
+</div>
+<script src="../assets/js/common.js"></script>
+</body>
+</html>

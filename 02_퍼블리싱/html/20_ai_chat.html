@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mom's Time — 20 AI Chat</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..700,0..1,-50..200">
+<link rel="stylesheet" href="../assets/css/common.css">
+<style>
+  /* AI 챗봇은 퍼플 톤 */
+  .chat-status { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 4px 0 8px; font-size: 12px; color: var(--text-secondary); }
+  .chat-status i { width: 8px; height: 8px; border-radius: 50%; background: #34C759; }
+
+  /* 웰컴 카드 */
+  .chat-welcome { display: flex; gap: 16px; background: #F4F0FE; box-shadow: none; }
+  .chat-welcome__robot {
+    width: 84px; height: 84px; border-radius: 50%; background: #E9E1FC;
+    display: flex; align-items: center; justify-content: center; font-size: 44px; flex-shrink: 0;
+  }
+  .chat-welcome__title { font-size: 16px; font-weight: 800; }
+  .chat-welcome__desc { margin-top: 6px; font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+  .chat-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .chat-chip {
+    height: 38px; padding: 0 14px;
+    border: 1px solid var(--ai-purple); border-radius: 999px;
+    color: #7C5CD6; font-size: 13px; font-weight: 600; background: var(--surface);
+  }
+
+  /* 말풍선 */
+  .msg { display: flex; margin-top: 20px; }
+  .msg--me { justify-content: flex-end; align-items: flex-end; gap: 8px; }
+  .msg--me .msg__time { font-size: 11px; color: var(--text-disabled); }
+  .msg--me .bubble {
+    max-width: 78%;
+    background: #8B6FF0; color: #fff;
+    border-radius: 20px 20px 4px 20px;
+    padding: 14px 18px; font-size: 14px; line-height: 1.6;
+  }
+  .msg--ai { gap: 10px; align-items: flex-start; }
+  .msg--ai .avatar {
+    width: 40px; height: 40px; border-radius: 50%; background: #E9E1FC;
+    display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0;
+  }
+  .msg--ai .bubble {
+    max-width: 82%;
+    background: #F1F1F3; color: var(--text-primary);
+    border-radius: 4px 20px 20px 20px;
+    padding: 14px 18px; font-size: 14px; line-height: 1.7;
+  }
+  .msg__time--ai { align-self: flex-end; font-size: 11px; color: var(--text-disabled); }
+
+  /* 가이드 테이블 카드 */
+  .guide-card { margin-top: 16px; border: 1px solid #E4DBF9; border-radius: var(--radius-card); background: var(--surface); padding: 18px; }
+  .guide-card__title { display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 800; color: #6D4FD0; }
+  .guide-table { width: 100%; margin-top: 14px; border-collapse: collapse; font-size: 12px; }
+  .guide-table th { background: #F4F0FE; color: #6D4FD0; padding: 10px 8px; font-weight: 700; text-align: center; }
+  .guide-table td { border-bottom: 1px solid #F0EBFB; padding: 12px 8px; vertical-align: top; line-height: 1.6; }
+  .guide-table tr:last-child td { border-bottom: 0; }
+  .guide-symptom { display: flex; align-items: center; gap: 6px; font-weight: 700; white-space: nowrap; }
+  .guide-symptom .icon {
+    width: 28px; height: 28px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0;
+  }
+  .guide-table ul li { position: relative; padding-left: 10px; color: var(--text-secondary); }
+  .guide-table ul li::before { content: '•'; position: absolute; left: 0; }
+  .guide-table .warn li::before { content: '–'; }
+  .guide-note { display: flex; gap: 8px; margin-top: 12px; padding: 12px; background: #F4F0FE; border-radius: 12px; font-size: 11.5px; color: #6D4FD0; line-height: 1.6; }
+  .guide-note .material-symbols-rounded { font-size: 16px; }
+
+  /* 관련 질문 추천 */
+  .rel-title { margin: 24px 0 12px; font-size: 15px; font-weight: 800; }
+  .rel-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .rel-card {
+    display: flex; flex-direction: column; gap: 8px; align-items: flex-start;
+    background: var(--surface); border: 1px solid var(--divider); border-radius: 14px;
+    padding: 12px; text-align: left; font-size: 12px; font-weight: 600; line-height: 1.5;
+  }
+  .rel-card .icon {
+    width: 30px; height: 30px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; font-size: 15px;
+  }
+
+  /* 피드백 */
+  .fb-row { display: flex; gap: 8px; margin-top: 20px; }
+  .fb-btn {
+    flex: 1; height: 44px; border-radius: 999px;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    font-size: 12.5px; font-weight: 700;
+    border: 1px solid var(--border); background: var(--surface); color: var(--text-secondary);
+  }
+  .fb-btn--good { border-color: var(--ai-purple); color: #7C5CD6; }
+  .fb-btn .material-symbols-rounded { font-size: 17px; }
+
+  /* 입력창 */
+  .chat-input-bar {
+    position: sticky; bottom: 0; z-index: 15;
+    padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+    background: var(--bg);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .chat-input-bar .plus {
+    width: 46px; height: 46px; border-radius: 50%;
+    background: #F1F1F3; color: var(--text-secondary);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .chat-input {
+    flex: 1; display: flex; align-items: center;
+    height: 52px; padding: 0 8px 0 18px;
+    background: var(--surface); border: 1px solid #E4DBF9; border-radius: 999px;
+  }
+  .chat-input input { flex: 1; border: 0; outline: 0; background: transparent; font-size: 14px; }
+  .chat-input input::placeholder { color: var(--text-disabled); }
+  .chat-input .send {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: linear-gradient(135deg, #B99CFF, var(--ai-purple));
+    color: #fff; display: flex; align-items: center; justify-content: center;
+  }
+  .chat-legal { text-align: center; font-size: 11px; color: var(--text-disabled); padding: 0 20px 16px; line-height: 1.6; }
+  .chat-legal a { font-weight: 700; color: var(--text-secondary); }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header class="appbar">
+    <button type="button" class="appbar__btn" data-back aria-label="뒤로가기">
+      <span class="material-symbols-rounded">arrow_back_ios_new</span>
+    </button>
+    <h1 class="appbar__title">AI 건강 챗봇</h1>
+    <div class="flex">
+      <button type="button" class="appbar__btn" aria-label="히스토리"><span class="material-symbols-rounded">history</span></button>
+      <button type="button" class="appbar__btn" aria-label="메뉴"><span class="material-symbols-rounded">menu</span></button>
+    </div>
+  </header>
+
+  <p class="chat-status"><i></i> AI가 답변을 생성 중입니다</p>
+
+  <div class="content" style="padding-bottom:8px;">
+
+    <!-- 웰컴 -->
+    <div class="card chat-welcome">
+      <span class="chat-welcome__robot" aria-hidden="true"><i data-illust="robot" style="width:48px;height:50px;"></i></span>
+      <div class="flex-1">
+        <p class="chat-welcome__title">안녕하세요! 저는 맘케어 AI입니다. 😊</p>
+        <p class="chat-welcome__desc">임신, 복약, 건강, 생활 습관 등<br>궁금한 내용을 질문하시면 도와드릴게요.</p>
+        <div class="chat-chips">
+          <button type="button" class="chat-chip">임신 중 약 복용</button>
+          <button type="button" class="chat-chip">감기 증상 완화 방법</button>
+          <button type="button" class="chat-chip">영양제 추천</button>
+          <button type="button" class="chat-chip">수면 관리 팁</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 사용자 메시지 -->
+    <div class="msg msg--me">
+      <span class="msg__time">오전 10:30 ✓✓</span>
+      <div class="bubble">임신 중 감기에 걸렸어요.<br>약을 먹어도 괜찮을까요?</div>
+    </div>
+
+    <!-- AI 답변 -->
+    <div class="msg msg--ai">
+      <span class="avatar" aria-hidden="true"><i data-illust="robot" style="width:30px;height:32px;"></i></span>
+      <div class="flex-1">
+        <div class="bubble">
+          임신 중 감기는 흔하게 발생할 수 있지만,<br>
+          약 복용은 주의가 필요해요.<br>
+          증상에 따라 안전하게 사용할 수 있는 약이 있습니다.<br>
+          아래 내용을 확인해보세요. 👇
+        </div>
+        <p class="msg__time--ai t-center" style="text-align:right;margin-top:4px;">오전 10:30</p>
+      </div>
+    </div>
+
+    <!-- 치료 가이드 -->
+    <div class="guide-card">
+      <p class="guide-card__title">🩺 임신 중 감기 치료 가이드</p>
+      <table class="guide-table">
+        <thead>
+          <tr><th>증상</th><th>권장 방법</th><th>주의 약물</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="guide-symptom"><span class="icon" style="background:#E9EFFC;">🤧</span>콧물 / 코막힘</span></td>
+            <td><ul><li>생리식염수 비강스프레이</li><li>충분한 수분 섭취</li></ul></td>
+            <td><ul class="warn"><li>슈도에페드린</li><li>페닐레프린</li></ul></td>
+          </tr>
+          <tr>
+            <td><span class="guide-symptom"><span class="icon" style="background:#E4F5F2;">😮‍💨</span>기침</span></td>
+            <td><ul><li>따뜻한 물, 꿀 (1세 미만 제외)</li><li>가습기, 충분한 휴식</li></ul></td>
+            <td><ul class="warn"><li>코데인 함유 성분</li><li>일부 기침억제제</li></ul></td>
+          </tr>
+          <tr>
+            <td><span class="guide-symptom"><span class="icon" style="background:#E9F7EA;">😣</span>인후통</span></td>
+            <td><ul><li>따뜻한 소금물 가글</li><li>수분 섭취, 휴식</li></ul></td>
+            <td><ul class="warn"><li>살리실산 (고용량)</li><li>트로키 과다 복용</li></ul></td>
+          </tr>
+          <tr>
+            <td><span class="guide-symptom"><span class="icon" style="background:#FDEFF3;">🌡️</span>발열 / 두통</span></td>
+            <td><ul><li>충분한 휴식, 수분 섭취</li><li>필요 시 아세트아미노펜</li></ul></td>
+            <td><ul class="warn"><li>이부프로펜 (임신 3기)</li><li>아스피린</li></ul></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="guide-note">
+        <span class="material-symbols-rounded">info</span>
+        <span>위 내용은 일반적인 정보이며, 개인의 상태에 따라 다를 수 있어요.<br>증상이 심하거나 3일 이상 지속되면 병원 진료를 권장합니다.</span>
+      </div>
+    </div>
+
+    <!-- 관련 질문 추천 -->
+    <p class="rel-title">관련 질문 추천</p>
+    <div class="rel-grid">
+      <button type="button" class="rel-card">
+        <span class="icon" style="background:#E9F7EA;">🔔</span>
+        임신 중 안전한 해열제는 무엇인가요?
+      </button>
+      <button type="button" class="rel-card">
+        <span class="icon" style="background:#FDEFF3;">💊</span>
+        임신 중 약 복용 주의사항은?
+      </button>
+      <button type="button" class="rel-card">
+        <span class="icon" style="background:#E9EFFC;">🌙</span>
+        임신 중 숙면을 위한 방법이 있을까요?
+      </button>
+    </div>
+
+    <!-- 피드백 -->
+    <div class="fb-row">
+      <button type="button" class="fb-btn fb-btn--good"><span class="material-symbols-rounded">thumb_up</span> 도움이 되었어요!</button>
+      <button type="button" class="fb-btn"><span class="material-symbols-rounded">thumb_down</span> 그다지 도움이 아니에요</button>
+      <button type="button" class="fb-btn"><span class="material-symbols-rounded">refresh</span> 다른 질문하기</button>
+    </div>
+
+  </div>
+
+  <!-- 입력창 -->
+  <div class="chat-input-bar">
+    <button type="button" class="plus" aria-label="첨부"><span class="material-symbols-rounded">add</span></button>
+    <div class="chat-input">
+      <input type="text" placeholder="건강에 대해 질문해보세요...">
+      <button type="button" class="send" aria-label="전송"><span class="material-symbols-rounded" style="font-size:20px;">send</span></button>
+    </div>
+  </div>
+  <p class="chat-legal">AI의 답변은 일반적인 정보 제공을 목적으로 하며, 의학적 진단을 대신할 수 없습니다.<br><a href="#">면책 조항 보기 &rsaquo;</a></p>
+
+</div>
+<script src="../assets/js/illustrations.js"></script>
+<script src="../assets/js/common.js"></script>
+</body>
+</html>

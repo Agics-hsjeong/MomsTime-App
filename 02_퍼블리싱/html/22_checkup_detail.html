@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mom's Time — 22 Checkup Detail</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..700,0..1,-50..200">
+<link rel="stylesheet" href="../assets/css/common.css">
+<style>
+  /* 검진 상세 : 퍼플 톤 */
+  .ckd-hero { display: flex; align-items: center; gap: 14px; padding: 8px 20px 0; }
+  .ckd-hero__icon {
+    width: 68px; height: 68px; border-radius: 50%; background: #EFE9FC;
+    display: flex; align-items: center; justify-content: center; font-size: 30px; flex-shrink: 0;
+  }
+  .ckd-hero__title { display: flex; align-items: center; gap: 8px; font-size: 19px; font-weight: 800; }
+  .ckd-hero__title .chip { background: #EFE9FC; color: #7C5CD6; height: 24px; font-size: 11px; }
+  .ckd-hero__meta { margin-top: 6px; font-size: 12.5px; color: var(--text-secondary); }
+  .dl-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    height: 46px; padding: 0 16px; flex-shrink: 0;
+    border: 1px solid #7C5CD6; border-radius: 12px;
+    color: #7C5CD6; font-size: 13px; font-weight: 700; background: var(--surface);
+  }
+  .tabs--purple .tabs__btn.is-active { color: #7C5CD6; border-bottom-color: #7C5CD6; }
+
+  /* 검진 요약 */
+  .sum-head { display: flex; align-items: center; justify-content: space-between; }
+  .sum-title { font-size: 17px; font-weight: 800; }
+  .sum-sub { margin-top: 4px; font-size: 12px; color: var(--text-secondary); }
+  .share-btn {
+    display: inline-flex; align-items: center; gap: 4px;
+    height: 40px; padding: 0 14px;
+    border: 1px solid #7C5CD6; border-radius: 12px;
+    color: #7C5CD6; font-size: 12px; font-weight: 700; background: var(--surface);
+  }
+  .sum-grid { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 18px; }
+  .sum-item { text-align: center; padding: 4px 2px; }
+  .sum-item + .sum-item { border-left: 1px solid var(--divider); }
+  .sum-item__icon {
+    width: 50px; height: 50px; margin: 0 auto; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; font-size: 23px;
+  }
+  .sum-item__label { margin-top: 8px; font-size: 12px; color: var(--text-secondary); }
+  .sum-item__value { margin-top: 4px; font-size: 20px; font-weight: 800; }
+  .sum-item__value small { font-size: 12px; color: var(--text-secondary); font-weight: 600; }
+  .sum-item__sub { margin-top: 2px; font-size: 10.5px; color: var(--text-secondary); }
+  .sum-ai {
+    display: flex; align-items: center; gap: 12px;
+    margin-top: 16px; padding: 14px 16px;
+    background: #F4F0FE; border-radius: 14px;
+  }
+  .sum-ai__icon { font-size: 26px; }
+  .sum-ai__title { font-size: 13.5px; font-weight: 800; color: #6D4FD0; }
+  .sum-ai__sub { margin-top: 2px; font-size: 12px; color: var(--text-secondary); }
+
+  /* 주의 항목 */
+  .warn-row { display: flex; align-items: center; gap: 14px; padding: 16px 0; }
+  .warn-row + .warn-row { border-top: 1px solid var(--divider); }
+  .warn-row__icon {
+    width: 48px; height: 48px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0;
+  }
+  .warn-row__name { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 700; }
+  .warn-row__name .badge { height: 22px; font-size: 10px; }
+  .warn-row__range { margin-top: 2px; font-size: 12px; color: var(--text-secondary); }
+  .warn-row__value { text-align: right; font-size: 20px; font-weight: 800; color: var(--warning); }
+  .warn-row__unit { font-size: 11px; color: var(--text-secondary); font-weight: 400; }
+  .warn-note { display: flex; align-items: center; gap: 6px; margin-top: 10px; font-size: 12px; color: var(--text-secondary); }
+  .warn-note .material-symbols-rounded { font-size: 15px; }
+
+  /* 정상 항목 */
+  .norm-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .norm-card {
+    background: #F6F4FB; border-radius: 16px; padding: 16px 8px; text-align: center;
+  }
+  .norm-card__icon {
+    width: 44px; height: 44px; margin: 0 auto; border-radius: 50%; background: var(--surface);
+    display: flex; align-items: center; justify-content: center; font-size: 20px;
+  }
+  .norm-card__label { margin-top: 8px; font-size: 11.5px; color: var(--text-secondary); }
+  .norm-card__value { margin-top: 4px; font-size: 15px; font-weight: 800; color: #22A050; }
+  .norm-card__value small { font-size: 10px; color: var(--text-secondary); font-weight: 400; }
+  .norm-card__range { margin-top: 2px; font-size: 10px; color: var(--text-secondary); }
+  .norm-dots { display: flex; justify-content: center; gap: 6px; margin-top: 14px; }
+  .norm-dots span { width: 6px; height: 6px; border-radius: 50%; background: #DDD6F0; }
+  .norm-dots .is-active { background: #7C5CD6; }
+
+  /* 의사 소견 */
+  .doctor { display: flex; gap: 14px; background: #F4F0FE; box-shadow: none; }
+  .doctor__avatar {
+    width: 60px; height: 60px; border-radius: 50%; background: var(--surface);
+    display: flex; align-items: center; justify-content: center; font-size: 30px; flex-shrink: 0;
+  }
+  .doctor__name { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 800; }
+  .doctor__name .chip { background: #E5DDF8; color: #6D4FD0; height: 22px; font-size: 10.5px; }
+  .doctor__desc { margin-top: 6px; font-size: 12.5px; color: var(--text-secondary); line-height: 1.65; }
+  .doctor__btn {
+    display: inline-flex; align-items: center;
+    height: 42px; padding: 0 14px; flex-shrink: 0; align-self: center;
+    border: 1px solid #7C5CD6; border-radius: 12px;
+    color: #7C5CD6; font-size: 12.5px; font-weight: 700; background: var(--surface);
+  }
+
+  /* 맞춤 건강 팁 */
+  .tip3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .tip3__card {
+    display: flex; flex-direction: column; gap: 6px; align-items: flex-start;
+    background: var(--surface); border: 1px solid var(--divider); border-radius: 14px;
+    padding: 14px 12px; font-size: 12px; text-align: left;
+  }
+  .tip3__icon { font-size: 24px; }
+  .tip3__name { font-size: 13px; font-weight: 800; }
+  .tip3__desc { color: var(--text-secondary); line-height: 1.5; font-size: 11px; }
+
+  .ckd-disclaimer {
+    display: flex; align-items: center; gap: 8px;
+    margin-top: 20px; padding: 14px 16px;
+    background: var(--surface); border: 1px solid var(--divider); border-radius: 14px;
+    font-size: 12px; color: var(--text-secondary);
+  }
+  .ckd-disclaimer .material-symbols-rounded { font-size: 17px; }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header class="appbar">
+    <button type="button" class="appbar__btn" data-back aria-label="뒤로가기">
+      <span class="material-symbols-rounded">arrow_back_ios_new</span>
+    </button>
+    <h1 class="appbar__title">검진 상세</h1>
+    <a href="05_home.html" class="appbar__btn" aria-label="홈으로"><span class="material-symbols-rounded">home</span></a>
+  </header>
+
+  <!-- 검진 기본 정보 -->
+  <div class="ckd-hero">
+    <span class="ckd-hero__icon" aria-hidden="true">🩺</span>
+    <div class="flex-1">
+      <p class="ckd-hero__title">2024년 건강검진 <span class="chip">정기검진</span></p>
+      <p class="ckd-hero__meta">검진일&nbsp;&nbsp;2024.06.02 (일)&nbsp;&nbsp;|&nbsp;&nbsp;검진기관&nbsp;&nbsp;삼성서울병원</p>
+    </div>
+    <button type="button" class="dl-btn"><span class="material-symbols-rounded" style="font-size:17px;">download</span> 결과지 다운로드</button>
+  </div>
+
+  <!-- 탭 -->
+  <div class="tabs tabs--purple mt-16">
+    <button type="button" class="tabs__btn is-active">검진 요약</button>
+    <button type="button" class="tabs__btn">검사 결과</button>
+    <button type="button" class="tabs__btn">추이 비교</button>
+    <button type="button" class="tabs__btn">검진 정보</button>
+  </div>
+
+  <div class="content">
+
+    <!-- 검진 요약 -->
+    <div class="card">
+      <div class="sum-head">
+        <div>
+          <h2 class="sum-title">검진 요약 ⓘ</h2>
+          <p class="sum-sub">주요 검사 항목의 결과를 요약했어요.</p>
+        </div>
+        <button type="button" class="share-btn"><span class="material-symbols-rounded" style="font-size:15px;">ios_share</span> 요약 공유</button>
+      </div>
+      <div class="sum-grid">
+        <div class="sum-item">
+          <span class="sum-item__icon" style="background:#EFE9FC;">📋</span>
+          <p class="sum-item__label">종합 소견</p>
+          <p class="sum-item__value" style="color:#7C5CD6;font-size:17px;">정상</p>
+          <p class="sum-item__sub">이상 소견 없음</p>
+        </div>
+        <div class="sum-item">
+          <span class="sum-item__icon" style="background:#E8F5EC;">💚</span>
+          <p class="sum-item__label">정상 범위</p>
+          <p class="sum-item__value" style="color:#22A050;">24 <small>/ 28</small></p>
+          <p class="sum-item__sub">항목</p>
+        </div>
+        <div class="sum-item">
+          <span class="sum-item__icon" style="background:#FDF0DC;">❗</span>
+          <p class="sum-item__label">주의 범위</p>
+          <p class="sum-item__value" style="color:var(--warning);">2 <small>/ 28</small></p>
+          <p class="sum-item__sub">항목</p>
+        </div>
+        <div class="sum-item">
+          <span class="sum-item__icon" style="background:#FDE8E8;">⛔</span>
+          <p class="sum-item__label">이상 범위</p>
+          <p class="sum-item__value" style="color:var(--error);">0 <small>/ 28</small></p>
+          <p class="sum-item__sub">항목</p>
+        </div>
+      </div>
+      <div class="sum-ai">
+        <span class="sum-ai__icon" aria-hidden="true"><i data-illust="robot" style="width:28px;height:30px;"></i></span>
+        <div class="flex-1">
+          <p class="sum-ai__title">AI가 분석한 결과, 전반적으로 건강 상태가 양호해요!</p>
+          <p class="sum-ai__sub">주의 항목을 확인하고 생활 습관을 관리해보세요.</p>
+        </div>
+        <span class="material-symbols-rounded" style="color:#7C5CD6;">chevron_right</span>
+      </div>
+    </div>
+
+    <!-- 주요 주의 항목 -->
+    <div class="section">
+      <div class="section__head">
+        <h2 class="section__title">주요 주의 항목 ⓘ</h2>
+        <a href="#" class="section__more" style="color:#7C5CD6;font-weight:700;">전체 결과 보기 <span class="material-symbols-rounded">chevron_right</span></a>
+      </div>
+      <div class="card" style="padding:4px 20px;">
+        <div class="warn-row">
+          <span class="warn-row__icon" style="background:#FDF0DC;">🧪</span>
+          <div class="flex-1">
+            <p class="warn-row__name">LDL 콜레스테롤 <span class="badge" style="background:#FEF3E2;color:var(--warning);">주의</span></p>
+            <p class="warn-row__range">기준치: 70 ~ 129 mg/dL</p>
+          </div>
+          <div class="warn-row__value">134<br><span class="warn-row__unit">mg/dL</span></div>
+          <span class="material-symbols-rounded" style="color:var(--text-disabled);font-size:20px;">chevron_right</span>
+        </div>
+        <div class="warn-row">
+          <span class="warn-row__icon" style="background:#FDF0DC;">⚖️</span>
+          <div class="flex-1">
+            <p class="warn-row__name">체질량지수 (BMI) <span class="badge" style="background:#FEF3E2;color:var(--warning);">주의</span></p>
+            <p class="warn-row__range">기준치: 18.5 ~ 22.9 kg/m²</p>
+          </div>
+          <div class="warn-row__value">23.7<br><span class="warn-row__unit">kg/m²</span></div>
+          <span class="material-symbols-rounded" style="color:var(--text-disabled);font-size:20px;">chevron_right</span>
+        </div>
+      </div>
+      <p class="warn-note"><span class="material-symbols-rounded">info</span> 이상 및 주의 항목은 반드시 전문가와 상담하세요.</p>
+    </div>
+
+    <!-- 주요 정상 항목 -->
+    <div class="section">
+      <div class="section__head"><h2 class="section__title">주요 정상 항목</h2></div>
+      <div class="norm-grid">
+        <div class="norm-card">
+          <span class="norm-card__icon">💧</span>
+          <p class="norm-card__label">공복혈당</p>
+          <p class="norm-card__value">93 <small>mg/dL</small></p>
+          <p class="norm-card__range">정상 (70~99)</p>
+        </div>
+        <div class="norm-card">
+          <span class="norm-card__icon">💚</span>
+          <p class="norm-card__label">혈압</p>
+          <p class="norm-card__value">118/72 <small>mmHg</small></p>
+          <p class="norm-card__range">정상</p>
+        </div>
+        <div class="norm-card">
+          <span class="norm-card__icon">🫀</span>
+          <p class="norm-card__label">간기능 (AST)</p>
+          <p class="norm-card__value">22 <small>U/L</small></p>
+          <p class="norm-card__range">정상 (0~40)</p>
+        </div>
+        <div class="norm-card">
+          <span class="norm-card__icon">🫘</span>
+          <p class="norm-card__label">신장기능 (CRE)</p>
+          <p class="norm-card__value">0.9 <small>mg/dL</small></p>
+          <p class="norm-card__range">정상 (0.6~1.2)</p>
+        </div>
+      </div>
+      <div class="norm-dots" aria-hidden="true"><span class="is-active"></span><span></span><span></span><span></span></div>
+    </div>
+
+    <!-- 의사 소견 -->
+    <div class="section">
+      <div class="section__head"><h2 class="section__title">의사 소견</h2></div>
+      <div class="card doctor">
+        <span class="doctor__avatar" aria-hidden="true">🧑‍⚕️</span>
+        <div class="flex-1">
+          <p class="doctor__name">홍길동 전문의 <span class="chip">가정의학과</span></p>
+          <p class="doctor__desc">전반적으로 검사 결과가 양호합니다.<br>LDL 콜레스테롤과 BMI가 약간 높게 나왔으니,<br>식습관과 운동을 통해 관리해보세요.</p>
+        </div>
+        <button type="button" class="doctor__btn">상세 소견 보기</button>
+      </div>
+    </div>
+
+    <!-- 맞춤 건강 팁 -->
+    <div class="section">
+      <div class="section__head">
+        <h2 class="section__title">맞춤 건강 팁</h2>
+        <a href="#" class="section__more" style="color:#7C5CD6;font-weight:700;">더 보기 <span class="material-symbols-rounded">chevron_right</span></a>
+      </div>
+      <div class="tip3">
+        <button type="button" class="tip3__card">
+          <span class="tip3__icon">🥗</span>
+          <span class="tip3__name">식단 관리</span>
+          <span class="tip3__desc">포화지방과 탄수화물 섭취를 줄이고 채소, 과일을 늘려보세요.</span>
+        </button>
+        <button type="button" class="tip3__card">
+          <span class="tip3__icon">🏃‍♀️</span>
+          <span class="tip3__name">유산소 운동</span>
+          <span class="tip3__desc">주 3~5회, 30분 이상 유산소 운동을 추천해요.</span>
+        </button>
+        <button type="button" class="tip3__card">
+          <span class="tip3__icon">⚖️</span>
+          <span class="tip3__name">체중 관리</span>
+          <span class="tip3__desc">적정 체중을 유지하면 건강에 도움이 돼요.</span>
+        </button>
+      </div>
+    </div>
+
+    <p class="ckd-disclaimer"><span class="material-symbols-rounded">info</span> 본 검진 결과는 참고용이며, 정확한 진단은 의료진과 상담이 필요합니다.</p>
+
+  </div>
+
+</div>
+<script src="../assets/js/illustrations.js"></script>
+<script src="../assets/js/common.js"></script>
+</body>
+</html>

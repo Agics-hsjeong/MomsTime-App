@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mom's Time — 12 Family</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..700,0..1,-50..200">
+<link rel="stylesheet" href="../assets/css/common.css">
+<style>
+  .fam-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; padding: 8px 20px 0; }
+  .fam-head__hello { font-size: 24px; font-weight: 800; }
+  .fam-head__sub { margin-top: 4px; font-size: 13px; color: var(--text-secondary); }
+  .invite-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    height: 44px; padding: 0 16px; flex-shrink: 0;
+    border: 1.5px solid var(--primary); border-radius: 999px;
+    color: var(--primary-strong); font-size: 14px; font-weight: 700; background: var(--surface);
+  }
+
+  /* 우리 가족 */
+  .fam-scroll { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px; }
+  .fam-scroll::-webkit-scrollbar { display: none; }
+  .fam-member {
+    min-width: 104px; flex-shrink: 0; text-align: center;
+    background: var(--surface); border: 1px solid var(--divider);
+    border-radius: 16px; padding: 16px 8px 14px;
+  }
+  .fam-member.is-me { border: 1.5px solid var(--primary); background: #FFF7F9; }
+  .fam-member__avatar {
+    position: relative;
+    width: 60px; height: 60px; margin: 0 auto;
+    border-radius: 50%; background: var(--primary-light);
+    display: flex; align-items: center; justify-content: center; font-size: 30px;
+  }
+  .fam-member__me-tag {
+    position: absolute; top: -4px; right: -4px;
+    width: 22px; height: 22px; border-radius: 50%;
+    background: var(--primary-strong); color: #fff;
+    font-size: 10px; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .fam-member__name { margin-top: 10px; font-size: 15px; font-weight: 800; }
+  .fam-member__rel { margin-top: 2px; font-size: 11px; color: var(--text-secondary); }
+  .fam-member__state { display: inline-block; margin-top: 8px; }
+  .fam-member--add {
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+    background: #F7F7F8; border-style: dashed; color: var(--text-secondary); font-size: 13px;
+  }
+  .fam-member--add .plus {
+    width: 44px; height: 44px; border-radius: 50%; background: #E5E5EA;
+    display: flex; align-items: center; justify-content: center; color: #fff;
+  }
+  .fam-note {
+    display: flex; align-items: center; gap: 12px;
+    margin-top: 14px; padding: 14px 16px;
+    background: #FDEFF3; border-radius: 14px;
+    font-size: 13px; color: var(--text-secondary);
+  }
+  .fam-note .emoji { font-size: 20px; }
+
+  /* 가족 요약 테이블 */
+  .fam-table { width: 100%; border-collapse: collapse; }
+  .fam-table th {
+    padding: 10px 4px; font-size: 12px; font-weight: 600; color: var(--text-secondary);
+    background: #FBF4F6; text-align: center;
+  }
+  .fam-table th:first-child { border-radius: 10px 0 0 10px; text-align: left; padding-left: 8px; }
+  .fam-table th:last-child { border-radius: 0 10px 10px 0; }
+  .fam-table td { padding: 14px 4px; text-align: center; font-size: 12px; border-bottom: 1px solid var(--divider); }
+  .fam-table tr:last-child td { border-bottom: 0; }
+  .fam-cell-name { display: flex; align-items: center; gap: 8px; text-align: left; }
+  .fam-cell-name .avatar {
+    width: 38px; height: 38px; border-radius: 50%; background: var(--primary-light);
+    display: flex; align-items: center; justify-content: center; font-size: 19px; flex-shrink: 0;
+  }
+  .fam-cell-name b { font-size: 13px; display: block; }
+  .fam-cell-name small { color: var(--text-secondary); font-size: 11px; }
+  .ring { position: relative; width: 48px; height: 48px; margin: 0 auto; }
+  .ring svg { transform: rotate(-90deg); }
+  .ring__label { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; }
+  .ring-caption { margin-top: 4px; font-size: 10px; color: var(--text-secondary); }
+  .state-good { color: var(--success); font-weight: 800; font-size: 12px; }
+  .state-warn { color: var(--warning); font-weight: 800; font-size: 12px; }
+  .state-sub { display: block; margin-top: 2px; font-size: 10px; color: var(--text-secondary); font-weight: 400; }
+
+  /* 가족 알림 카드 */
+  .fam-alerts { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px; }
+  .fam-alerts::-webkit-scrollbar { display: none; }
+  .fam-alert {
+    min-width: 200px; flex-shrink: 0;
+    border-radius: 16px; padding: 16px;
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .fam-alert--pink   { background: #FDEFF3; }
+  .fam-alert--orange { background: #FDF3E4; }
+  .fam-alert--purple { background: var(--ai-purple-light); }
+  .fam-alert__top { display: flex; align-items: center; justify-content: space-between; }
+  .fam-alert__icon { font-size: 26px; }
+  .fam-alert__who {
+    width: 30px; height: 30px; border-radius: 50%; background: var(--surface);
+    display: flex; align-items: center; justify-content: center; font-size: 15px;
+  }
+  .fam-alert__title { margin-top: 8px; font-size: 14px; font-weight: 800; }
+  .fam-alert__meta { font-size: 12px; color: var(--text-secondary); }
+
+  /* AI 배너 */
+  .fam-ai { display: flex; align-items: center; gap: 14px; background: #FBE4EC; box-shadow: none; }
+  .fam-ai__robot { font-size: 52px; flex-shrink: 0; }
+  .fam-ai__title { font-size: 15px; font-weight: 800; }
+  .fam-ai__desc { margin-top: 4px; font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+  .fam-ai__btn {
+    display: inline-flex; align-items: center; gap: 2px;
+    height: 42px; padding: 0 14px; flex-shrink: 0;
+    border: 1px solid var(--primary); border-radius: 999px;
+    color: var(--primary-strong); font-size: 12px; font-weight: 700; background: var(--surface);
+  }
+</style>
+</head>
+<body>
+<div class="app app--has-nav">
+
+  <header class="appbar">
+    <span class="appbar__spacer"></span>
+    <h1 class="appbar__title">가족 관리</h1>
+    <button type="button" class="appbar__btn" aria-label="알림"><span class="material-symbols-rounded">notifications</span></button>
+  </header>
+
+  <div class="fam-head">
+    <div>
+      <h2 class="fam-head__hello">안녕하세요, 혜선님 ❤️</h2>
+      <p class="fam-head__sub">우리 가족의 건강을 함께 관리해요.</p>
+    </div>
+    <a href="25_family_invite.html" class="invite-btn"><span class="material-symbols-rounded" style="font-size:18px;">group_add</span> 가족 초대하기</a>
+  </div>
+
+  <div class="content">
+
+    <!-- 우리 가족 -->
+    <div class="card">
+      <div class="flex-between mb-12">
+        <h2 class="section__title" style="font-size:17px;">우리 가족</h2>
+        <a href="25_family_invite.html" class="section__more" style="color:var(--primary-strong);font-weight:700;">＋ 가족 추가</a>
+      </div>
+      <div class="fam-scroll">
+        <div class="fam-member is-me">
+          <div class="fam-member__avatar">👩🏻<span class="fam-member__me-tag">나</span></div>
+          <p class="fam-member__name">혜선</p>
+          <p class="fam-member__rel">본인</p>
+          <span class="fam-member__state chip" style="height:24px;font-size:11px;">내 정보</span>
+        </div>
+        <div class="fam-member">
+          <div class="fam-member__avatar">👨🏻</div>
+          <p class="fam-member__name">민준</p>
+          <p class="fam-member__rel">남편 · 32세</p>
+          <span class="fam-member__state badge badge--done">정상</span>
+        </div>
+        <div class="fam-member">
+          <div class="fam-member__avatar">👵🏻</div>
+          <p class="fam-member__name">어머니</p>
+          <p class="fam-member__rel">59세</p>
+          <span class="fam-member__state badge" style="background:#FEF3E2;color:var(--warning);">주의</span>
+        </div>
+        <div class="fam-member">
+          <div class="fam-member__avatar">👦🏻</div>
+          <p class="fam-member__name">준우</p>
+          <p class="fam-member__rel">8세</p>
+          <span class="fam-member__state badge badge--done">정상</span>
+        </div>
+        <button type="button" class="fam-member fam-member--add">
+          <span class="plus"><span class="material-symbols-rounded">add</span></span>
+          가족 추가
+        </button>
+      </div>
+      <div class="fam-note">
+        <span class="emoji">💗</span>
+        <span class="flex-1">가족을 추가하면 복약 일정, 검진 결과, 알림을 함께 관리할 수 있어요.</span>
+        <span class="material-symbols-rounded" style="color:var(--primary-strong);">chevron_right</span>
+      </div>
+    </div>
+
+    <!-- 가족 요약 -->
+    <div class="card mt-16">
+      <div class="flex-between mb-12">
+        <h2 class="section__title" style="font-size:17px;">가족 요약</h2>
+        <a href="#" class="section__more" style="color:var(--primary-strong);font-weight:700;">전체 보기 <span class="material-symbols-rounded">chevron_right</span></a>
+      </div>
+      <table class="fam-table">
+        <thead>
+          <tr><th>이름</th><th>복약 관리</th><th>건강 상태</th><th>최근 검진</th><th>알림</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="fam-cell-name"><span class="avatar">👩🏻</span><span><b>혜선</b><small>본인</small></span></div></td>
+            <td>
+              <div class="ring">
+                <svg width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="none" stroke="#EFEFEF" stroke-width="5"/><circle cx="24" cy="24" r="20" fill="none" stroke="#34C759" stroke-width="5" stroke-linecap="round" stroke-dasharray="125.6" stroke-dashoffset="10"/></svg>
+                <span class="ring__label">92%</span>
+              </div>
+              <p class="ring-caption">잘 지키고 있어요</p>
+            </td>
+            <td><span class="state-good">💚 좋음</span><span class="state-sub">종합 점수 85점</span></td>
+            <td><b style="font-size:12px;">2024.06.02</b><span class="state-sub">정기 검진</span></td>
+            <td>🔔<span class="state-sub">2건</span></td>
+          </tr>
+          <tr>
+            <td><div class="fam-cell-name"><span class="avatar">👨🏻</span><span><b>민준</b><small>남편 · 32세</small></span></div></td>
+            <td>
+              <div class="ring">
+                <svg width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="none" stroke="#EFEFEF" stroke-width="5"/><circle cx="24" cy="24" r="20" fill="none" stroke="#34C759" stroke-width="5" stroke-linecap="round" stroke-dasharray="125.6" stroke-dashoffset="15"/></svg>
+                <span class="ring__label">88%</span>
+              </div>
+              <p class="ring-caption">잘 지키고 있어요</p>
+            </td>
+            <td><span class="state-good">💚 좋음</span><span class="state-sub">종합 점수 80점</span></td>
+            <td><b style="font-size:12px;">2024.05.15</b><span class="state-sub">정기 검진</span></td>
+            <td>🔔<span class="state-sub">1건</span></td>
+          </tr>
+          <tr>
+            <td><div class="fam-cell-name"><span class="avatar">👵🏻</span><span><b>어머니</b><small>59세</small></span></div></td>
+            <td>
+              <div class="ring">
+                <svg width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="none" stroke="#EFEFEF" stroke-width="5"/><circle cx="24" cy="24" r="20" fill="none" stroke="#F59E0B" stroke-width="5" stroke-linecap="round" stroke-dasharray="125.6" stroke-dashoffset="31"/></svg>
+                <span class="ring__label">75%</span>
+              </div>
+              <p class="ring-caption">주의가 필요해요</p>
+            </td>
+            <td><span class="state-warn">⚠️ 주의</span><span class="state-sub">종합 점수 68점</span></td>
+            <td><b style="font-size:12px;">2024.04.20</b><span class="state-sub">종합 검진</span></td>
+            <td>🔔<span class="state-sub">3건</span></td>
+          </tr>
+          <tr>
+            <td><div class="fam-cell-name"><span class="avatar">👦🏻</span><span><b>준우</b><small>8세</small></span></div></td>
+            <td><span style="color:var(--text-disabled);">—</span><p class="ring-caption">해당 없음</p></td>
+            <td><span class="state-good">💚 좋음</span><span class="state-sub">종합 점수 90점</span></td>
+            <td><b style="font-size:12px;">2024.03.10</b><span class="state-sub">성장 검진</span></td>
+            <td>🔔<span class="state-sub">0건</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 가족 알림 -->
+    <div class="card mt-16">
+      <div class="flex-between mb-12">
+        <h2 class="section__title" style="font-size:17px;">가족 알림</h2>
+        <a href="#" class="section__more" style="color:var(--primary-strong);font-weight:700;">모두 보기 <span class="material-symbols-rounded">chevron_right</span></a>
+      </div>
+      <div class="fam-alerts">
+        <div class="fam-alert fam-alert--pink">
+          <div class="fam-alert__top"><span class="fam-alert__icon">💊</span><span class="fam-alert__who">👨🏻</span></div>
+          <p class="fam-alert__title">민준님의 약 복용 시간이에요</p>
+          <p class="fam-alert__meta">혈압약 1정<br>오전 9:00</p>
+        </div>
+        <div class="fam-alert fam-alert--orange">
+          <div class="fam-alert__top"><span class="fam-alert__icon">📅</span><span class="fam-alert__who">👵🏻</span></div>
+          <p class="fam-alert__title">어머니의 검사 예정일</p>
+          <p class="fam-alert__meta">정기 혈액검사<br>2024.06.10 (월)</p>
+        </div>
+        <div class="fam-alert fam-alert--purple">
+          <div class="fam-alert__top"><span class="fam-alert__icon">💜</span><span class="fam-alert__who">👩🏻</span></div>
+          <p class="fam-alert__title">혜선님의 약 리필 필요</p>
+          <p class="fam-alert__meta">엽산 400mcg 외 1종<br>3일 남음</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI 가족 건강 -->
+    <div class="card mt-16 fam-ai">
+      <span class="fam-ai__robot" aria-hidden="true"><i data-illust="robot" style="width:54px;height:58px;"></i></span>
+      <div class="flex-1">
+        <p class="fam-ai__title">AI가 우리 가족의 건강을 지켜드려요</p>
+        <p class="fam-ai__desc">가족의 건강 데이터를 분석해 맞춤 관리 팁과 예방 알림을 제공해드려요.</p>
+      </div>
+      <a href="13_report.html" class="fam-ai__btn">AI 가족 건강 리포트 보기 <span class="material-symbols-rounded" style="font-size:14px;">chevron_right</span></a>
+    </div>
+
+  </div>
+
+  <nav class="bottom-nav">
+    <a href="05_home.html" class="bottom-nav__item"><span class="material-symbols-rounded">home</span>홈</a>
+    <a href="06_medication.html" class="bottom-nav__item"><span class="material-symbols-rounded">pill</span>복약 관리</a>
+    <a href="08_calendar.html" class="bottom-nav__item"><span class="material-symbols-rounded">calendar_month</span>캘린더</a>
+    <a href="09_ai_care.html" class="bottom-nav__item"><span class="material-symbols-rounded">smart_toy</span>AI 케어</a>
+    <a href="12_family.html" class="bottom-nav__item is-active"><span class="material-symbols-rounded">group</span>가족 관리</a>
+  </nav>
+
+</div>
+<script src="../assets/js/illustrations.js"></script>
+<script src="../assets/js/common.js"></script>
+</body>
+</html>

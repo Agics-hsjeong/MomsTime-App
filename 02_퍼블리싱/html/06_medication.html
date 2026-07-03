@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mom's Time — 06 Medication</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..700,0..1,-50..200">
+<link rel="stylesheet" href="../assets/css/common.css">
+<style>
+  .med-top { display: flex; justify-content: flex-end; padding: 16px 20px 0; }
+  .bell { position: relative; }
+  .bell .material-symbols-rounded { font-size: 26px; }
+  .bell .dot {
+    position: absolute; top: -4px; right: -6px;
+    min-width: 18px; height: 18px; padding: 0 4px;
+    background: var(--error); color: #fff; border-radius: 999px;
+    font-size: 11px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .med-head { display: flex; align-items: flex-end; justify-content: space-between; padding: 8px 20px 0; }
+  .med-head__title { font-size: 28px; font-weight: 800; }
+  .med-head__sub { margin-top: 6px; font-size: 14px; color: var(--text-secondary); }
+  .med-head__sub b { color: var(--text-primary); }
+  .add-pill-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    height: 48px; padding: 0 20px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-strong) 100%);
+    color: #fff; border-radius: 999px;
+    font-size: 15px; font-weight: 700;
+    box-shadow: 0 6px 16px rgba(242,84,127,.3);
+    flex-shrink: 0;
+  }
+
+  /* 주간 캘린더 */
+  .week-card { margin-top: 20px; padding: 0; overflow: hidden; }
+  .week-card__head { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--divider); }
+  .week-card__date { display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 700; }
+  .week-card__date .material-symbols-rounded { color: var(--primary-strong); font-size: 20px; }
+  .week-card__cal { display: inline-flex; align-items: center; gap: 2px; font-size: 13px; font-weight: 600; color: var(--primary-strong); }
+  .week-strip { display: grid; grid-template-columns: repeat(7, 1fr); padding: 14px 8px 18px; }
+  .week-strip__day { text-align: center; font-size: 13px; color: var(--text-secondary); }
+  .week-strip__num { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; margin: 8px auto 0; font-size: 18px; font-weight: 600; border-radius: 50%; }
+  .week-strip__day.is-today { color: var(--primary-strong); font-weight: 700; }
+  .week-strip__day.is-today .week-strip__num { background: var(--primary-light); color: var(--primary-strong); font-weight: 800; }
+
+  /* 오늘 복용할 약 */
+  .med-list-head { display: flex; align-items: center; justify-content: space-between; margin: 28px 0 14px; }
+  .med-list-head__title { display: flex; align-items: center; gap: 8px; font-size: 19px; font-weight: 800; }
+  .med-item { display: flex; background: var(--surface); border-radius: var(--radius-card); box-shadow: var(--shadow-card); overflow: hidden; }
+  .med-item + .med-item { margin-top: 12px; }
+  .med-item__time {
+    width: 108px; flex-shrink: 0;
+    background: #FDEFF3;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+    padding: 18px 8px;
+  }
+  .med-item__ampm { font-size: 12px; color: var(--text-secondary); }
+  .med-item__clock { font-size: 22px; font-weight: 800; }
+  .med-item__state {
+    margin-top: 4px; padding: 3px 10px; border-radius: 999px;
+    border: 1px solid var(--primary); color: var(--primary-strong);
+    font-size: 11px; font-weight: 700; background: var(--surface);
+  }
+  .med-item__body { flex: 1; display: flex; align-items: center; gap: 14px; padding: 16px; }
+  .med-item__thumb {
+    width: 64px; height: 64px; border-radius: 16px;
+    display: flex; align-items: center; justify-content: center; font-size: 30px;
+    background: var(--primary-light); flex-shrink: 0;
+  }
+  .med-item__thumb--yellow { background: #FBF3D8; }
+  .med-item__thumb--purple { background: var(--ai-purple-light); }
+  .med-item__name { display: flex; align-items: center; gap: 8px; font-size: 17px; font-weight: 700; }
+  .med-item__name .chip { height: 24px; font-size: 11px; }
+  .med-item__meta { margin-top: 4px; font-size: 13px; color: var(--text-secondary); }
+  .med-item__note { margin-top: 4px; font-size: 12px; color: var(--text-disabled); display: flex; align-items: center; gap: 4px; }
+  .med-item__note .material-symbols-rounded { font-size: 14px; }
+
+  /* 복약 요약 */
+  .med-summary { display: grid; grid-template-columns: repeat(4, 1fr); }
+  .med-summary__item { text-align: center; padding: 8px 4px; }
+  .med-summary__item + .med-summary__item { border-left: 1px solid var(--divider); }
+  .med-summary__icon { font-size: 26px; }
+  .med-summary__label { margin-top: 8px; font-size: 12px; color: var(--text-secondary); }
+  .med-summary__value { margin-top: 4px; font-size: 22px; font-weight: 800; }
+  .med-summary__value small { font-size: 13px; font-weight: 600; }
+  .med-summary__sub { margin-top: 2px; font-size: 11px; color: var(--text-disabled); }
+
+  /* AI 복약 팁 */
+  .ai-tip { display: flex; align-items: center; gap: 14px; margin-top: 16px; }
+  .ai-tip__robot { font-size: 52px; flex-shrink: 0; }
+  .ai-tip__title { font-size: 16px; font-weight: 800; }
+  .ai-tip__desc { margin-top: 6px; font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+  .ai-tip__btn {
+    display: inline-flex; align-items: center; gap: 2px;
+    margin-top: 10px; height: 36px; padding: 0 14px;
+    border: 1px solid var(--primary); border-radius: 999px;
+    color: var(--primary-strong); font-size: 13px; font-weight: 700;
+  }
+</style>
+</head>
+<body>
+<div class="app app--has-nav">
+
+  <div class="med-top">
+    <button type="button" class="bell" aria-label="알림">
+      <span class="material-symbols-rounded">notifications</span><span class="dot">3</span>
+    </button>
+  </div>
+
+  <div class="med-head">
+    <div>
+      <h1 class="med-head__title">복약 관리 ❤️</h1>
+      <p class="med-head__sub"><b>약</b> 복용을 잊지 않도록 도와드릴게요.</p>
+    </div>
+    <a href="07_register.html" class="add-pill-btn"><span class="material-symbols-rounded">add</span>약 등록</a>
+  </div>
+
+  <div class="content">
+
+    <!-- 주간 캘린더 -->
+    <div class="card week-card">
+      <div class="week-card__head">
+        <span class="week-card__date"><span class="material-symbols-rounded">calendar_month</span> 2024.06.02 (일)</span>
+        <a href="08_calendar.html" class="week-card__cal">캘린더 보기 <span class="material-symbols-rounded" style="font-size:16px;">chevron_right</span></a>
+      </div>
+      <div class="week-strip">
+        <div class="week-strip__day">목<span class="week-strip__num">30</span></div>
+        <div class="week-strip__day">금<span class="week-strip__num">31</span></div>
+        <div class="week-strip__day">토<span class="week-strip__num">1</span></div>
+        <div class="week-strip__day is-today">오늘<span class="week-strip__num">2</span></div>
+        <div class="week-strip__day">월<span class="week-strip__num">3</span></div>
+        <div class="week-strip__day">화<span class="week-strip__num">4</span></div>
+        <div class="week-strip__day">수<span class="week-strip__num">5</span></div>
+      </div>
+    </div>
+
+    <!-- 오늘 복용할 약 -->
+    <div class="med-list-head">
+      <h2 class="med-list-head__title">오늘 복용할 약 <span class="chip">2개</span></h2>
+      <a href="18_medication_complete.html" class="section__more" style="color:var(--primary-strong);font-weight:700;">복약 완료 확인 <span class="material-symbols-rounded">chevron_right</span></a>
+    </div>
+
+    <div class="med-item">
+      <div class="med-item__time">
+        <span class="med-item__ampm">☀️ 오전</span>
+        <span class="med-item__clock">09:00</span>
+        <span class="med-item__state">복용 예정</span>
+      </div>
+      <div class="med-item__body">
+        <span class="med-item__thumb">💊</span>
+        <div class="flex-1">
+          <p class="med-item__name">엽산 400mcg <span class="chip">필수</span></p>
+          <p class="med-item__meta">1정&nbsp;&nbsp;|&nbsp;&nbsp;매일</p>
+          <p class="med-item__note"><span class="material-symbols-rounded">schedule</span> 식후 30분 후 복용</p>
+        </div>
+        <button type="button" class="check-circle" data-toggle aria-label="복용 체크"><span class="material-symbols-rounded">check</span></button>
+      </div>
+    </div>
+
+    <div class="med-item">
+      <div class="med-item__time">
+        <span class="med-item__ampm">☀️ 오후</span>
+        <span class="med-item__clock">13:00</span>
+        <span class="med-item__state">복용 예정</span>
+      </div>
+      <div class="med-item__body">
+        <span class="med-item__thumb med-item__thumb--yellow">💊</span>
+        <div class="flex-1">
+          <p class="med-item__name">철분제</p>
+          <p class="med-item__meta">1정&nbsp;&nbsp;|&nbsp;&nbsp;매일</p>
+          <p class="med-item__note"><span class="material-symbols-rounded">schedule</span> 식후 복용</p>
+        </div>
+        <button type="button" class="check-circle" data-toggle aria-label="복용 체크"><span class="material-symbols-rounded">check</span></button>
+      </div>
+    </div>
+
+    <div class="med-item">
+      <div class="med-item__time">
+        <span class="med-item__ampm">🌙 저녁</span>
+        <span class="med-item__clock">19:00</span>
+        <span class="med-item__state">복용 완료</span>
+      </div>
+      <div class="med-item__body">
+        <span class="med-item__thumb med-item__thumb--purple">💊</span>
+        <div class="flex-1">
+          <p class="med-item__name">종합비타민</p>
+          <p class="med-item__meta">1정&nbsp;&nbsp;|&nbsp;&nbsp;매일</p>
+          <p class="med-item__note"><span class="material-symbols-rounded">schedule</span> 식후 복용</p>
+        </div>
+        <button type="button" class="check-circle is-checked" data-toggle aria-label="복용 체크"><span class="material-symbols-rounded">check</span></button>
+      </div>
+    </div>
+
+    <!-- 복약 요약 -->
+    <div class="section">
+      <div class="section__head">
+        <h2 class="section__title">복약 요약</h2>
+        <a href="28_statistics_detail.html" class="section__more">전체 보기 <span class="material-symbols-rounded">chevron_right</span></a>
+      </div>
+      <div class="card">
+        <div class="med-summary">
+          <div class="med-summary__item">
+            <span class="med-summary__icon">📅</span>
+            <p class="med-summary__label">이번 주 복약률</p>
+            <p class="med-summary__value">85<small>%</small></p>
+            <p class="med-summary__sub">6 / 7일</p>
+          </div>
+          <div class="med-summary__item">
+            <span class="med-summary__icon">💊</span>
+            <p class="med-summary__label">등록된 약</p>
+            <p class="med-summary__value">3<small>개</small></p>
+            <p class="med-summary__sub">약 3종</p>
+          </div>
+          <div class="med-summary__item">
+            <span class="med-summary__icon">⏰</span>
+            <p class="med-summary__label">복약 알림</p>
+            <p class="med-summary__value">3<small>개</small></p>
+            <p class="med-summary__sub">설정 중</p>
+          </div>
+          <div class="med-summary__item">
+            <span class="med-summary__icon">✅</span>
+            <p class="med-summary__label">연속 복약</p>
+            <p class="med-summary__value">12<small>일</small></p>
+            <p class="med-summary__sub">연속 기록</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI 복약 팁 -->
+    <div class="card mt-16">
+      <div class="ai-tip">
+        <span class="ai-tip__robot" aria-hidden="true"><i data-illust="robot" style="width:54px;height:58px;"></i></span>
+        <div class="flex-1">
+          <p class="ai-tip__title">AI 복약 팁</p>
+          <p class="ai-tip__desc">엽산은 임신 초기에 특히 중요해요!<br>매일 꾸준히 복용하면 태아의 신경관 발달에 도움이 됩니다.</p>
+          <a href="09_ai_care.html" class="ai-tip__btn">AI 케어로 가기 <span class="material-symbols-rounded" style="font-size:16px;">chevron_right</span></a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <nav class="bottom-nav">
+    <a href="05_home.html" class="bottom-nav__item"><span class="material-symbols-rounded">home</span>홈</a>
+    <a href="06_medication.html" class="bottom-nav__item is-active"><span class="material-symbols-rounded">pill</span>복약 관리</a>
+    <a href="08_calendar.html" class="bottom-nav__item"><span class="material-symbols-rounded">calendar_month</span>캘린더</a>
+    <a href="09_ai_care.html" class="bottom-nav__item"><span class="material-symbols-rounded">smart_toy</span>AI 케어</a>
+    <a href="15_my_page.html" class="bottom-nav__item"><span class="material-symbols-rounded">person</span>마이페이지</a>
+  </nav>
+
+</div>
+<script src="../assets/js/illustrations.js"></script>
+<script src="../assets/js/common.js"></script>
+</body>
+</html>

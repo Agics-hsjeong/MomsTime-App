@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mom's Time — 퍼블리싱 인덱스</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..700,0..1,-50..200">
+<style>
+  :root {
+    --primary: #F47C9C; --primary-strong: #F2547F; --primary-light: #FFE7EE;
+    --text: #1F2937; --text-sub: #6B7280; --border: #EFE3E8; --surface: #fff;
+    --font: 'Pretendard Variable', Pretendard, -apple-system, 'Apple SD Gothic Neo', sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: var(--font); background: #F5EFF1; color: var(--text); padding: 40px 24px 80px; }
+  .head { max-width: 1200px; margin: 0 auto 40px; text-align: center; }
+  .head__logo { font-size: 40px; font-weight: 800; color: var(--primary-strong); }
+  .head__sub { margin-top: 8px; color: var(--text-sub); font-size: 15px; }
+  .head__meta { margin-top: 16px; display: inline-flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+  .head__chip {
+    padding: 6px 14px; border-radius: 999px; background: var(--surface);
+    border: 1px solid var(--border); font-size: 13px; font-weight: 600;
+  }
+  .group { max-width: 1200px; margin: 0 auto 48px; }
+  .group__title {
+    font-size: 20px; font-weight: 800; margin-bottom: 20px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .group__title .material-symbols-rounded { color: var(--primary-strong); }
+  .grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  .card {
+    background: var(--surface); border-radius: 18px; overflow: hidden;
+    border: 1px solid var(--border); text-decoration: none; color: inherit;
+    transition: transform .15s ease, box-shadow .15s ease;
+    display: flex; flex-direction: column;
+  }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 12px 28px rgba(244,124,156,.18); }
+  .card__frame {
+    aspect-ratio: 9 / 16; overflow: hidden; background: #FFF5F7;
+    border-bottom: 1px solid var(--border); position: relative;
+  }
+  .card__frame iframe {
+    width: 420px; height: 746px;
+    border: 0; transform: scale(0.476);
+    transform-origin: top left; pointer-events: none;
+  }
+  .card__no {
+    position: absolute; top: 10px; left: 10px; z-index: 2;
+    width: 30px; height: 30px; border-radius: 50%;
+    background: var(--primary-strong); color: #fff;
+    font-size: 13px; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 10px rgba(242,84,127,.3);
+  }
+  .card__label { padding: 14px 16px; }
+  .card__title { font-size: 15px; font-weight: 700; }
+  .card__desc { margin-top: 4px; font-size: 12.5px; color: var(--text-sub); }
+</style>
+</head>
+<body>
+
+  <div class="head">
+    <h1 class="head__logo">Mom&rsquo;s Time</h1>
+    <p class="head__sub">엄마의 건강한 하루를 위한 동반자 &middot; HTML 퍼블리싱 v1.0</p>
+    <div class="head__meta">
+      <span class="head__chip">📱 전체 32 화면</span>
+      <span class="head__chip">🎨 Design System v1.0</span>
+      <span class="head__chip">🔤 Pretendard</span>
+      <span class="head__chip">✅ 반응형 모바일 프레임</span>
+    </div>
+  </div>
+
+  <!-- 메인 페이지 -->
+  <section class="group">
+    <h2 class="group__title"><span class="material-symbols-rounded">smartphone</span> Main Pages (17 · 서비스 소개 3P 포함)</h2>
+    <div class="grid" id="main-grid"></div>
+  </section>
+
+  <!-- 서브 페이지 -->
+  <section class="group">
+    <h2 class="group__title"><span class="material-symbols-rounded">description</span> Sub Pages (17)</h2>
+    <div class="grid" id="sub-grid"></div>
+  </section>
+
+<script>
+  var mainPages = [
+    ['01', 'Splash', '앱 실행 / 로고', '01_splash.html'],
+    ['03', '서비스 소개 ①', '복약 · 건강 관리 (1/3)', '03_onboarding.html'],
+    ['03', '서비스 소개 ②', 'AI 케어 (2/3)', '03_onboarding_2.html'],
+    ['03', '서비스 소개 ③', '가족 공유 (3/3)', '03_onboarding_3.html'],
+    ['02', 'Login', '로그인 / 소셜', '02_login.html'],
+    ['04', 'Stage', '임신 단계 선택', '04_stage.html'],
+    ['05', 'Home', 'Today Care', '05_home.html'],
+    ['06', 'Medication', '복약 관리', '06_medication.html'],
+    ['07', 'Register', '약 등록 (OCR)', '07_register.html'],
+    ['08', 'Calendar', '일정 캘린더', '08_calendar.html'],
+    ['09', 'AI Care', 'AI 케어 메인', '09_ai_care.html'],
+    ['10', 'Health', '건강 기록', '10_health.html'],
+    ['11', 'Checkup', '검사/검진 결과', '11_checkup.html'],
+    ['12', 'Family', '가족 관리', '12_family.html'],
+    ['13', 'Report', '복약 리포트', '13_report.html'],
+    ['14', 'Premium', '프리미엄 소개', '14_premium.html'],
+    ['15', 'My Page', '마이페이지', '15_my_page.html']
+  ];
+  var subPages = [
+    ['16', 'Medication Detail', '약 상세', '16_medication_detail.html'],
+    ['17', 'OCR Result', 'OCR 인식 결과', '17_ocr_result.html'],
+    ['18', 'Medication Complete', '복약 완료', '18_medication_complete.html'],
+    ['19', 'Medication Edit', '복약 수정', '19_medication_edit.html'],
+    ['20', 'AI Chat', 'AI 상담', '20_ai_chat.html'],
+    ['21', 'AI Briefing', 'AI 하루 브리핑', '21_ai_briefing.html'],
+    ['22', 'Checkup Detail', '검진 상세', '22_checkup_detail.html'],
+    ['23', 'Hospital Detail', '병원 정보', '23_hospital_detail.html'],
+    ['24', 'Supplement Detail', '영양제 상세', '24_supplement_detail.html'],
+    ['25', 'Family Invite', '가족 초대', '25_family_invite.html'],
+    ['26', 'Notification', '알림', '26_notification.html'],
+    ['27', 'Profile Edit', '프로필 수정', '27_profile_edit.html'],
+    ['28', 'Statistics Detail', '통계 상세', '28_statistics_detail.html'],
+    ['29', 'Subscription', '구독 멤버십', '29_subscription.html'],
+    ['30', 'Payment', '결제하기', '30_payment.html'],
+    ['31', 'Coupon', '쿠폰', '31_coupon.html'],
+    ['32', 'Store', '스토어', '32_store.html']
+  ];
+
+  function render(list, targetId) {
+    var html = list.map(function (p) {
+      var href = 'html/' + p[3];
+      return '<a class="card" href="' + href + '" target="_blank">' +
+        '<div class="card__frame"><span class="card__no">' + p[0] + '</span>' +
+        '<iframe src="' + href + '" loading="lazy" scrolling="no" title="' + p[1] + '"></iframe></div>' +
+        '<div class="card__label"><p class="card__title">' + p[1] + '</p>' +
+        '<p class="card__desc">' + p[2] + '</p></div></a>';
+    }).join('');
+    document.getElementById(targetId).innerHTML = html;
+  }
+  render(mainPages, 'main-grid');
+  render(subPages, 'sub-grid');
+</script>
+</body>
+</html>

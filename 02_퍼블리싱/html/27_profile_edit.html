@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mom's Time — 27 Profile Edit</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..700,0..1,-50..200">
+<link rel="stylesheet" href="../assets/css/common.css">
+<style>
+  /* 프로필 수정 : 퍼플 톤 */
+  .pf-photo { display: flex; align-items: center; gap: 24px; }
+  .pf-photo__avatar {
+    position: relative;
+    width: 128px; height: 128px; border-radius: 50%;
+    background: #EFE9FC;
+    display: flex; align-items: center; justify-content: center; font-size: 62px;
+    flex-shrink: 0;
+  }
+  .pf-photo__cam {
+    position: absolute; right: 2px; bottom: 2px;
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--surface); box-shadow: var(--shadow-card);
+    display: flex; align-items: center; justify-content: center;
+    color: #7C5CD6;
+  }
+  .pf-photo__title { font-size: 18px; font-weight: 800; }
+  .pf-photo__desc { margin-top: 6px; font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+  .pf-photo__btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-top: 14px; height: 44px; padding: 0 18px;
+    border: 1.5px solid #7C5CD6; border-radius: 12px;
+    color: #7C5CD6; font-size: 14px; font-weight: 700; background: var(--surface);
+  }
+
+  /* 필드 그룹 */
+  .pf-list { padding: 4px 20px; }
+  .pf-row { display: flex; align-items: center; gap: 12px; padding: 15px 0; }
+  .pf-row + .pf-row { border-top: 1px solid var(--divider); }
+  .pf-row__body { flex: 1; }
+  .pf-row__label { font-size: 12.5px; color: var(--text-secondary); }
+  .pf-row__value { margin-top: 4px; font-size: 16px; font-weight: 600; }
+  .pf-row__value input { border: 0; outline: 0; background: transparent; font-size: 16px; font-weight: 600; width: 100%; }
+  .pf-row__value .unit { font-size: 13px; color: var(--text-disabled); font-weight: 400; margin-left: 6px; }
+  .pf-row .material-symbols-rounded { color: var(--text-disabled); }
+  .pf-row--half { display: grid; grid-template-columns: 1fr 1fr; padding: 0; }
+  .pf-row--half > div { padding: 15px 0; }
+  .pf-row--half > div + div { border-left: 1px solid var(--divider); padding-left: 18px; }
+
+  /* 알림 및 설정 */
+  .pf-setting { display: flex; align-items: center; gap: 14px; padding: 16px 0; }
+  .pf-setting + .pf-setting { border-top: 1px solid var(--divider); }
+  .pf-setting__icon {
+    width: 48px; height: 48px; border-radius: 50%; background: #EFE9FC;
+    display: flex; align-items: center; justify-content: center;
+    color: #7C5CD6; font-size: 22px; flex-shrink: 0;
+  }
+  .pf-setting__title { font-size: 15px; font-weight: 700; }
+  .pf-setting__desc { margin-top: 2px; font-size: 12.5px; color: var(--text-secondary); }
+
+  .pf-save {
+    background: linear-gradient(135deg, #8B6FF0, #6D4FD0); color: #fff;
+    box-shadow: 0 6px 16px rgba(124,92,214,.3);
+  }
+  .pf-cancel { margin-top: 10px; border: 1.5px solid #B7A5EC; color: #7C5CD6; background: var(--surface); }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header class="appbar">
+    <button type="button" class="appbar__btn" data-back aria-label="뒤로가기">
+      <span class="material-symbols-rounded">arrow_back_ios_new</span>
+    </button>
+    <h1 class="appbar__title">프로필 수정</h1>
+    <span class="appbar__spacer"></span>
+  </header>
+
+  <div class="content">
+
+    <!-- 프로필 사진 -->
+    <div class="card">
+      <div class="pf-photo">
+        <div class="pf-photo__avatar">
+          👩🏻
+          <span class="pf-photo__cam"><span class="material-symbols-rounded" style="font-size:20px;">photo_camera</span></span>
+        </div>
+        <div>
+          <p class="pf-photo__title">프로필 사진</p>
+          <p class="pf-photo__desc">나를 나타내는 사진을<br>등록해 보세요.</p>
+          <button type="button" class="pf-photo__btn"><span class="material-symbols-rounded" style="font-size:18px;">image</span> 사진 변경</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 기본 정보 -->
+    <div class="section">
+      <div class="section__head"><h2 class="section__title">기본 정보</h2></div>
+      <div class="card pf-list">
+        <div class="pf-row">
+          <div class="pf-row__body">
+            <p class="pf-row__label">이름</p>
+            <p class="pf-row__value">김지혜</p>
+          </div>
+          <span class="material-symbols-rounded">chevron_right</span>
+        </div>
+        <div class="pf-row">
+          <div class="pf-row__body">
+            <p class="pf-row__label">생년월일</p>
+            <p class="pf-row__value">1992.05.20</p>
+          </div>
+          <span class="material-symbols-rounded">calendar_month</span>
+        </div>
+        <div class="pf-row">
+          <div class="pf-row__body">
+            <p class="pf-row__label">성별</p>
+            <p class="pf-row__value">여성</p>
+          </div>
+          <span class="material-symbols-rounded">chevron_right</span>
+        </div>
+        <div class="pf-row pf-row--half" style="border-top:1px solid var(--divider);">
+          <div>
+            <p class="pf-row__label">키</p>
+            <p class="pf-row__value">165<span class="unit">cm</span></p>
+          </div>
+          <div>
+            <p class="pf-row__label">체중</p>
+            <p class="pf-row__value">55<span class="unit">kg</span></p>
+          </div>
+        </div>
+        <div class="pf-row">
+          <div class="pf-row__body">
+            <p class="pf-row__label">혈액형</p>
+            <p class="pf-row__value">A형 (Rh+)</p>
+          </div>
+          <span class="material-symbols-rounded">chevron_right</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 연락처 정보 -->
+    <div class="section">
+      <div class="section__head"><h2 class="section__title">연락처 정보</h2></div>
+      <div class="card pf-list">
+        <div class="pf-row">
+          <div class="pf-row__body">
+            <p class="pf-row__label">휴대폰 번호</p>
+            <p class="pf-row__value"><input type="tel" value="010-1234-5678"></p>
+          </div>
+        </div>
+        <div class="pf-row">
+          <div class="pf-row__body">
+            <p class="pf-row__label">이메일</p>
+            <p class="pf-row__value"><input type="email" value="jihye.kim@email.com"></p>
+          </div>
+        </div>
+        <div class="pf-row">
+          <div class="pf-row__body">
+            <p class="pf-row__label">주소</p>
+            <p class="pf-row__value" style="font-size:15px;">서울특별시 강남구 테헤란로 123, 101동 1001호</p>
+          </div>
+          <span class="material-symbols-rounded">chevron_right</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 알림 및 설정 -->
+    <div class="section">
+      <div class="section__head"><h2 class="section__title">알림 및 설정</h2></div>
+      <div class="card" style="padding:4px 20px;">
+        <a href="26_notification.html" class="pf-setting">
+          <span class="pf-setting__icon"><span class="material-symbols-rounded">notifications</span></span>
+          <span class="flex-1">
+            <span class="pf-setting__title">알림 설정</span><br>
+            <span class="pf-setting__desc">복약, 검진, 예약 등 알림을 설정할 수 있어요.</span>
+          </span>
+          <span class="material-symbols-rounded" style="color:var(--text-disabled);">chevron_right</span>
+        </a>
+        <a href="#" class="pf-setting">
+          <span class="pf-setting__icon"><span class="material-symbols-rounded">lock</span></span>
+          <span class="flex-1">
+            <span class="pf-setting__title">비밀번호 변경</span><br>
+            <span class="pf-setting__desc">안전한 서비스 이용을 위해 비밀번호를 변경하세요.</span>
+          </span>
+          <span class="material-symbols-rounded" style="color:var(--text-disabled);">chevron_right</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="bottom-cta">
+    <button type="button" class="btn pf-save">저장하기</button>
+    <button type="button" class="btn pf-cancel" data-back>취소</button>
+  </div>
+
+</div>
+<script src="../assets/js/common.js"></script>
+</body>
+</html>

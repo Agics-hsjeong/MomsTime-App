@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mom's Time — 14 Premium</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..700,0..1,-50..200">
+<link rel="stylesheet" href="../assets/css/common.css">
+<style>
+  .prm-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; padding: 8px 20px 0; }
+  .prm-head__hello { font-size: 24px; font-weight: 800; }
+  .prm-head__sub { margin-top: 4px; font-size: 13px; color: var(--text-secondary); }
+  .gift-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    height: 44px; padding: 0 16px; flex-shrink: 0;
+    border: 1.5px solid var(--primary); border-radius: 999px;
+    color: var(--primary-strong); font-size: 14px; font-weight: 700; background: var(--surface);
+  }
+
+  /* 히어로 */
+  .prm-hero { position: relative; overflow: hidden; background: linear-gradient(150deg, #FFF3F6 0%, #FCE0EA 100%); box-shadow: none; }
+  .prm-hero__title { font-size: 21px; font-weight: 800; line-height: 1.5; }
+  .prm-hero__title em { font-style: normal; color: var(--primary-strong); }
+  .prm-hero__list { margin-top: 14px; }
+  .prm-hero__list li { display: flex; gap: 8px; font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+  .prm-hero__list .material-symbols-rounded { font-size: 18px; color: var(--primary-strong); margin-top: 3px; }
+  .prm-hero__robot { position: absolute; right: 14px; bottom: 6px; font-size: 84px; line-height: 1; }
+
+  /* 혜택 5종 */
+  .benefit-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+  .benefit-item {
+    background: var(--surface); border-radius: 16px; box-shadow: var(--shadow-card);
+    padding: 14px 6px; text-align: center;
+  }
+  .benefit-item__icon {
+    width: 46px; height: 46px; margin: 0 auto; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; font-size: 21px;
+  }
+  .benefit-item__title { margin-top: 8px; font-size: 11.5px; font-weight: 800; }
+  .benefit-item__desc { margin-top: 4px; font-size: 10px; color: var(--text-secondary); line-height: 1.45; }
+
+  /* 요금제 */
+  .plan-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .plan-card {
+    position: relative;
+    background: var(--surface); border: 1px solid var(--divider);
+    border-radius: var(--radius-card); padding: 20px 10px 16px; text-align: center;
+  }
+  .plan-card.is-reco { border: 1.5px solid var(--primary); background: #FFF7F9; }
+  .plan-card__reco {
+    position: absolute; top: -10px; left: 10px;
+    height: 22px; padding: 0 10px; border-radius: 999px;
+    background: var(--primary-strong); color: #fff;
+    font-size: 10px; font-weight: 800;
+    display: inline-flex; align-items: center;
+  }
+  .plan-card__name { font-size: 15px; font-weight: 800; }
+  .plan-card__off {
+    display: inline-block; margin-top: 8px; padding: 3px 10px;
+    border-radius: 999px; background: var(--primary-light);
+    color: var(--primary-strong); font-size: 11px; font-weight: 700;
+  }
+  .plan-card__price { margin-top: 12px; font-size: 19px; font-weight: 800; }
+  .plan-card__price small { font-size: 11px; font-weight: 600; color: var(--text-secondary); }
+  .plan-card__was { margin-top: 4px; font-size: 11px; color: var(--text-disabled); text-decoration: line-through; }
+  .plan-card__note { margin-top: 4px; font-size: 10.5px; color: var(--text-secondary); }
+  .plan-card__btn {
+    width: 100%; margin-top: 14px; height: 40px; border-radius: 999px;
+    font-size: 13px; font-weight: 800;
+  }
+  .plan-card__btn--fill { background: linear-gradient(135deg, var(--primary), var(--primary-strong)); color: #fff; }
+  .plan-card__btn--line { border: 1.5px solid var(--primary); color: var(--primary-strong); }
+  .plan-card__btn--gray { border: 1px solid var(--border); color: var(--text-primary); }
+  .plan-card__foot { margin-top: 8px; font-size: 10px; color: var(--primary-strong); }
+
+  .safe-pay {
+    display: flex; align-items: center; gap: 12px;
+    margin-top: 12px; padding: 14px 16px;
+    background: var(--surface); border-radius: 16px; box-shadow: var(--shadow-card);
+    font-size: 12px; color: var(--text-secondary);
+  }
+  .safe-pay b { display: block; font-size: 13px; color: var(--text-primary); }
+  .safe-pay .emoji { font-size: 22px; }
+
+  /* 기능 비교 */
+  .cmp-table { width: 100%; border-collapse: collapse; }
+  .cmp-table th { padding: 8px 4px; font-size: 12px; font-weight: 700; text-align: center; }
+  .cmp-table th:first-child { text-align: left; }
+  .cmp-table th:last-child { color: var(--primary-strong); }
+  .cmp-table td { padding: 14px 4px; font-size: 12px; text-align: center; border-top: 1px solid var(--divider); }
+  .cmp-feature { display: flex; align-items: center; gap: 10px; text-align: left; }
+  .cmp-feature .icon {
+    width: 36px; height: 36px; border-radius: 10px; background: var(--primary-light);
+    display: flex; align-items: center; justify-content: center; font-size: 17px; flex-shrink: 0;
+  }
+  .cmp-feature b { display: block; font-size: 13px; }
+  .cmp-feature small { color: var(--text-secondary); font-size: 10.5px; }
+  .cmp-free { color: var(--text-secondary); }
+  .cmp-prem { color: var(--primary-strong); font-weight: 700; }
+  .cmp-prem .material-symbols-rounded { font-size: 16px; color: var(--primary-strong); }
+
+  /* FAQ */
+  .faq-item {
+    display: flex; align-items: center; gap: 10px;
+    width: 100%; padding: 16px 18px;
+    background: var(--surface); border-radius: 16px; box-shadow: var(--shadow-card);
+    font-size: 14px; font-weight: 600; text-align: left;
+  }
+  .faq-item + .faq-item { margin-top: 10px; }
+  .faq-item .q { color: var(--primary-strong); font-weight: 800; }
+  .faq-item .label { flex: 1; }
+  .faq-item .material-symbols-rounded { color: var(--text-disabled); }
+
+  /* 선물 배너 */
+  .gift-banner { display: flex; align-items: center; gap: 14px; background: #FBE4EC; box-shadow: none; }
+  .gift-banner__icon { font-size: 44px; flex-shrink: 0; }
+  .gift-banner__title { font-size: 14px; font-weight: 800; }
+  .gift-banner__desc { margin-top: 2px; font-size: 12px; color: var(--text-secondary); }
+  .gift-banner__btn {
+    display: inline-flex; align-items: center; gap: 2px;
+    height: 42px; padding: 0 14px; flex-shrink: 0;
+    border: 1px solid var(--primary); border-radius: 999px;
+    color: var(--primary-strong); font-size: 12px; font-weight: 700; background: var(--surface);
+  }
+</style>
+</head>
+<body>
+<div class="app app--has-nav">
+
+  <header class="appbar">
+    <button type="button" class="appbar__btn" data-back aria-label="뒤로가기">
+      <span class="material-symbols-rounded">arrow_back_ios_new</span>
+    </button>
+    <h1 class="appbar__title">프리미엄</h1>
+    <button type="button" class="appbar__btn" aria-label="알림"><span class="material-symbols-rounded">notifications</span></button>
+  </header>
+
+  <div class="prm-head">
+    <div>
+      <h2 class="prm-head__hello">안녕하세요, 혜선님 ❤️</h2>
+      <p class="prm-head__sub">더 스마트한 복약·건강 관리를 경험해 보세요.</p>
+    </div>
+    <button type="button" class="gift-btn">🎁 선물하기</button>
+  </div>
+
+  <div class="content">
+
+    <!-- 히어로 -->
+    <div class="card prm-hero">
+      <h2 class="prm-hero__title">프리미엄으로<br><em>더 건강한 일상</em>을 시작하세요!</h2>
+      <ul class="prm-hero__list">
+        <li><span class="material-symbols-rounded">check_circle</span>AI 맞춤 케어와 다양한 프리미엄 기능을 무제한으로 이용할 수 있어요.</li>
+        <li><span class="material-symbols-rounded">check_circle</span>언제든지 가입/해지할 수 있습니다.</li>
+      </ul>
+      <span class="prm-hero__robot" aria-hidden="true"><i data-illust="robot" style="width:78px;height:82px;"></i></span>
+    </div>
+
+    <!-- 주요 혜택 -->
+    <div class="section">
+      <div class="section__head">
+        <h2 class="section__title">프리미엄 주요 혜택</h2>
+        <a href="#" class="section__more" style="color:var(--primary-strong);font-weight:700;">모든 혜택 보기 <span class="material-symbols-rounded">chevron_right</span></a>
+      </div>
+      <div class="benefit-grid">
+        <div class="benefit-item">
+          <span class="benefit-item__icon" style="background:#FDEFF3;">🤖</span>
+          <p class="benefit-item__title">AI 맞춤 케어</p>
+          <p class="benefit-item__desc">나에게 딱 맞는 건강 관리 제안</p>
+        </div>
+        <div class="benefit-item">
+          <span class="benefit-item__icon" style="background:var(--ai-purple-light);">📅</span>
+          <p class="benefit-item__title">캘린더 고급 기능</p>
+          <p class="benefit-item__desc">복약/검진 일정 무제한 등록</p>
+        </div>
+        <div class="benefit-item">
+          <span class="benefit-item__icon" style="background:#FDF3E4;">📊</span>
+          <p class="benefit-item__title">상세 리포트</p>
+          <p class="benefit-item__desc">더 깊이 분석된 건강 리포트 제공</p>
+        </div>
+        <div class="benefit-item">
+          <span class="benefit-item__icon" style="background:#E4F5F2;">📥</span>
+          <p class="benefit-item__title">데이터 내보내기</p>
+          <p class="benefit-item__desc">건강 데이터를 파일로 저장</p>
+        </div>
+        <div class="benefit-item">
+          <span class="benefit-item__icon" style="background:#E9EFFC;">👨‍👩‍👧</span>
+          <p class="benefit-item__title">가족 관리 확장</p>
+          <p class="benefit-item__desc">가족 맞춤 관리 파제한 추가</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 요금제 -->
+    <div class="section">
+      <div class="section__head">
+        <h2 class="section__title">프리미엄 요금제 <span class="chip" style="height:24px;font-size:11px;">7일 무료 체험</span></h2>
+        <a href="29_subscription.html" class="section__more" style="color:var(--primary-strong);font-weight:700;">복원하기</a>
+      </div>
+      <div class="plan-grid">
+        <div class="plan-card is-reco">
+          <span class="plan-card__reco">추천</span>
+          <p class="plan-card__name">월간 플랜</p>
+          <p class="plan-card__price">₩6,900 <small>/월</small></p>
+          <p class="plan-card__note">부가세 포함</p>
+          <button type="button" class="plan-card__btn plan-card__btn--fill">선택하기</button>
+          <p class="plan-card__foot">7일 무료 체험 후 결제</p>
+        </div>
+        <div class="plan-card">
+          <p class="plan-card__name">연간 플랜</p>
+          <span class="plan-card__off">25% 할인</span>
+          <p class="plan-card__price">₩62,000 <small>/년</small></p>
+          <p class="plan-card__was">₩82,800</p>
+          <p class="plan-card__note">월 평균 ₩5,166</p>
+          <button type="button" class="plan-card__btn plan-card__btn--line">선택하기</button>
+          <p class="plan-card__foot">7일 무료 체험 후 결제</p>
+        </div>
+        <div class="plan-card">
+          <p class="plan-card__name">평생 플랜</p>
+          <span class="plan-card__off">60% 할인</span>
+          <p class="plan-card__price">₩149,000</p>
+          <p class="plan-card__was">₩372,000</p>
+          <button type="button" class="plan-card__btn plan-card__btn--gray">선택하기</button>
+        </div>
+      </div>
+      <div class="safe-pay">
+        <span class="emoji">🛡️</span>
+        <span class="flex-1"><b>안전한 결제</b>구독은 언제든지 취소할 수 있으며, 취소 시 다음 결제부터 적용됩니다.</span>
+        <span class="material-symbols-rounded" style="color:var(--text-disabled);">chevron_right</span>
+      </div>
+    </div>
+
+    <!-- 기능 비교 -->
+    <div class="section">
+      <div class="section__head"><h2 class="section__title">기능 비교</h2></div>
+      <div class="card" style="padding:12px 16px;">
+        <table class="cmp-table">
+          <thead>
+            <tr><th></th><th>무료</th><th>프리미엄</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div class="cmp-feature"><span class="icon">🤖</span><span><b>AI 맞춤 케어</b><small>개인 맞춤 건강 관리 및 케어 제안</small></span></div></td>
+              <td class="cmp-free">기본 케어</td>
+              <td class="cmp-prem"><span class="material-symbols-rounded ico-fill">check_circle</span> 고급 케어</td>
+            </tr>
+            <tr>
+              <td><div class="cmp-feature"><span class="icon">📅</span><span><b>캘린더 일정 등록</b><small>복약, 검진, 병원 일정 등록</small></span></div></td>
+              <td class="cmp-free">최대 10개</td>
+              <td class="cmp-prem"><span class="material-symbols-rounded ico-fill">check_circle</span> 무제한</td>
+            </tr>
+            <tr>
+              <td><div class="cmp-feature"><span class="icon">📊</span><span><b>건강 리포트</b><small>복약/건강 데이터 분석 리포트</small></span></div></td>
+              <td class="cmp-free">기본 리포트</td>
+              <td class="cmp-prem"><span class="material-symbols-rounded ico-fill">check_circle</span> 상세 리포트</td>
+            </tr>
+            <tr>
+              <td><div class="cmp-feature"><span class="icon">📥</span><span><b>데이터 내보내기</b><small>건강 데이터를 파일로 저장</small></span></div></td>
+              <td class="cmp-free">—</td>
+              <td class="cmp-prem"><span class="material-symbols-rounded ico-fill">check_circle</span> 지원</td>
+            </tr>
+            <tr>
+              <td><div class="cmp-feature"><span class="icon">👨‍👩‍👧</span><span><b>가족 관리</b><small>가족 구성원 추가 및 관리</small></span></div></td>
+              <td class="cmp-free">최대 3명</td>
+              <td class="cmp-prem"><span class="material-symbols-rounded ico-fill">check_circle</span> 무제한</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="section">
+      <div class="section__head">
+        <h2 class="section__title">자주 묻는 질문</h2>
+        <a href="#" class="section__more" style="color:var(--primary-strong);font-weight:700;">더보기 <span class="material-symbols-rounded">chevron_right</span></a>
+      </div>
+      <button type="button" class="faq-item"><span class="q">Q.</span><span class="label">구독을 취소하면 어떻게 되나요?</span><span class="material-symbols-rounded">expand_more</span></button>
+      <button type="button" class="faq-item"><span class="q">Q.</span><span class="label">무료 체험 후 요금은 언제 결제되나요?</span><span class="material-symbols-rounded">expand_more</span></button>
+    </div>
+
+    <!-- 선물 배너 -->
+    <div class="card gift-banner mt-24">
+      <span class="gift-banner__icon" aria-hidden="true"><i data-illust="gift" style="width:46px;height:46px;"></i></span>
+      <div class="flex-1">
+        <p class="gift-banner__title">사랑하는 가족이나 친구에게 프리미엄을 선물해 보세요!</p>
+        <p class="gift-banner__desc">건강한 습관을 함께 만들어갈 수 있어요.</p>
+      </div>
+      <button type="button" class="gift-banner__btn">프리미엄 선물하기 <span class="material-symbols-rounded" style="font-size:14px;">chevron_right</span></button>
+    </div>
+
+  </div>
+
+  <nav class="bottom-nav">
+    <a href="05_home.html" class="bottom-nav__item"><span class="material-symbols-rounded">home</span>홈</a>
+    <a href="06_medication.html" class="bottom-nav__item"><span class="material-symbols-rounded">pill</span>복약 관리</a>
+    <a href="08_calendar.html" class="bottom-nav__item"><span class="material-symbols-rounded">calendar_month</span>캘린더</a>
+    <a href="09_ai_care.html" class="bottom-nav__item"><span class="material-symbols-rounded">smart_toy</span>AI 케어</a>
+    <a href="14_premium.html" class="bottom-nav__item is-active"><span class="material-symbols-rounded">workspace_premium</span>프리미엄</a>
+  </nav>
+
+</div>
+<script src="../assets/js/illustrations.js"></script>
+<script src="../assets/js/common.js"></script>
+</body>
+</html>

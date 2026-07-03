@@ -1,0 +1,96 @@
+/* ============================================================
+   Mom's Time — 서비스 소개(온보딩) 3페이지 공용 스타일
+   ============================================================ */
+
+.onb-top { display: flex; justify-content: flex-end; padding: 14px 20px 0; }
+.onb-skip-top { font-size: 14px; font-weight: 600; color: var(--text-secondary); }
+
+.onb__step { padding-top: 8px; font-size: 15px; font-weight: 700; color: var(--text-disabled); }
+.onb__step b { color: var(--primary-strong); font-size: 17px; }
+.onb__headline { margin-top: 10px; font-size: 28px; font-weight: 800; line-height: 1.4; }
+.onb__headline em { font-style: normal; color: var(--primary-strong); }
+.onb__desc { margin-top: 12px; font-size: 15px; color: var(--text-secondary); line-height: 1.6; }
+
+/* 히어로 일러스트 */
+.onb__illust {
+  position: relative;
+  margin-top: 24px;
+  height: 280px;
+  border-radius: var(--radius-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.onb__illust--pink   { background: linear-gradient(160deg, #FFEDF2 0%, #FBD9E3 100%); }
+.onb__illust--purple { background: linear-gradient(160deg, #F1ECFD 0%, #E4D8FA 100%); }
+.onb__illust .figure { width: 180px; height: 248px; }
+.onb__illust .robot-fig { width: 176px; height: 188px; }
+
+/* 미니 카드(Today Care / 가족) */
+.mini-card {
+  position: absolute;
+  left: 20px; top: 30px;
+  width: 168px;
+  background: var(--surface);
+  border-radius: 16px;
+  box-shadow: var(--shadow-card);
+  padding: 12px 14px;
+}
+.mini-card--right { left: auto; right: 20px; }
+.mini-card__title { display: flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 700; color: var(--primary-strong); }
+.mini-card__row { display: flex; align-items: center; gap: 8px; margin-top: 10px; }
+.mini-card__pill {
+  width: 30px; height: 30px; border-radius: 10px; background: var(--primary-light);
+  display: flex; align-items: center; justify-content: center; font-size: 15px;
+}
+.mini-card__name { flex: 1; font-size: 12px; font-weight: 600; }
+.mini-card__name small { display: block; font-weight: 400; color: var(--text-secondary); }
+.mini-card__check {
+  width: 22px; height: 22px; border-radius: 50%; background: var(--primary-strong);
+  color: #fff; display: flex; align-items: center; justify-content: center;
+}
+.mini-card__check .material-symbols-rounded { font-size: 14px; }
+.mini-card__avatars { display: flex; margin-top: 8px; }
+.mini-card__avatars span {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--primary-light); border: 2px solid #fff;
+  display: flex; align-items: center; justify-content: center; font-size: 14px;
+  margin-left: -6px;
+}
+.mini-card__avatars span:first-child { margin-left: 0; }
+
+/* AI 말풍선(2페이지) */
+.onb-bubble {
+  position: absolute;
+  top: 34px; right: 18px;
+  max-width: 150px;
+  background: #fff;
+  border-radius: 16px 16px 16px 4px;
+  box-shadow: var(--shadow-card);
+  padding: 12px 14px;
+  font-size: 12px; line-height: 1.5; color: var(--text-primary);
+}
+.onb-bubble b { color: var(--ai-purple); }
+
+/* 기능 하이라이트 */
+.onb-highlights { margin-top: 24px; display: flex; flex-direction: column; gap: 12px; }
+.onb-hl {
+  display: flex; align-items: center; gap: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 14px 16px;
+}
+.onb-hl__icon {
+  width: 48px; height: 48px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center; font-size: 22px;
+  flex-shrink: 0;
+}
+.onb-hl__title { font-size: 15px; font-weight: 800; }
+.onb-hl__desc { margin-top: 2px; font-size: 12.5px; color: var(--text-secondary); line-height: 1.5; }
+
+/* 인디케이터 */
+.onb-dots { display: flex; justify-content: center; gap: 8px; margin: 28px 0 8px; }
+.onb-dots span { width: 8px; height: 8px; border-radius: 50%; background: #F5C2D1; }
+.onb-dots .is-active { width: 20px; border-radius: 999px; background: var(--primary-strong); }

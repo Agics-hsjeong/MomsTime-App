@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mom's Time — 30 Payment</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..700,0..1,-50..200">
+<link rel="stylesheet" href="../assets/css/common.css">
+<style>
+  /* 결제하기 : 퍼플 톤 */
+  .pay-hero { display: flex; align-items: center; gap: 16px; background: #F4F0FE; box-shadow: none; }
+  .pay-hero__gem {
+    width: 72px; height: 72px; border-radius: 50%; background: #E7DEFB;
+    display: flex; align-items: center; justify-content: center; font-size: 34px; flex-shrink: 0;
+  }
+  .pay-hero__name { display: flex; align-items: center; gap: 8px; font-size: 17px; font-weight: 800; }
+  .pay-hero__name .chip { background: #E5DDF8; color: #6D4FD0; height: 22px; font-size: 10.5px; }
+  .pay-hero__meta { margin-top: 6px; font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
+  .pay-hero__price { text-align: right; flex-shrink: 0; }
+  .pay-hero__price b { font-size: 20px; font-weight: 800; color: #6D4FD0; }
+  .pay-hero__price small { display: block; font-size: 11px; color: var(--text-secondary); }
+
+  .pay-sec-title { font-size: 17px; font-weight: 800; margin: 28px 0 12px; }
+
+  /* 결제 수단 선택 */
+  .method-row { display: flex; align-items: center; gap: 14px; padding: 16px 0; }
+  .method-row + .method-row { border-top: 1px solid var(--divider); }
+  .method-row__radio {
+    width: 22px; height: 22px; border-radius: 50%;
+    border: 2px solid var(--border); flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .method-row.is-active .method-row__radio { border-color: #6D4FD0; }
+  .method-row.is-active .method-row__radio::after { content: ''; width: 11px; height: 11px; border-radius: 50%; background: #6D4FD0; }
+  .method-row__logo {
+    width: 52px; height: 32px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 800; flex-shrink: 0;
+  }
+  .logo-kakao { background: #FEE500; color: #191919; }
+  .logo-naver { background: #03C75A; color: #fff; }
+  .logo-samsung { background: #fff; border: 1px solid var(--border); color: #1428A0; font-size: 8px; }
+  .logo-card { background: #F1F1F3; color: var(--text-secondary); }
+  .method-row__name { flex: 1; font-size: 16px; font-weight: 600; }
+  .method-row__tag { padding: 3px 10px; border-radius: 999px; background: #EFE9FC; color: #6D4FD0; font-size: 11px; font-weight: 700; }
+
+  /* 결제 정보 확인 */
+  .pay-info { padding: 4px 20px; }
+  .pay-info__row { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; font-size: 14px; }
+  .pay-info__row .label { color: var(--text-secondary); }
+  .pay-info__total { display: flex; align-items: center; justify-content: space-between; padding: 16px 0 6px; margin-top: 6px; border-top: 1.5px solid var(--divider); }
+  .pay-info__total .label { font-size: 16px; font-weight: 800; }
+  .pay-info__total .value { font-size: 22px; font-weight: 800; color: #6D4FD0; }
+
+  /* 결제 수단 상세 */
+  .detail-row { display: flex; align-items: center; gap: 12px; padding: 14px 0; }
+  .detail-row + .detail-row { border-top: 1px solid var(--divider); }
+  .detail-row__logo { width: 44px; height: 28px; border-radius: 6px; background: #FEE500; color: #191919; font-size: 10px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .detail-row__title { flex: 1; font-size: 15px; font-weight: 700; }
+  .detail-row__change { font-size: 13px; font-weight: 700; color: #6D4FD0; }
+  .detail-row__value { font-size: 14px; color: var(--text-secondary); }
+  .pay-safe {
+    display: flex; align-items: center; gap: 12px;
+    margin-top: 12px; padding: 14px 16px;
+    background: #F4F0FE; border-radius: 14px;
+    font-size: 12.5px; color: var(--text-secondary); line-height: 1.6;
+  }
+  .pay-safe b { color: #6D4FD0; }
+  .pay-safe__icon { font-size: 22px; }
+
+  /* 약관 동의 */
+  .agree-all { display: flex; align-items: center; gap: 12px; padding-bottom: 14px; border-bottom: 1px solid var(--divider); }
+  .agree-all__check {
+    width: 28px; height: 28px; border-radius: 50%; background: #6D4FD0; color: #fff;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .agree-all__title { flex: 1; font-size: 15px; font-weight: 800; }
+  .agree-item { display: flex; align-items: center; gap: 12px; padding: 12px 0; }
+  .agree-item__check {
+    width: 22px; height: 22px; border-radius: 50%; background: #6D4FD0; color: #fff;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .agree-item__check .material-symbols-rounded { font-size: 15px; }
+  .agree-item__label { flex: 1; font-size: 13.5px; }
+  .agree-item__req { font-size: 12px; color: var(--text-secondary); }
+
+  .pay-cta { background: linear-gradient(135deg, #8B6FF0, #6D4FD0); color: #fff; box-shadow: 0 6px 16px rgba(124,92,214,.3); }
+  .pay-cta-note { text-align: center; margin-top: 12px; font-size: 12px; color: var(--text-disabled); }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header class="appbar">
+    <button type="button" class="appbar__btn" data-back aria-label="뒤로가기">
+      <span class="material-symbols-rounded">arrow_back_ios_new</span>
+    </button>
+    <h1 class="appbar__title">결제하기</h1>
+    <button type="button" class="appbar__btn" data-back aria-label="닫기"><span class="material-symbols-rounded">close</span></button>
+  </header>
+
+  <div class="content">
+
+    <!-- 상품 요약 -->
+    <div class="card pay-hero">
+      <span class="pay-hero__gem" aria-hidden="true"><i data-illust="gem" style="width:44px;height:44px;"></i></span>
+      <div class="flex-1">
+        <p class="pay-hero__name"><span class="chip">Premium</span> 1개월 플랜</p>
+        <p class="pay-hero__meta">다음 결제일 2024.06.20<br>매월 자동 결제됩니다.</p>
+      </div>
+      <div class="pay-hero__price">
+        <b>5,900원</b><span style="font-size:12px;color:var(--text-secondary);">/월</span>
+        <small>부가세 포함</small>
+      </div>
+    </div>
+
+    <!-- 결제 수단 선택 -->
+    <h2 class="pay-sec-title">1. 결제 수단 선택</h2>
+    <div class="card" style="padding:4px 20px;">
+      <button type="button" class="method-row is-active" style="width:100%;text-align:left;">
+        <span class="method-row__radio"></span>
+        <span class="method-row__logo logo-kakao">pay</span>
+        <span class="method-row__name">카카오페이</span>
+        <span class="method-row__tag">간편결제</span>
+        <span class="material-symbols-rounded" style="color:var(--text-disabled);">chevron_right</span>
+      </button>
+      <button type="button" class="method-row" style="width:100%;text-align:left;">
+        <span class="method-row__radio"></span>
+        <span class="method-row__logo logo-naver">N</span>
+        <span class="method-row__name">네이버페이</span>
+        <span class="method-row__tag">간편결제</span>
+        <span class="material-symbols-rounded" style="color:var(--text-disabled);">chevron_right</span>
+      </button>
+      <button type="button" class="method-row" style="width:100%;text-align:left;">
+        <span class="method-row__radio"></span>
+        <span class="method-row__logo logo-samsung">SAMSUNG<br>Pay</span>
+        <span class="method-row__name">Samsung Pay</span>
+        <span class="method-row__tag">간편결제</span>
+        <span class="material-symbols-rounded" style="color:var(--text-disabled);">chevron_right</span>
+      </button>
+      <button type="button" class="method-row" style="width:100%;text-align:left;">
+        <span class="method-row__radio"></span>
+        <span class="method-row__logo logo-card"><span class="material-symbols-rounded" style="font-size:20px;">credit_card</span></span>
+        <span class="method-row__name">신용/체크카드</span>
+        <span class="material-symbols-rounded" style="color:var(--text-disabled);">chevron_right</span>
+      </button>
+      <button type="button" class="method-row" style="width:100%;text-align:left;">
+        <span class="method-row__radio"></span>
+        <span class="method-row__logo logo-card"><span class="material-symbols-rounded" style="font-size:20px;">account_balance</span></span>
+        <span class="method-row__name">계좌이체</span>
+        <span class="material-symbols-rounded" style="color:var(--text-disabled);">chevron_right</span>
+      </button>
+    </div>
+
+    <!-- 결제 정보 확인 -->
+    <h2 class="pay-sec-title">2. 결제 정보 확인</h2>
+    <div class="card pay-info">
+      <div class="pay-info__row"><span class="label">상품명</span><span>1개월 플랜</span></div>
+      <div class="pay-info__row"><span class="label">상품 금액</span><span>5,900원</span></div>
+      <div class="pay-info__row"><span class="label">부가세</span><span>0원</span></div>
+      <div class="pay-info__total"><span class="label">총 결제 금액</span><span class="value">5,900원</span></div>
+    </div>
+
+    <!-- 결제 수단 상세 -->
+    <h2 class="pay-sec-title">3. 결제 수단 상세</h2>
+    <div class="card" style="padding:4px 20px;">
+      <div class="detail-row">
+        <span class="detail-row__logo">pay</span>
+        <span class="detail-row__title">카카오페이</span>
+        <a href="#" class="detail-row__change">다른 수단 선택 &rsaquo;</a>
+      </div>
+      <div class="detail-row">
+        <span class="detail-row__value" style="width:70px;">카카오계정</span>
+        <span class="flex-1"></span>
+        <span class="detail-row__value">momstime_kim</span>
+        <span class="material-symbols-rounded" style="color:var(--text-disabled);font-size:18px;">chevron_right</span>
+      </div>
+    </div>
+    <div class="pay-safe">
+      <span class="pay-safe__icon" aria-hidden="true">🛡️</span>
+      <span>Mom&rsquo;s Time는 안전한 결제를 위해<br><b>카카오페이의 안전결제 시스템</b>을 이용합니다.</span>
+    </div>
+
+    <!-- 약관 동의 -->
+    <div class="card mt-16">
+      <div class="agree-all">
+        <span class="agree-all__check"><span class="material-symbols-rounded" style="font-size:18px;">check</span></span>
+        <span class="agree-all__title">아래 내용에 모두 동의합니다.</span>
+        <span class="material-symbols-rounded" style="color:var(--text-disabled);">expand_less</span>
+      </div>
+      <div class="agree-item">
+        <span class="agree-item__check"><span class="material-symbols-rounded">check</span></span>
+        <span class="agree-item__label">구매 및 결제에 동의합니다.</span>
+        <span class="agree-item__req">(필수)</span>
+      </div>
+      <div class="agree-item">
+        <span class="agree-item__check"><span class="material-symbols-rounded">check</span></span>
+        <span class="agree-item__label">서비스 이용 약관 동의</span>
+        <span class="agree-item__req">(필수)</span>
+      </div>
+      <div class="agree-item">
+        <span class="agree-item__check"><span class="material-symbols-rounded">check</span></span>
+        <span class="agree-item__label">개인정보 수집 및 이용 동의</span>
+        <span class="agree-item__req">(필수)</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="bottom-cta">
+    <button type="button" class="btn pay-cta"><span class="material-symbols-rounded" style="font-size:19px;">lock</span> 5,900원 결제하기</button>
+    <p class="pay-cta-note">결제 완료 후 즉시 Premium 혜택을 이용하실 수 있습니다.</p>
+  </div>
+
+</div>
+<script src="../assets/js/illustrations.js"></script>
+<script src="../assets/js/common.js"></script>
+<script>
+  document.querySelectorAll('.method-row').forEach(function (row) {
+    row.addEventListener('click', function () {
+      document.querySelectorAll('.method-row').forEach(function (r) { r.classList.remove('is-active'); });
+      row.classList.add('is-active');
+    });
+  });
+</script>
+</body>
+</html>

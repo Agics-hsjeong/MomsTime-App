@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mom's Time — 29 Subscription</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..700,0..1,-50..200">
+<link rel="stylesheet" href="../assets/css/common.css">
+<style>
+  /* 구독 멤버십 : 퍼플 톤 */
+  .sub-hero { position: relative; overflow: hidden; background: linear-gradient(150deg, #F5F1FE 0%, #E7DEFB 100%); box-shadow: none; }
+  .sub-hero__title { font-size: 20px; font-weight: 800; line-height: 1.5; }
+  .sub-hero__title em { font-style: normal; color: #6D4FD0; }
+  .sub-hero__desc { margin-top: 10px; font-size: 13px; color: var(--text-secondary); line-height: 1.6; max-width: 62%; }
+  .sub-hero__gem { position: absolute; right: 18px; top: 30px; font-size: 76px; }
+
+  /* 멤버십 혜택 */
+  .mb-benefits { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+  .mb-benefit { text-align: center; }
+  .mb-benefit__icon {
+    width: 50px; height: 50px; margin: 0 auto; border-radius: 50%; background: #EFE9FC;
+    display: flex; align-items: center; justify-content: center; font-size: 22px;
+  }
+  .mb-benefit__title { margin-top: 8px; font-size: 11.5px; font-weight: 800; }
+  .mb-benefit__desc { margin-top: 4px; font-size: 10px; color: var(--text-secondary); line-height: 1.45; }
+
+  /* 플랜 선택 */
+  .plan-row {
+    display: flex; align-items: center; gap: 14px;
+    border: 1.5px solid var(--divider); border-radius: 16px;
+    background: var(--surface); padding: 18px; width: 100%;
+  }
+  .plan-row + .plan-row { margin-top: 12px; }
+  .plan-row.is-selected { border-color: #6D4FD0; background: #F8F5FF; }
+  .plan-row__radio {
+    width: 24px; height: 24px; border-radius: 50%;
+    border: 2px solid var(--border); flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .plan-row.is-selected .plan-row__radio { border-color: #6D4FD0; }
+  .plan-row.is-selected .plan-row__radio::after {
+    content: ''; width: 12px; height: 12px; border-radius: 50%; background: #6D4FD0;
+  }
+  .plan-row__name { display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 800; text-align: left; }
+  .plan-row__name .off { padding: 2px 8px; border-radius: 999px; background: #FDE7EF; color: var(--primary-strong); font-size: 10.5px; font-weight: 700; }
+  .plan-row__cycle { margin-top: 4px; font-size: 12px; color: var(--text-secondary); text-align: left; }
+  .plan-row__price { text-align: right; }
+  .plan-row__was { font-size: 12px; color: var(--text-disabled); text-decoration: line-through; margin-right: 4px; }
+  .plan-row__now { font-size: 18px; font-weight: 800; }
+  .plan-row.is-selected .plan-row__now { color: #6D4FD0; }
+  .plan-row__now.pink { color: var(--primary-strong); }
+  .plan-row__month { margin-top: 4px; font-size: 11.5px; color: var(--text-secondary); }
+
+  /* 안심 안내 */
+  .sub-safe { display: flex; align-items: center; gap: 12px; background: #F4F0FE; box-shadow: none; }
+  .sub-safe__icon {
+    width: 44px; height: 44px; border-radius: 50%; background: var(--surface);
+    display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0;
+  }
+  .sub-safe__title { font-size: 13.5px; font-weight: 800; color: #6D4FD0; }
+  .sub-safe__desc { margin-top: 4px; font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+  .sub-safe__link { font-size: 12.5px; font-weight: 700; color: #6D4FD0; flex-shrink: 0; white-space: nowrap; }
+
+  /* 결제 정보 */
+  .pay-row { display: flex; align-items: center; gap: 12px; padding: 16px 0; }
+  .pay-row + .pay-row { border-top: 1px solid var(--divider); }
+  .pay-row__icon {
+    width: 44px; height: 44px; border-radius: 12px; background: #EFE9FC;
+    display: flex; align-items: center; justify-content: center; color: #6D4FD0; flex-shrink: 0;
+  }
+  .pay-row__title { font-size: 15px; font-weight: 700; }
+  .pay-row__sub { margin-top: 2px; font-size: 12.5px; color: var(--text-secondary); }
+  .pay-row__coupon { margin-left: auto; font-size: 13px; font-weight: 700; color: #6D4FD0; }
+
+  /* 결제 금액 */
+  .pay-total { padding: 6px 20px; }
+  .pay-total__row { display: flex; align-items: flex-start; justify-content: space-between; padding: 14px 0; }
+  .pay-total__row + .pay-total__row { border-top: 1px solid var(--divider); }
+  .pay-total__label { font-size: 14px; color: var(--text-secondary); }
+  .pay-total__value { font-size: 15px; font-weight: 700; }
+  .pay-total__value.big { font-size: 22px; font-weight: 800; color: #6D4FD0; }
+  .pay-total__value small { display: block; font-size: 11px; color: var(--text-secondary); font-weight: 400; text-align: right; }
+
+  .sub-cta { background: linear-gradient(135deg, #8B6FF0, #6D4FD0); color: #fff; box-shadow: 0 6px 16px rgba(124,92,214,.3); }
+  .sub-safe-note { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 12px; font-size: 11.5px; color: var(--text-disabled); }
+  .sub-safe-note .material-symbols-rounded { font-size: 15px; }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header class="appbar">
+    <button type="button" class="appbar__btn" data-back aria-label="뒤로가기">
+      <span class="material-symbols-rounded">arrow_back_ios_new</span>
+    </button>
+    <h1 class="appbar__title">구독 멤버십</h1>
+    <button type="button" class="appbar__action" style="color:#6D4FD0;">복원</button>
+  </header>
+
+  <div class="content">
+
+    <!-- 히어로 -->
+    <div class="card sub-hero">
+      <h2 class="sub-hero__title">Mom&rsquo;s Time Premium으로<br><em>더 건강한 하루를 시작하세요!</em></h2>
+      <p class="sub-hero__desc">복약 관리부터 AI 브리핑까지, 모든 기능을 제한 없이 이용할 수 있어요.</p>
+      <span class="sub-hero__gem" aria-hidden="true"><i data-illust="gem" style="width:72px;height:72px;"></i></span>
+    </div>
+
+    <!-- 멤버십 혜택 -->
+    <div class="section">
+      <div class="section__head"><h2 class="section__title">멤버십 혜택</h2></div>
+      <div class="mb-benefits">
+        <div class="mb-benefit">
+          <span class="mb-benefit__icon">💊</span>
+          <p class="mb-benefit__title">복약 알림 무제한</p>
+          <p class="mb-benefit__desc">약 복용 시간 놓치지 않기</p>
+        </div>
+        <div class="mb-benefit">
+          <span class="mb-benefit__icon">📋</span>
+          <p class="mb-benefit__title">검진 결과 관리</p>
+          <p class="mb-benefit__desc">결과 보관 및 추이 확인</p>
+        </div>
+        <div class="mb-benefit">
+          <span class="mb-benefit__icon">💗</span>
+          <p class="mb-benefit__title">AI 건강 브리핑</p>
+          <p class="mb-benefit__desc">맞춤 건강 인사이트 제공</p>
+        </div>
+        <div class="mb-benefit">
+          <span class="mb-benefit__icon">📊</span>
+          <p class="mb-benefit__title">상세 통계 분석</p>
+          <p class="mb-benefit__desc">건강 데이터 심층 분석</p>
+        </div>
+        <div class="mb-benefit">
+          <span class="mb-benefit__icon">👨‍👩‍👧</span>
+          <p class="mb-benefit__title">가족 공유 확대</p>
+          <p class="mb-benefit__desc">최대 10명까지 초대</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 플랜 선택 -->
+    <div class="section">
+      <div class="section__head"><h2 class="section__title">멤버십 플랜 선택</h2></div>
+      <button type="button" class="plan-row is-selected">
+        <span class="plan-row__radio"></span>
+        <span class="flex-1">
+          <span class="plan-row__name">1개월 플랜</span>
+          <span class="plan-row__cycle">매월 자동 결제</span>
+        </span>
+        <span class="plan-row__price"><span class="plan-row__now">5,900원</span>/월</span>
+      </button>
+      <button type="button" class="plan-row">
+        <span class="plan-row__radio"></span>
+        <span class="flex-1">
+          <span class="plan-row__name">6개월 플랜 <span class="off">10% 할인</span></span>
+          <span class="plan-row__cycle">6개월마다 자동 결제</span>
+        </span>
+        <span class="plan-row__price">
+          <span class="plan-row__was">35,400원</span><span class="plan-row__now pink">31,900원</span>
+          <span class="plan-row__month">(월 5,317원)</span>
+        </span>
+      </button>
+      <button type="button" class="plan-row">
+        <span class="plan-row__radio"></span>
+        <span class="flex-1">
+          <span class="plan-row__name">12개월 플랜 <span class="off">20% 할인</span></span>
+          <span class="plan-row__cycle">12개월마다 자동 결제</span>
+        </span>
+        <span class="plan-row__price">
+          <span class="plan-row__was">70,800원</span><span class="plan-row__now pink">56,900원</span>
+          <span class="plan-row__month">(월 4,742원)</span>
+        </span>
+      </button>
+    </div>
+
+    <!-- 안심 안내 -->
+    <div class="card sub-safe mt-16">
+      <span class="sub-safe__icon" aria-hidden="true">🛡️</span>
+      <div class="flex-1">
+        <p class="sub-safe__title">안심하고 이용하세요</p>
+        <p class="sub-safe__desc">구독은 언제든지 취소할 수 있으며, 취소 후에도 남은 기간 동안 서비스가 유지됩니다.</p>
+      </div>
+      <a href="#" class="sub-safe__link">구독 정책 보기 &rsaquo;</a>
+    </div>
+
+    <!-- 결제 정보 -->
+    <div class="section">
+      <div class="section__head"><h2 class="section__title">결제 정보</h2></div>
+      <div class="card" style="padding:4px 20px;">
+        <a href="30_payment.html" class="pay-row">
+          <span class="pay-row__icon"><span class="material-symbols-rounded">credit_card</span></span>
+          <span class="flex-1">
+            <span class="pay-row__title">카카오페이</span><br>
+            <span class="pay-row__sub">kakaopay@example.com</span>
+          </span>
+          <span class="material-symbols-rounded" style="color:var(--text-disabled);">chevron_right</span>
+        </a>
+        <a href="31_coupon.html" class="pay-row">
+          <span class="pay-row__icon"><span class="material-symbols-rounded">percent</span></span>
+          <span class="pay-row__title">쿠폰 사용</span>
+          <span class="pay-row__coupon">사용 가능한 쿠폰이 있어요 &rsaquo;</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- 결제 금액 -->
+    <div class="section">
+      <div class="section__head"><h2 class="section__title">결제 금액</h2></div>
+      <div class="card pay-total">
+        <div class="pay-total__row">
+          <span class="pay-total__label">선택한 플랜</span>
+          <span class="pay-total__value">1개월 플랜</span>
+        </div>
+        <div class="pay-total__row">
+          <span class="pay-total__label">결제 금액</span>
+          <span class="pay-total__value big">5,900원 <small>부가세 포함</small></span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="bottom-cta">
+    <button type="button" class="btn sub-cta">5,900원으로 구독 시작하기</button>
+    <p class="sub-safe-note"><span class="material-symbols-rounded">lock</span> 결제는 안전하게 처리되며, 구독 정보는 암호화되어 보호됩니다.</p>
+  </div>
+
+</div>
+<script src="../assets/js/illustrations.js"></script>
+<script src="../assets/js/common.js"></script>
+<script>
+  document.querySelectorAll('.plan-row').forEach(function (row) {
+    row.addEventListener('click', function () {
+      document.querySelectorAll('.plan-row').forEach(function (r) { r.classList.remove('is-selected'); });
+      row.classList.add('is-selected');
+    });
+  });
+</script>
+</body>
+</html>

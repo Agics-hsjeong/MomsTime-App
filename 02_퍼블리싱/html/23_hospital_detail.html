@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mom's Time — 23 Hospital Detail</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..700,0..1,-50..200">
+<link rel="stylesheet" href="../assets/css/common.css">
+<style>
+  /* 병원 상세 : 퍼플 톤 */
+  .hos-hero { display: flex; gap: 16px; padding: 8px 20px 0; }
+  .hos-hero__photo {
+    width: 132px; height: 132px; border-radius: 16px;
+    background: linear-gradient(160deg, #DCE7F5, #B9CCE4);
+    display: flex; align-items: center; justify-content: center; font-size: 52px;
+    flex-shrink: 0;
+  }
+  .hos-hero__name { display: flex; align-items: center; gap: 6px; font-size: 21px; font-weight: 800; }
+  .hos-hero__name .material-symbols-rounded { color: #7C5CD6; font-size: 20px; }
+  .hos-hero__type { margin-top: 4px; font-size: 13px; color: var(--text-secondary); }
+  .hos-hero__rate { display: flex; align-items: center; gap: 6px; margin-top: 8px; font-size: 14px; font-weight: 700; }
+  .hos-hero__rate .star { color: var(--warning); }
+  .hos-hero__rate a { color: #7C5CD6; text-decoration: underline; font-weight: 600; font-size: 13px; }
+  .hos-hero__addr { display: flex; align-items: center; gap: 4px; margin-top: 8px; font-size: 13px; color: var(--text-secondary); }
+  .hos-hero__addr .material-symbols-rounded { font-size: 16px; }
+  .map-btn {
+    display: inline-flex; align-items: center; gap: 4px;
+    height: 40px; padding: 0 16px; margin-top: 8px;
+    border: 1px solid #7C5CD6; border-radius: 999px;
+    color: #7C5CD6; font-size: 13px; font-weight: 700; background: var(--surface);
+  }
+
+  /* 퀵 액션 5종 */
+  .hos-actions { display: grid; grid-template-columns: repeat(5, 1fr); }
+  .hos-action { display: flex; flex-direction: column; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; padding: 4px 0; }
+  .hos-action__icon {
+    width: 52px; height: 52px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; font-size: 23px;
+  }
+
+  /* 진료 정보 */
+  .clinic-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 16px; }
+  .clinic-item { display: flex; gap: 12px; }
+  .clinic-item__icon {
+    width: 42px; height: 42px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; font-size: 19px; flex-shrink: 0;
+  }
+  .clinic-item__title { font-size: 14px; font-weight: 800; color: #6D4FD0; }
+  .clinic-item__desc { margin-top: 4px; font-size: 12.5px; color: var(--text-secondary); line-height: 1.6; }
+  .clinic-item__desc .closed { color: var(--error); font-weight: 700; }
+
+  /* 주요 진료과 */
+  .dept-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
+  .dept-card {
+    background: var(--surface); border: 1px solid var(--divider); border-radius: 14px;
+    padding: 14px 4px; text-align: center;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    font-size: 11.5px; font-weight: 600;
+  }
+  .dept-card__icon {
+    width: 40px; height: 40px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; font-size: 19px;
+  }
+
+  /* 리뷰 */
+  .review-scroll { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px; }
+  .review-scroll::-webkit-scrollbar { display: none; }
+  .review-card {
+    min-width: 240px; flex-shrink: 0;
+    background: #F8F7FB; border-radius: 16px; padding: 16px;
+  }
+  .review-card__stars { color: var(--warning); font-size: 14px; font-weight: 700; }
+  .review-card__stars .off { color: #D9D9DE; }
+  .review-card__text { margin-top: 10px; font-size: 13px; line-height: 1.6; }
+  .review-card__meta { margin-top: 12px; font-size: 11px; color: var(--text-secondary); }
+  .review-dots { display: flex; justify-content: center; gap: 6px; margin-top: 12px; }
+  .review-dots span { width: 6px; height: 6px; border-radius: 50%; background: #DDD6F0; }
+  .review-dots .is-active { background: #7C5CD6; }
+
+  /* 보험 */
+  .ins-grid { display: grid; grid-template-columns: repeat(5, 1fr); }
+  .ins-item { display: flex; flex-direction: column; align-items: center; gap: 8px; font-size: 11.5px; font-weight: 600; }
+  .ins-item__icon {
+    width: 48px; height: 48px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; font-size: 21px;
+  }
+
+  /* 안내 */
+  .hos-notice { display: flex; align-items: center; gap: 14px; background: #F4F0FE; box-shadow: none; }
+  .hos-notice__icon {
+    width: 46px; height: 46px; border-radius: 50%; background: var(--surface);
+    display: flex; align-items: center; justify-content: center; font-size: 21px; flex-shrink: 0;
+  }
+  .hos-notice__title { font-size: 13.5px; font-weight: 800; }
+  .hos-notice__sub { margin-top: 2px; font-size: 12px; color: var(--text-secondary); }
+
+  .hos-cta { display: flex; gap: 10px; }
+  .hos-cta .fav {
+    flex: 0.8;
+    border: 1px solid var(--primary); color: var(--primary-strong); background: var(--surface);
+  }
+  .hos-cta .book {
+    flex: 1.2;
+    background: linear-gradient(135deg, #9B7EF5, #7C5CD6); color: #fff;
+    box-shadow: 0 6px 16px rgba(124, 92, 214, .3);
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header class="appbar">
+    <button type="button" class="appbar__btn" data-back aria-label="뒤로가기">
+      <span class="material-symbols-rounded">arrow_back_ios_new</span>
+    </button>
+    <h1 class="appbar__title">병원 상세</h1>
+    <div class="flex">
+      <button type="button" class="appbar__btn" aria-label="공유"><span class="material-symbols-rounded">share</span></button>
+      <button type="button" class="appbar__btn" aria-label="즐겨찾기" style="color:var(--primary-strong);"><span class="material-symbols-rounded">favorite</span></button>
+    </div>
+  </header>
+
+  <!-- 병원 기본 정보 -->
+  <div class="hos-hero">
+    <div class="hos-hero__photo" aria-hidden="true">🏥</div>
+    <div class="flex-1">
+      <p class="hos-hero__name">삼성서울병원 <span class="material-symbols-rounded ico-fill">verified</span></p>
+      <p class="hos-hero__type">종합병원&nbsp;&nbsp;|&nbsp;&nbsp;상급종합병원</p>
+      <p class="hos-hero__rate"><span class="star">⭐</span> 4.7 <a href="#">(1,235)</a></p>
+      <p class="hos-hero__addr"><span class="material-symbols-rounded">location_on</span> 서울특별시 강남구 일원로 81 <span class="material-symbols-rounded" style="font-size:14px;">chevron_right</span></p>
+      <p class="hos-hero__addr"><span class="material-symbols-rounded">call</span> 02-3410-2114</p>
+    </div>
+    <button type="button" class="map-btn" style="align-self:center;"><span class="material-symbols-rounded" style="font-size:16px;">location_on</span> 지도</button>
+  </div>
+
+  <div class="content">
+
+    <!-- 퀵 액션 -->
+    <div class="card">
+      <div class="hos-actions">
+        <button type="button" class="hos-action"><span class="hos-action__icon" style="background:#E8F5EC;">📞</span>진화하기</button>
+        <button type="button" class="hos-action"><span class="hos-action__icon" style="background:#EFE9FC;">📋</span>진료 예약</button>
+        <button type="button" class="hos-action"><span class="hos-action__icon" style="background:#E7F0FB;">🧭</span>길찾기</button>
+        <button type="button" class="hos-action"><span class="hos-action__icon" style="background:#E4F5F2;">🏠</span>홈페이지</button>
+        <button type="button" class="hos-action"><span class="hos-action__icon" style="background:#F4F4F5;">🔗</span>공유하기</button>
+      </div>
+    </div>
+
+    <!-- 진료 정보 -->
+    <div class="card mt-16">
+      <h2 class="section__title mb-16" style="font-size:17px;">진료 정보</h2>
+      <div class="clinic-grid">
+        <div class="clinic-item">
+          <span class="clinic-item__icon" style="background:#E7F0FB;">🕗</span>
+          <div>
+            <p class="clinic-item__title">진료 시간</p>
+            <p class="clinic-item__desc">평일 08:00 ~ 17:00<br>토요일 08:00 ~ 12:30<br><span class="closed">일요일/공휴일 휴진</span></p>
+          </div>
+        </div>
+        <div class="clinic-item">
+          <span class="clinic-item__icon" style="background:#EFE9FC;">🩺</span>
+          <div class="flex-1">
+            <p class="clinic-item__title">진료 과목</p>
+            <p class="clinic-item__desc">총 43개 진료과</p>
+          </div>
+          <span class="material-symbols-rounded" style="color:var(--text-disabled);font-size:18px;">chevron_right</span>
+        </div>
+        <div class="clinic-item">
+          <span class="clinic-item__icon" style="background:#E7F0FB;">🅿️</span>
+          <div>
+            <p class="clinic-item__title">주차 안내</p>
+            <p class="clinic-item__desc">외래 진료 시 4시간 무료<br>이후 10분당 1,000원</p>
+          </div>
+        </div>
+        <div class="clinic-item">
+          <span class="clinic-item__icon" style="background:#E4F5F2;">🚌</span>
+          <div class="flex-1">
+            <p class="clinic-item__title">대중교통</p>
+            <p class="clinic-item__desc">· 지하철 3호선 대청역 2번 출구<br>· 버스 3412, 3414, 4319 등</p>
+          </div>
+          <span class="material-symbols-rounded" style="color:var(--text-disabled);font-size:18px;">chevron_right</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 주요 진료과 -->
+    <div class="section">
+      <div class="section__head">
+        <h2 class="section__title">주요 진료과</h2>
+        <a href="#" class="section__more" style="color:#7C5CD6;font-weight:700;">전체 보기 <span class="material-symbols-rounded">chevron_right</span></a>
+      </div>
+      <div class="dept-grid">
+        <div class="dept-card"><span class="dept-card__icon" style="background:#FDEFF3;">💗</span>내과</div>
+        <div class="dept-card"><span class="dept-card__icon" style="background:#E7F0FB;">🦴</span>정형외과</div>
+        <div class="dept-card"><span class="dept-card__icon" style="background:#E8F5EC;">👶</span>소아청소년과</div>
+        <div class="dept-card"><span class="dept-card__icon" style="background:#FDEFF3;">🤰</span>산부인과</div>
+        <div class="dept-card"><span class="dept-card__icon" style="background:#EFE9FC;">🧠</span>신경과</div>
+        <div class="dept-card"><span class="dept-card__icon" style="background:#FDF3E4;">🧴</span>피부과</div>
+      </div>
+    </div>
+
+    <!-- 이용자 리뷰 -->
+    <div class="section">
+      <div class="section__head">
+        <h2 class="section__title">이용자 리뷰</h2>
+        <a href="#" class="section__more" style="color:#7C5CD6;font-weight:700;">전체 보기 <span class="material-symbols-rounded">chevron_right</span></a>
+      </div>
+      <div class="review-scroll">
+        <div class="review-card">
+          <p class="review-card__stars">★★★★★ 5.0</p>
+          <p class="review-card__text">의료진이 친절하고 시설이 깨끗해요.<br>대기시간도 생각보다 길지 않았습니다.</p>
+          <p class="review-card__meta">2024.05.28&nbsp;&nbsp;|&nbsp;&nbsp;내과 진료</p>
+        </div>
+        <div class="review-card">
+          <p class="review-card__stars">★★★<span class="off">★</span><span class="off">★</span> 4.0</p>
+          <p class="review-card__text">진료는 만족스러웠어요<br>주차가 조금 불편했어요.</p>
+          <p class="review-card__meta">2024.05.20&nbsp;&nbsp;|&nbsp;&nbsp;정형외과 진료</p>
+        </div>
+      </div>
+      <div class="review-dots" aria-hidden="true"><span class="is-active"></span><span></span><span></span><span></span></div>
+    </div>
+
+    <!-- 진료 가능 보험 -->
+    <div class="section">
+      <div class="section__head"><h2 class="section__title">진료 가능 보험</h2></div>
+      <div class="card">
+        <div class="ins-grid">
+          <div class="ins-item"><span class="ins-item__icon" style="background:#FDEFF3;">🫶</span>국민건강보험</div>
+          <div class="ins-item"><span class="ins-item__icon" style="background:#E7F0FB;">📑</span>실손보험</div>
+          <div class="ins-item"><span class="ins-item__icon" style="background:#E8F5EC;">👷</span>산재보험</div>
+          <div class="ins-item"><span class="ins-item__icon" style="background:#E4F5F2;">🚗</span>자동차보험</div>
+          <div class="ins-item"><span class="ins-item__icon" style="background:#FDF3E4;">🌸</span>보훈</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 병원 안내 -->
+    <div class="section">
+      <div class="section__head"><h2 class="section__title">병원 안내</h2></div>
+      <div class="card hos-notice">
+        <span class="hos-notice__icon" aria-hidden="true">📢</span>
+        <div class="flex-1">
+          <p class="hos-notice__title">병원 방문 시 신분증과 건강보험증을 지참해주세요.</p>
+          <p class="hos-notice__sub">예약 변경 및 취소는 진료 예약 메뉴에서 가능합니다.</p>
+        </div>
+        <span class="material-symbols-rounded" style="color:var(--text-disabled);">chevron_right</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="bottom-cta">
+    <div class="hos-cta">
+      <button type="button" class="btn fav"><span class="material-symbols-rounded" style="font-size:19px;">star</span> 즐겨찾기</button>
+      <button type="button" class="btn book"><span class="material-symbols-rounded" style="font-size:19px;">edit_calendar</span> 진료 예약</button>
+    </div>
+  </div>
+
+</div>
+<script src="../assets/js/common.js"></script>
+</body>
+</html>

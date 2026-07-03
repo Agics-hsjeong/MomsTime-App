@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mom's Time — 24 Supplement Detail</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..700,0..1,-50..200">
+<link rel="stylesheet" href="../assets/css/common.css">
+<style>
+  /* 영양제 상세 : 퍼플 톤 */
+  .sup-hero { display: flex; gap: 16px; padding: 8px 20px 0; }
+  .sup-hero__photo {
+    width: 150px; height: 220px; border-radius: 16px;
+    background: linear-gradient(170deg, #F4F1EC, #E8E2D8);
+    display: flex; align-items: center; justify-content: center; font-size: 64px;
+    flex-shrink: 0;
+  }
+  .sup-hero__tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .sup-hero__tags .chip { background: #EFE9FC; color: #7C5CD6; height: 26px; font-size: 11px; }
+  .sup-hero__tags .chip--line { background: transparent; border: 1px solid #C9BCF2; }
+  .sup-hero__name { margin-top: 10px; font-size: 21px; font-weight: 800; }
+  .sup-hero__sub { margin-top: 4px; font-size: 13px; color: var(--text-secondary); }
+  .sup-hero__rate { display: flex; align-items: center; gap: 6px; margin-top: 10px; font-size: 13.5px; font-weight: 700; }
+  .sup-hero__rate .star { color: var(--warning); }
+  .sup-hero__rate a { color: #7C5CD6; text-decoration: underline; font-weight: 600; }
+  .sup-hero__rate .buy { color: var(--text-secondary); font-weight: 400; margin-left: 4px; }
+  .sup-effects { display: flex; gap: 18px; margin-top: 14px; }
+  .sup-effect { text-align: center; font-size: 11.5px; color: var(--text-secondary); }
+  .sup-effect__icon {
+    width: 46px; height: 46px; margin: 0 auto 6px; border-radius: 50%; background: #EFE9FC;
+    display: flex; align-items: center; justify-content: center; font-size: 21px;
+  }
+  .sup-effect b { display: block; color: var(--text-primary); font-size: 12px; }
+  .sup-hero__maker { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--divider); font-size: 11.5px; color: var(--text-secondary); }
+
+  /* 퀵 액션 */
+  .sup-actions { display: grid; grid-template-columns: repeat(5, 1fr); }
+  .sup-action { display: flex; flex-direction: column; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; padding: 4px 0; }
+  .sup-action__icon {
+    width: 50px; height: 50px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; font-size: 22px;
+  }
+  .tabs--purple .tabs__btn.is-active { color: #7C5CD6; border-bottom-color: #7C5CD6; }
+
+  /* 상품 소개 */
+  .sup-intro__text { font-size: 13.5px; line-height: 1.75; color: var(--text-secondary); }
+  .sup-intro__text b { color: var(--text-primary); }
+
+  /* 주요 효능 */
+  .eff3 { display: grid; grid-template-columns: repeat(3, 1fr); }
+  .eff3__item { text-align: center; padding: 8px 6px; font-size: 12px; line-height: 1.5; }
+  .eff3__item + .eff3__item { border-left: 1px solid var(--divider); }
+  .eff3__icon {
+    width: 52px; height: 52px; margin: 0 auto 10px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; font-size: 24px;
+  }
+
+  /* 권장 대상 */
+  .target { display: flex; gap: 16px; align-items: center; }
+  .target ul { flex: 1; }
+  .target ul li { display: flex; gap: 8px; font-size: 13px; line-height: 2; }
+  .target ul .material-symbols-rounded { font-size: 18px; color: #7C5CD6; margin-top: 6px; }
+  .target__illust {
+    width: 130px; height: 120px; border-radius: 16px; background: #F4F0FE;
+    display: flex; align-items: center; justify-content: center; font-size: 52px;
+    flex-shrink: 0;
+  }
+
+  /* AI 추천 */
+  .sup-ai { display: flex; align-items: center; gap: 14px; background: #F4F0FE; box-shadow: none; }
+  .sup-ai__robot { font-size: 48px; flex-shrink: 0; }
+  .sup-ai__title { font-size: 15px; font-weight: 800; color: #6D4FD0; }
+  .sup-ai__desc { margin-top: 4px; font-size: 12.5px; color: var(--text-secondary); line-height: 1.6; }
+  .sup-ai__btn {
+    display: inline-flex; align-items: center; gap: 2px;
+    height: 44px; padding: 0 14px; flex-shrink: 0;
+    border: 1px solid #7C5CD6; border-radius: 12px;
+    color: #7C5CD6; font-size: 13px; font-weight: 700; background: var(--surface);
+  }
+
+  /* 하단 구매 영역 */
+  .buy-bar { display: flex; gap: 12px; align-items: stretch; }
+  .buy-price {
+    flex: 1; background: var(--surface); border: 1px solid var(--divider);
+    border-radius: 16px; padding: 10px 16px;
+  }
+  .buy-price__row { display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--text-secondary); }
+  .buy-price__was { text-decoration: line-through; }
+  .buy-price__now { font-size: 20px; font-weight: 800; color: var(--primary-strong); }
+  .buy-price__off { font-size: 12px; font-weight: 700; color: var(--primary-strong); }
+  .buy-btns { flex: 1.1; display: flex; flex-direction: column; gap: 8px; }
+  .buy-btns .cart {
+    height: 48px; border-radius: 14px;
+    background: linear-gradient(135deg, #9B7EF5, #7C5CD6); color: #fff;
+    font-size: 15px; font-weight: 800;
+    box-shadow: 0 6px 14px rgba(124,92,214,.3);
+  }
+  .buy-btns .now {
+    height: 48px; border-radius: 14px;
+    border: 1.5px solid #7C5CD6; color: #7C5CD6; background: var(--surface);
+    font-size: 15px; font-weight: 800;
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header class="appbar">
+    <button type="button" class="appbar__btn" data-back aria-label="뒤로가기">
+      <span class="material-symbols-rounded">arrow_back_ios_new</span>
+    </button>
+    <h1 class="appbar__title">영양제 상세</h1>
+    <div class="flex">
+      <button type="button" class="appbar__btn" aria-label="공유"><span class="material-symbols-rounded">share</span></button>
+      <button type="button" class="appbar__btn" aria-label="찜" style="color:var(--primary-strong);"><span class="material-symbols-rounded">favorite</span></button>
+    </div>
+  </header>
+
+  <!-- 제품 기본 정보 -->
+  <div class="sup-hero">
+    <div class="sup-hero__photo" aria-hidden="true">🧴</div>
+    <div class="flex-1">
+      <div class="sup-hero__tags">
+        <span class="chip chip--line" style="color:#7C5CD6;">인기</span>
+        <span class="chip">혈행·혈중 중성지질 개선</span>
+      </div>
+      <h2 class="sup-hero__name">닥터웰 오메가3 rTG 1200</h2>
+      <p class="sup-hero__sub">EPA 및 DHA 함유 유지</p>
+      <p class="sup-hero__rate"><span class="star">⭐</span> 4.8 <a href="#">(124)</a> <span class="buy">|&nbsp;&nbsp;구매 12,345</span></p>
+      <div class="sup-effects">
+        <div class="sup-effect"><span class="sup-effect__icon">💧</span><b>혈행 개선</b>도움</div>
+        <div class="sup-effect"><span class="sup-effect__icon">💗</span><b>혈중 중성지질</b>개선 도움</div>
+        <div class="sup-effect"><span class="sup-effect__icon">👁️</span><b>눈 건강</b>도움</div>
+      </div>
+      <p class="sup-hero__maker">건강기능식품&nbsp;&nbsp;|&nbsp;&nbsp;제조사 닥터웰바이오&nbsp;&nbsp;|&nbsp;&nbsp;국내 제조</p>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- 퀵 액션 -->
+    <div class="card">
+      <div class="sup-actions">
+        <button type="button" class="sup-action"><span class="sup-action__icon" style="background:#E8F5EC;">🛡️</span>주요 효능</button>
+        <button type="button" class="sup-action"><span class="sup-action__icon" style="background:#E7F0FB;">💊</span>복용 방법</button>
+        <button type="button" class="sup-action"><span class="sup-action__icon" style="background:#EFE9FC;">🕒</span>복용 시간</button>
+        <button type="button" class="sup-action"><span class="sup-action__icon" style="background:#FDF3E4;">👥</span>권장 대상</button>
+        <button type="button" class="sup-action"><span class="sup-action__icon" style="background:#F4F4F5;">🔖</span>목록 추가</button>
+      </div>
+    </div>
+
+    <!-- 탭 -->
+    <div class="tabs tabs--purple mt-16">
+      <button type="button" class="tabs__btn is-active">상품 정보</button>
+      <button type="button" class="tabs__btn">성분 정보</button>
+      <button type="button" class="tabs__btn">복용 가이드</button>
+      <button type="button" class="tabs__btn">리뷰 (124)</button>
+    </div>
+
+    <!-- 상품 소개 -->
+    <div class="card mt-16">
+      <div class="flex-between mb-8">
+        <h2 class="section__title" style="font-size:16px;">상품 소개</h2>
+        <span class="material-symbols-rounded" style="color:var(--text-disabled);">expand_more</span>
+      </div>
+      <p class="sup-intro__text"><b>rTG 형태의 오메가3</b>로 체내 흡수율을 높인 프리미엄 제품입니다.<br>EPA 및 DHA 함유 유지로 혈행 개선, 혈중 중성지질 개선, 눈 건강에 도움을 줄 수 있습니다.</p>
+    </div>
+
+    <!-- 주요 효능 -->
+    <div class="card mt-16">
+      <div class="flex-between mb-16">
+        <h2 class="section__title" style="font-size:16px;">주요 효능</h2>
+        <span class="t-small" style="color:#7C5CD6;font-weight:700;">식약처 기능성 인정</span>
+      </div>
+      <div class="eff3">
+        <div class="eff3__item"><span class="eff3__icon" style="background:#FDEFF3;">🩸</span>혈행 개선에 도움</div>
+        <div class="eff3__item"><span class="eff3__icon" style="background:#FDF3E4;">💧</span>혈중 중성지질 개선에 도움</div>
+        <div class="eff3__item"><span class="eff3__icon" style="background:#E8F5EC;">👁️</span>건조한 눈을 개선하여 눈 건강에 도움</div>
+      </div>
+    </div>
+
+    <!-- 권장 대상 -->
+    <div class="card mt-16">
+      <h2 class="section__title mb-12" style="font-size:16px;">권장 대상</h2>
+      <div class="target">
+        <ul>
+          <li><span class="material-symbols-rounded">check_circle</span>혈행 개선이 필요하신 분</li>
+          <li><span class="material-symbols-rounded">check_circle</span>혈중 중성지질 수치가 걱정되시는 분</li>
+          <li><span class="material-symbols-rounded">check_circle</span>눈의 건조함을 자주 느끼시는 분</li>
+          <li><span class="material-symbols-rounded">check_circle</span>불규칙한 식습관으로 영양 보충이 필요하신 분</li>
+        </ul>
+        <div class="target__illust" aria-hidden="true">👨‍👩‍👧</div>
+      </div>
+    </div>
+
+    <!-- AI 건강 추천 -->
+    <div class="card sup-ai mt-16">
+      <span class="sup-ai__robot" aria-hidden="true"><i data-illust="robot" style="width:48px;height:50px;"></i></span>
+      <div class="flex-1">
+        <p class="sup-ai__title">AI 건강 추천</p>
+        <p class="sup-ai__desc">최근 검진 결과를 기반으로 오메가3 제품이 현재 건강 상태에 도움을 줄 수 있어요!</p>
+      </div>
+      <button type="button" class="sup-ai__btn">맞춤 추천 더보기 <span class="material-symbols-rounded" style="font-size:15px;">chevron_right</span></button>
+    </div>
+
+  </div>
+
+  <!-- 하단 구매 영역 -->
+  <div class="bottom-cta">
+    <div class="buy-bar">
+      <div class="buy-price">
+        <p class="buy-price__row">정상가 <span class="buy-price__was">32,000원</span></p>
+        <p class="buy-price__row" style="margin-top:4px;">할인가 <span class="buy-price__now">25,600원</span> <span class="buy-price__off">(20%)</span></p>
+      </div>
+      <div class="buy-btns">
+        <button type="button" class="cart">장바구니 담기</button>
+        <button type="button" class="now">바로 구매하기</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+<script src="../assets/js/illustrations.js"></script>
+<script src="../assets/js/common.js"></script>
+</body>
+</html>

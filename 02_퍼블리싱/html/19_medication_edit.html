@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mom's Time — 19 Medication Edit</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..700,0..1,-50..200">
+<link rel="stylesheet" href="../assets/css/common.css">
+<style>
+  .edit-guide { padding: 0 20px; font-size: 13px; color: var(--text-secondary); }
+
+  /* 약 정보 */
+  .drug-form { display: flex; gap: 16px; }
+  .drug-form__photo { width: 132px; flex-shrink: 0; }
+  .drug-form__img {
+    height: 148px; border-radius: 16px; background: #FBE3EA;
+    display: flex; align-items: center; justify-content: center; font-size: 54px;
+  }
+  .photo-change {
+    display: flex; align-items: center; justify-content: center; gap: 4px;
+    width: 100%; margin-top: 10px; height: 40px;
+    border: 1.5px solid var(--primary); border-radius: 999px;
+    color: var(--primary-strong); font-size: 12px; font-weight: 700; background: var(--surface);
+  }
+  .fgroup { margin-bottom: 12px; }
+  .fgroup__label { display: block; margin-bottom: 6px; font-size: 12.5px; font-weight: 600; }
+  .fgroup__label .req { color: var(--primary-strong); }
+  .fgroup .input { height: 48px; border-radius: 12px; }
+  .fgroup-row { display: flex; gap: 8px; }
+  .fgroup-row .fgroup { flex: 1; }
+  .drug-form__note { margin-top: 4px; font-size: 11.5px; color: var(--text-secondary); }
+
+  /* 복용 설정 3택 */
+  .mode-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .mode-card {
+    border: 1.5px solid var(--border); border-radius: 16px;
+    background: var(--surface); padding: 18px 8px; text-align: center;
+  }
+  .mode-card.is-active { border-color: var(--primary-strong); background: #FFF0F4; }
+  .mode-card__icon { font-size: 26px; color: var(--text-secondary); }
+  .mode-card.is-active .mode-card__icon { color: var(--primary-strong); }
+  .mode-card__name { margin-top: 8px; font-size: 13.5px; font-weight: 800; }
+  .mode-card.is-active .mode-card__name { color: var(--primary-strong); }
+  .mode-card__desc { margin-top: 6px; font-size: 11px; color: var(--text-secondary); line-height: 1.5; }
+
+  /* 복용 시간 */
+  .time-row { display: flex; align-items: center; gap: 10px; padding: 10px 0; }
+  .time-row + .time-row { border-top: 1px solid var(--divider); }
+  .time-row__slot { width: 82px; display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 600; flex-shrink: 0; }
+  .time-row input[type="checkbox"] { width: 22px; height: 22px; accent-color: var(--primary-strong); flex-shrink: 0; }
+  .time-row .input { flex: 1.4; height: 46px; border-radius: 12px; }
+  .time-row .input.is-off, .time-row .select-off { opacity: .45; }
+  .time-row .dose-select { flex: 1; height: 46px; border-radius: 12px; }
+  .time-note { display: flex; align-items: center; gap: 6px; margin-top: 10px; font-size: 12px; color: var(--text-secondary); }
+  .time-note .material-symbols-rounded { font-size: 15px; color: #3B82F6; }
+
+  /* 복용 기간 */
+  .period-row { display: flex; align-items: center; gap: 8px; }
+  .period-row .input { flex: 1; height: 48px; border-radius: 12px; }
+  .period-row .dash { color: var(--text-secondary); }
+  .period-total {
+    flex-shrink: 0; padding: 6px 12px; border-radius: 999px;
+    background: var(--primary-light); color: var(--primary-strong);
+    font-size: 12px; font-weight: 800;
+  }
+
+  /* 알림 설정 */
+  .alarm-head { display: flex; align-items: center; gap: 12px; }
+  .alarm-head__icon {
+    width: 46px; height: 46px; border-radius: 50%; background: var(--primary-light);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--primary-strong); flex-shrink: 0;
+  }
+  .alarm-head__title { font-size: 15px; font-weight: 800; }
+  .alarm-head__sub { margin-top: 2px; font-size: 12px; color: var(--text-secondary); }
+  .alarm-types { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 16px; }
+  .alarm-types label { display: flex; align-items: center; gap: 6px; font-size: 13px; }
+  .alarm-types input { width: 20px; height: 20px; accent-color: var(--primary-strong); }
+
+  .memo-count { text-align: right; font-size: 12px; color: var(--text-disabled); margin-top: 6px; }
+  .edit-cta { display: flex; gap: 10px; }
+  .edit-cta .btn--secondary { flex: 0.8; }
+  .edit-cta .btn--primary { flex: 1.2; }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header class="appbar">
+    <button type="button" class="appbar__btn" data-back aria-label="뒤로가기">
+      <span class="material-symbols-rounded">arrow_back_ios_new</span>
+    </button>
+    <h1 class="appbar__title">복약 수정</h1>
+    <button type="button" class="appbar__btn" aria-label="삭제" style="color:var(--primary-strong);">
+      <span class="material-symbols-rounded">delete</span>
+    </button>
+  </header>
+
+  <p class="edit-guide">약 정보와 복용 일정을 수정할 수 있습니다.</p>
+
+  <div class="content">
+
+    <!-- 약 정보 -->
+    <div class="card">
+      <h2 class="section__title mb-16" style="font-size:17px;">약 정보</h2>
+      <div class="drug-form">
+        <div class="drug-form__photo">
+          <div class="drug-form__img" aria-hidden="true">💊</div>
+          <button type="button" class="photo-change"><span class="material-symbols-rounded" style="font-size:15px;">photo_camera</span> 사진 변경</button>
+        </div>
+        <div class="flex-1">
+          <div class="fgroup">
+            <label class="fgroup__label">약품명 <span class="req">*</span></label>
+            <div class="input"><input type="text" value="아목시실린정 250mg"></div>
+          </div>
+          <div class="fgroup">
+            <label class="fgroup__label">약품 종류</label>
+            <div class="input"><select><option>항생제</option><option>진통제</option><option>영양제</option></select></div>
+          </div>
+          <div class="fgroup-row">
+            <div class="fgroup">
+              <label class="fgroup__label">제형 / 색상</label>
+              <div class="input"><select><option>정제</option><option>캡슐</option><option>시럽</option></select></div>
+            </div>
+            <div class="fgroup">
+              <label class="fgroup__label">&nbsp;</label>
+              <div class="input"><select><option>⚪ 흰색</option><option>🟡 노란색</option><option>🔴 분홍색</option></select></div>
+            </div>
+          </div>
+          <div class="fgroup-row">
+            <div class="fgroup">
+              <label class="fgroup__label">1회 복용량 <span class="req">*</span></label>
+              <div class="input"><select><option>1 정</option><option>2 정</option></select></div>
+            </div>
+            <div class="fgroup">
+              <label class="fgroup__label">함량</label>
+              <div class="input"><input type="text" value="250"><span class="suffix">mg</span></div>
+            </div>
+          </div>
+          <p class="drug-form__note">성분/함량: Amoxicillin 250mg (아목시실린 250mg)</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 복용 설정 -->
+    <div class="card mt-16">
+      <h2 class="section__title mb-16" style="font-size:17px;">복용 설정</h2>
+      <div class="mode-grid">
+        <button type="button" class="mode-card is-active">
+          <span class="material-symbols-rounded mode-card__icon">event_available</span>
+          <p class="mode-card__name">정해진 기간 복용</p>
+          <p class="mode-card__desc">시작일부터 종료일까지<br>지정하여 복용</p>
+        </button>
+        <button type="button" class="mode-card">
+          <span class="material-symbols-rounded mode-card__icon">sync</span>
+          <p class="mode-card__name">반복 복용</p>
+          <p class="mode-card__desc">매일 또는 요일을<br>선택하여 반복</p>
+        </button>
+        <button type="button" class="mode-card">
+          <span class="material-symbols-rounded mode-card__icon">event_note</span>
+          <p class="mode-card__name">필요 시 복용</p>
+          <p class="mode-card__desc">필요할 때만<br>복용하는 약</p>
+        </button>
+      </div>
+    </div>
+
+    <!-- 복용 시간 -->
+    <div class="card mt-16">
+      <h2 class="section__title mb-12" style="font-size:17px;">복용 시간</h2>
+      <div class="time-row">
+        <span class="time-row__slot">☀️ 아침</span>
+        <input type="checkbox" checked>
+        <div class="input"><input type="text" value="09:00"><span class="material-symbols-rounded suffix" style="font-size:18px;">schedule</span></div>
+        <div class="input dose-select"><select><option>1 정</option><option>2 정</option></select></div>
+      </div>
+      <div class="time-row">
+        <span class="time-row__slot">🌤️ 점심</span>
+        <input type="checkbox">
+        <div class="input is-off"><input type="text" placeholder="시간 선택" disabled><span class="material-symbols-rounded suffix" style="font-size:18px;">schedule</span></div>
+        <div class="input dose-select select-off"><select disabled><option>1 정</option></select></div>
+      </div>
+      <div class="time-row">
+        <span class="time-row__slot">🌇 저녁</span>
+        <input type="checkbox" checked>
+        <div class="input"><input type="text" value="19:00"><span class="material-symbols-rounded suffix" style="font-size:18px;">schedule</span></div>
+        <div class="input dose-select"><select><option>1 정</option><option>2 정</option></select></div>
+      </div>
+      <div class="time-row">
+        <span class="time-row__slot">🌙 취침 전</span>
+        <input type="checkbox">
+        <div class="input is-off"><input type="text" placeholder="시간 선택" disabled><span class="material-symbols-rounded suffix" style="font-size:18px;">schedule</span></div>
+        <div class="input dose-select select-off"><select disabled><option>1 정</option></select></div>
+      </div>
+      <p class="time-note"><span class="material-symbols-rounded">info</span> 복용 시간을 체크하면 알림이 설정됩니다.</p>
+    </div>
+
+    <!-- 복용 기간 -->
+    <div class="card mt-16">
+      <h2 class="section__title mb-12" style="font-size:17px;">복용 기간</h2>
+      <div class="period-row">
+        <div class="input"><span style="font-size:13px;color:var(--text-secondary);margin-right:6px;">시작일</span><span class="material-symbols-rounded" style="font-size:18px;">calendar_month</span><input type="text" value="2024.06.02 (일)"></div>
+        <span class="dash">–</span>
+        <div class="input"><span style="font-size:13px;color:var(--text-secondary);margin-right:6px;">종료일</span><span class="material-symbols-rounded" style="font-size:18px;">calendar_month</span><input type="text" value="2024.06.08 (토)"></div>
+        <span class="period-total">총 7일</span>
+      </div>
+    </div>
+
+    <!-- 알림 설정 -->
+    <div class="card mt-16">
+      <h2 class="section__title mb-12" style="font-size:17px;">알림 설정</h2>
+      <div class="alarm-head">
+        <span class="alarm-head__icon"><span class="material-symbols-rounded">notifications</span></span>
+        <div class="flex-1">
+          <p class="alarm-head__title">알림 사용</p>
+          <p class="alarm-head__sub">복용 시간에 알림을 받습니다.</p>
+        </div>
+        <label class="switch"><input type="checkbox" checked><span class="track"></span></label>
+      </div>
+      <div class="alarm-types">
+        <label><input type="checkbox" checked> 앱 알림</label>
+        <label><input type="checkbox" checked> 푸시 알림</label>
+        <label><input type="checkbox"> 이메일</label>
+        <label><input type="checkbox"> 문자 메시지</label>
+      </div>
+    </div>
+
+    <!-- 메모 -->
+    <div class="card mt-16">
+      <h2 class="section__title mb-12" style="font-size:17px;">메모 <span style="font-size:12px;font-weight:400;color:var(--text-secondary);">(선택사항)</span></h2>
+      <textarea class="textarea" placeholder="메모를 입력하세요 (예: 식후 복용, 물과 함께 복용 등)" maxlength="100"></textarea>
+      <p class="memo-count">0 / 100</p>
+    </div>
+
+  </div>
+
+  <div class="bottom-cta">
+    <div class="edit-cta">
+      <button type="button" class="btn btn--secondary" data-back>취소</button>
+      <button type="button" class="btn btn--primary">저장</button>
+    </div>
+  </div>
+
+</div>
+<script src="../assets/js/common.js"></script>
+<script>
+  // 복용 설정 카드 단일 선택
+  document.querySelectorAll('.mode-card').forEach(function (card) {
+    card.addEventListener('click', function () {
+      document.querySelectorAll('.mode-card').forEach(function (c) { c.classList.remove('is-active'); });
+      card.classList.add('is-active');
+    });
+  });
+</script>
+</body>
+</html>

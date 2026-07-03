@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "momstime-pub",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "4567", "--directory", "/Volumes/hwisun/project/flutter/MomsTime-App/02_퍼블리싱"],
+      "port": 4567
+    }
+  ]
+}

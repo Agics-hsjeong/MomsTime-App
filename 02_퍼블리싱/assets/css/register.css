@@ -1,0 +1,140 @@
+/* ============================================================
+   Mom's Time — 약 등록 4단계 위저드 공용 스타일
+   ============================================================ */
+
+/* 스텝 인디케이터 */
+.stepper { display: flex; align-items: flex-start; padding: 20px 24px 8px; }
+.stepper__item { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 56px; }
+.stepper__num {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: #F3DDE4; color: var(--text-secondary);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; font-weight: 700;
+  transition: background .2s ease, color .2s ease;
+}
+.stepper__num .material-symbols-rounded { font-size: 20px; }
+.stepper__item.is-done .stepper__num { background: var(--primary); color: #fff; }
+.stepper__item.is-active .stepper__num {
+  background: var(--primary-strong); color: #fff;
+  box-shadow: 0 4px 10px rgba(242,84,127,.3);
+}
+.stepper__label { font-size: 12px; color: var(--text-secondary); white-space: nowrap; }
+.stepper__item.is-active .stepper__label,
+.stepper__item.is-done .stepper__label { color: var(--primary-strong); font-weight: 700; }
+.stepper__line { flex: 1; height: 2px; background: #F3DDE4; margin-top: 17px; }
+.stepper__line.is-done { background: var(--primary); }
+
+/* OCR 카드 */
+.ocr-card { position: relative; }
+.ocr-card__title { display: flex; align-items: center; gap: 8px; font-size: 17px; font-weight: 800; }
+.ocr-card__title .chip { height: 24px; font-size: 11px; }
+.ocr-card__desc { margin-top: 8px; font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+.ocr-card__robot { position: absolute; top: 14px; right: 16px; }
+.ocr-drop {
+  margin-top: 16px;
+  border: 1.5px dashed var(--primary);
+  border-radius: 16px;
+  background: #FFF7F9;
+  padding: 26px 16px;
+  display: flex; align-items: center; justify-content: center; gap: 14px;
+  width: 100%;
+}
+.ocr-drop .material-symbols-rounded { font-size: 36px; color: var(--primary-strong); }
+.ocr-drop__main { font-size: 17px; font-weight: 800; color: var(--primary-strong); text-align: left; }
+.ocr-drop__sub { font-size: 13px; color: var(--text-secondary); font-weight: 400; }
+.ocr-hint { display: flex; align-items: center; gap: 6px; margin-top: 12px; font-size: 12px; color: var(--text-disabled); }
+.ocr-hint .material-symbols-rounded { font-size: 15px; }
+
+/* 폼 */
+.form-title { margin: 28px 0 12px; font-size: 18px; font-weight: 800; }
+.form-title:first-of-type { margin-top: 8px; }
+.form-card { padding: 6px 20px; }
+.form-row { display: flex; align-items: center; gap: 12px; padding: 14px 0; }
+.form-row + .form-row { border-top: 1px solid var(--divider); }
+.form-row__label { width: 88px; font-size: 14px; font-weight: 600; flex-shrink: 0; }
+.form-row__label .req { color: var(--primary-strong); }
+.form-row .input { flex: 1; height: 48px; border-radius: 12px; }
+.ocr-use-btn {
+  height: 40px; padding: 0 14px; border: 1px solid var(--primary);
+  border-radius: 999px; color: var(--primary-strong);
+  font-size: 13px; font-weight: 700; flex-shrink: 0;
+}
+.img-add {
+  width: 96px; height: 96px;
+  border: 1.5px dashed var(--border);
+  border-radius: 14px; background: var(--surface);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+  color: var(--text-disabled); font-size: 11px;
+}
+.img-add .material-symbols-rounded { font-size: 26px; }
+.img-add-desc { flex: 1; font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+
+/* 복용 방법 선택 */
+.opt-chips { display: flex; flex-wrap: wrap; gap: 8px; flex: 1; }
+.opt-chip {
+  height: 42px; padding: 0 14px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; font-size: 13px; font-weight: 600; color: var(--text-secondary);
+}
+.opt-chip.is-active {
+  border-color: var(--primary-strong); color: var(--primary-strong);
+  background: #FFF0F4; font-weight: 700;
+}
+/* 수량 스테퍼 */
+.qty { display: flex; align-items: center; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); overflow: hidden; }
+.qty button { width: 44px; height: 48px; font-size: 20px; color: var(--text-secondary); }
+.qty input { width: 52px; height: 48px; text-align: center; border: 0; outline: 0; font-size: 16px; font-weight: 700; background: transparent; }
+
+.memo-count { text-align: right; font-size: 12px; color: var(--text-disabled); margin-top: 6px; }
+
+/* ---------- Step 3 : 알림 설정 ---------- */
+.alarm-head { display: flex; align-items: center; gap: 12px; }
+.alarm-head__icon {
+  width: 46px; height: 46px; border-radius: 50%; background: var(--primary-light);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--primary-strong); flex-shrink: 0;
+}
+.alarm-head__title { font-size: 15px; font-weight: 800; }
+.alarm-head__sub { margin-top: 2px; font-size: 12px; color: var(--text-secondary); }
+
+.time-row { display: flex; align-items: center; gap: 10px; padding: 12px 0; }
+.time-row + .time-row { border-top: 1px solid var(--divider); }
+.time-row__slot { width: 88px; display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 600; flex-shrink: 0; }
+.time-row input[type="checkbox"] { width: 22px; height: 22px; accent-color: var(--primary-strong); flex-shrink: 0; }
+.time-row .input { flex: 1; height: 46px; border-radius: 12px; }
+.time-row .input.is-off { opacity: .45; }
+.time-note { display: flex; align-items: center; gap: 6px; margin-top: 10px; font-size: 12px; color: var(--text-secondary); }
+.time-note .material-symbols-rounded { font-size: 15px; color: #3B82F6; }
+
+.alarm-types { display: flex; flex-wrap: wrap; gap: 16px; }
+.alarm-types label { display: flex; align-items: center; gap: 6px; font-size: 13px; }
+.alarm-types input { width: 20px; height: 20px; accent-color: var(--primary-strong); }
+
+/* ---------- Step 4 : 확인 ---------- */
+.reg-hero { display: flex; align-items: center; gap: 16px; background: #FDEFF3; box-shadow: none; }
+.reg-hero__thumb {
+  width: 60px; height: 60px; border-radius: 16px; background: var(--primary-light);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--primary-strong); flex-shrink: 0;
+}
+.reg-hero__thumb .material-symbols-rounded { font-size: 30px; }
+.reg-hero__name { font-size: 18px; font-weight: 800; display: flex; align-items: center; gap: 8px; }
+.reg-hero__name .chip { height: 22px; font-size: 11px; }
+.reg-hero__sub { margin-top: 4px; font-size: 12.5px; color: var(--text-secondary); }
+
+.sum-card { padding: 4px 20px; }
+.sum-block__head { display: flex; align-items: center; justify-content: space-between; padding: 14px 0 8px; }
+.sum-block__head + .sum-rows { padding-bottom: 6px; }
+.sum-block__title { font-size: 14px; font-weight: 800; }
+.sum-edit { font-size: 13px; font-weight: 700; color: var(--primary-strong); display: inline-flex; align-items: center; gap: 2px; }
+.sum-edit .material-symbols-rounded { font-size: 15px; }
+.sum-row { display: flex; align-items: baseline; justify-content: space-between; padding: 7px 0; font-size: 14px; }
+.sum-row + .sum-row { border-top: 1px dashed var(--divider); }
+.sum-row .k { color: var(--text-secondary); }
+.sum-row .v { font-weight: 700; text-align: right; }
+.sum-block + .sum-block { border-top: 1px solid var(--divider); }
+
+/* 하단 이전/다음 */
+.reg-cta { display: flex; gap: 10px; }
+.reg-cta .btn--secondary { flex: 0.7; }
+.reg-cta .btn--primary { flex: 1.3; }

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mom's Time — 07 약 등록 3/4 알림 설정</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..700,0..1,-50..200">
+<link rel="stylesheet" href="../assets/css/common.css">
+<link rel="stylesheet" href="../assets/css/motion.css">
+<link rel="stylesheet" href="../assets/css/register.css">
+</head>
+<body>
+<div class="app">
+
+  <header class="appbar">
+    <button type="button" class="appbar__btn" data-back="07_register_2.html" aria-label="뒤로가기">
+      <span class="material-symbols-rounded">arrow_back_ios_new</span>
+    </button>
+    <h1 class="appbar__title">약 등록</h1>
+    <button type="button" class="appbar__action">임시저장</button>
+  </header>
+
+  <!-- 스텝 : 1·2완료 · 3활성 -->
+  <div class="stepper">
+    <div class="stepper__item is-done"><span class="stepper__num"><span class="material-symbols-rounded">check</span></span><span class="stepper__label">기본 정보</span></div>
+    <span class="stepper__line is-done"></span>
+    <div class="stepper__item is-done"><span class="stepper__num"><span class="material-symbols-rounded">check</span></span><span class="stepper__label">복용 정보</span></div>
+    <span class="stepper__line is-done"></span>
+    <div class="stepper__item is-active"><span class="stepper__num">3</span><span class="stepper__label">알림 설정</span></div>
+    <span class="stepper__line"></span>
+    <div class="stepper__item"><span class="stepper__num">4</span><span class="stepper__label">확인</span></div>
+  </div>
+
+  <div class="content">
+
+    <!-- 알림 받기 -->
+    <div class="card">
+      <div class="alarm-head">
+        <span class="alarm-head__icon"><span class="material-symbols-rounded">notifications</span></span>
+        <div class="flex-1">
+          <p class="alarm-head__title">복약 알림 받기</p>
+          <p class="alarm-head__sub">복용 시간에 맞춰 알려드릴게요.</p>
+        </div>
+        <label class="switch"><input type="checkbox" checked><span class="track"></span></label>
+      </div>
+    </div>
+
+    <!-- 복용 시간대 -->
+    <h2 class="form-title">복용 시간</h2>
+    <div class="card form-card">
+      <div class="time-row">
+        <span class="time-row__slot">☀️ 아침</span>
+        <input type="checkbox" checked>
+        <div class="input"><input type="text" value="09:00"><span class="material-symbols-rounded" style="font-size:18px;color:var(--text-disabled);">schedule</span></div>
+      </div>
+      <div class="time-row">
+        <span class="time-row__slot">🌤️ 점심</span>
+        <input type="checkbox">
+        <div class="input is-off"><input type="text" placeholder="시간 선택" disabled><span class="material-symbols-rounded" style="font-size:18px;color:var(--text-disabled);">schedule</span></div>
+      </div>
+      <div class="time-row">
+        <span class="time-row__slot">🌇 저녁</span>
+        <input type="checkbox" checked>
+        <div class="input"><input type="text" value="19:00"><span class="material-symbols-rounded" style="font-size:18px;color:var(--text-disabled);">schedule</span></div>
+      </div>
+      <div class="time-row">
+        <span class="time-row__slot">🌙 취침 전</span>
+        <input type="checkbox">
+        <div class="input is-off"><input type="text" placeholder="시간 선택" disabled><span class="material-symbols-rounded" style="font-size:18px;color:var(--text-disabled);">schedule</span></div>
+      </div>
+      <p class="time-note"><span class="material-symbols-rounded">info</span> 복용 시간을 체크하면 해당 시간에 알림이 울려요.</p>
+    </div>
+
+    <!-- 알림 옵션 -->
+    <h2 class="form-title">알림 옵션</h2>
+    <div class="card form-card">
+      <div class="form-row">
+        <span class="form-row__label">복용 전 알림</span>
+        <div class="input"><select><option>정시</option><option>10분 전</option><option>30분 전</option></select></div>
+      </div>
+      <div class="form-row">
+        <span class="form-row__label">재알림</span>
+        <div class="input"><select><option>안 함</option><option>10분 후</option><option>30분 후</option></select></div>
+      </div>
+      <div class="form-row">
+        <span class="form-row__label">알림 방식</span>
+        <div class="alarm-types">
+          <label><input type="checkbox" checked> 앱 알림</label>
+          <label><input type="checkbox" checked> 푸시 알림</label>
+          <label><input type="checkbox"> 이메일</label>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="bottom-cta">
+    <div class="reg-cta">
+      <a href="07_register_2.html" class="btn btn--secondary">이전</a>
+      <a href="07_register_4.html" class="btn btn--primary">다음 <span class="material-symbols-rounded">chevron_right</span></a>
+    </div>
+  </div>
+
+</div>
+<script src="../assets/js/common.js"></script>
+<script>
+  // 시간대 체크 시 시간 입력 활성/비활성
+  document.querySelectorAll('.time-row').forEach(function (row) {
+    var chk = row.querySelector('input[type="checkbox"]');
+    var box = row.querySelector('.input');
+    var field = box.querySelector('input');
+    chk.addEventListener('change', function () {
+      box.classList.toggle('is-off', !chk.checked);
+      field.disabled = !chk.checked;
+      if (chk.checked && !field.value) field.value = '09:00';
+    });
+  });
+</script>
+<script src="../assets/js/motion.js"></script>
+</body>
+</html>

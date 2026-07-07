@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..700,0..1,-50..200">
 <link rel="stylesheet" href="../assets/css/common.css">
+<link rel="stylesheet" href="../assets/css/motion.css">
 <style>
   /* 프로필 카드 */
   .profile-card { display: flex; gap: 16px; background: #FDEFF3; box-shadow: none; }
@@ -92,7 +93,7 @@
     <h1 class="appbar__title">마이페이지</h1>
     <div class="flex">
       <button type="button" class="appbar__btn" aria-label="설정"><span class="material-symbols-rounded">settings</span></button>
-      <button type="button" class="appbar__btn" aria-label="알림"><span class="material-symbols-rounded">notifications</span></button>
+      <a href="26_notification.html" class="appbar__btn" aria-label="알림"><span class="material-symbols-rounded">notifications</span></a>
     </div>
   </header>
 
@@ -116,7 +117,7 @@
             <span><span class="p-badge__label">임신 17주 3일</span><br><span class="p-badge__value">D-159일</span></span>
           </div>
           <div class="p-badge">
-            <span class="p-badge__icon">📅</span>
+            <span class="p-badge__icon"><span class="material-symbols-rounded" style="color:var(--primary-strong)">calendar_month</span></span>
             <span><span class="p-badge__label">출산 예정일</span><br><span class="p-badge__value">2025.01.08</span></span>
           </div>
         </div>
@@ -126,7 +127,7 @@
     <!-- 프리미엄 / 포인트 -->
     <div class="my-duo">
       <a href="29_subscription.html" class="my-duo__card">
-        <span class="my-duo__icon">💗</span>
+        <span class="my-duo__icon"><span class="material-symbols-rounded" style="color:var(--primary-strong)">favorite</span></span>
         <span class="flex-1">
           <span class="my-duo__title">맘케어 프리미엄 <span class="chip">사용 중</span></span>
           <span class="my-duo__sub">다음 결제일 2024.07.02</span>
@@ -150,12 +151,12 @@
         <button type="button" class="section__more">편집</button>
       </div>
       <div class="shortcut-grid">
-        <a href="06_medication.html" class="shortcut"><span class="emoji">💊</span>복약 관리</a>
-        <a href="08_calendar.html" class="shortcut"><span class="emoji">📅</span>캘린더</a>
+        <a href="06_medication.html" class="shortcut"><span class="emoji"><span class="material-symbols-rounded" style="color:var(--primary-strong)">medication</span></span>복약 관리</a>
+        <a href="08_calendar.html" class="shortcut"><span class="emoji"><span class="material-symbols-rounded" style="color:var(--primary-strong)">calendar_month</span></span>캘린더</a>
         <a href="09_ai_care.html" class="shortcut"><span class="emoji">🤖</span>AI 케어</a>
         <a href="10_health.html" class="shortcut"><span class="emoji">💙</span>건강 기록</a>
-        <a href="11_checkup.html" class="shortcut"><span class="emoji">🧪</span>검사/검진</a>
-        <a href="12_family.html" class="shortcut"><span class="emoji">👨‍👩‍👧</span>가족 관리</a>
+        <a href="11_checkup.html" class="shortcut"><span class="emoji"><span class="material-symbols-rounded" style="color:var(--primary-strong)">science</span></span>검사/검진</a>
+        <a href="12_family.html" class="shortcut"><span class="emoji"><span class="material-symbols-rounded" style="color:var(--primary-strong)">groups</span></span>가족 관리</a>
       </div>
     </div>
 
@@ -168,8 +169,8 @@
           <span class="label">내 정보<br><small style="font-weight:400;color:var(--text-secondary);">개인 정보를 확인하고 수정할 수 있어요.</small></span>
           <span class="material-symbols-rounded arrow">chevron_right</span>
         </a>
-        <a href="#" class="menu-list__item">
-          <span class="lead">🛡️</span>
+        <a href="33_account_security.html" class="menu-list__item">
+          <span class="lead"><span class="material-symbols-rounded" style="color:#7C5CD6">verified_user</span></span>
           <span class="label">계정 및 보안<br><small style="font-weight:400;color:var(--text-secondary);">비밀번호 변경, 생체인증, 로그인 관리</small></span>
           <span class="material-symbols-rounded arrow">chevron_right</span>
         </a>
@@ -178,17 +179,17 @@
           <span class="label">알림 설정<br><small style="font-weight:400;color:var(--text-secondary);">앱 알림 및 푸시 알림 설정</small></span>
           <span class="material-symbols-rounded arrow">chevron_right</span>
         </a>
-        <a href="#" class="menu-list__item">
+        <a href="34_language_region.html" class="menu-list__item">
           <span class="lead">🌐</span>
           <span class="label">언어 및 지역<br><small style="font-weight:400;color:var(--text-secondary);">언어, 날짜/시간 형식 설정</small></span>
           <span class="material-symbols-rounded arrow">chevron_right</span>
         </a>
-        <a href="#" class="menu-list__item">
+        <a href="35_help.html" class="menu-list__item">
           <span class="lead">💬</span>
           <span class="label">도움말 및 문의<br><small style="font-weight:400;color:var(--text-secondary);">자주 묻는 질문, 1:1 문의</small></span>
           <span class="material-symbols-rounded arrow">chevron_right</span>
         </a>
-        <a href="#" class="menu-list__item">
+        <a href="36_app_info.html" class="menu-list__item">
           <span class="lead">ℹ️</span>
           <span class="label">앱 정보<br><small style="font-weight:400;color:var(--text-secondary);">버전, 이용약관, 개인정보처리방침</small></span>
           <span class="material-symbols-rounded arrow">chevron_right</span>
@@ -205,25 +206,25 @@
       <div class="card">
         <div class="week-summary">
           <div class="week-summary__item">
-            <span class="week-summary__icon" style="background:#FDEFF3;">💗</span>
+            <span class="week-summary__icon" style="background:#FDEFF3;"><span class="material-symbols-rounded" style="color:var(--primary-strong)">favorite</span></span>
             <p class="week-summary__label">복약 실천율</p>
             <p class="week-summary__value">92<small>%</small></p>
             <p class="week-summary__goal">7/7회</p>
           </div>
           <div class="week-summary__item">
-            <span class="week-summary__icon" style="background:#E9EFFC;">💧</span>
+            <span class="week-summary__icon" style="background:#E9EFFC;"><span class="material-symbols-rounded" style="color:#3B82F6">water_drop</span></span>
             <p class="week-summary__label">수분 섭취</p>
             <p class="week-summary__value">1,300<small>ml</small></p>
             <p class="week-summary__goal">목표 1,500ml</p>
           </div>
           <div class="week-summary__item">
-            <span class="week-summary__icon" style="background:var(--ai-purple-light);">🌙</span>
+            <span class="week-summary__icon" style="background:var(--ai-purple-light);"><span class="material-symbols-rounded" style="color:#3B82F6">bedtime</span></span>
             <p class="week-summary__label">평균 수면</p>
             <p class="week-summary__value">7시간 30분</p>
             <p class="week-summary__goal">목표 7~8시간</p>
           </div>
           <div class="week-summary__item">
-            <span class="week-summary__icon" style="background:#E4F5F2;">👟</span>
+            <span class="week-summary__icon" style="background:#E4F5F2;"><span class="material-symbols-rounded" style="color:#14B8A6">directions_walk</span></span>
             <p class="week-summary__label">걸음 수</p>
             <p class="week-summary__value">6,253<small>걸음</small></p>
             <p class="week-summary__goal">목표 8,000걸음</p>
@@ -255,5 +256,6 @@
 </div>
 <script src="../assets/js/illustrations.js"></script>
 <script src="../assets/js/common.js"></script>
+<script src="../assets/js/motion.js"></script>
 </body>
 </html>

@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..700,0..1,-50..200">
 <link rel="stylesheet" href="../assets/css/common.css">
+<link rel="stylesheet" href="../assets/css/motion.css">
 <style>
   .health-greet { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 8px 20px 0; }
   .health-greet__hello { font-size: 24px; font-weight: 800; }
@@ -128,6 +129,7 @@
   }
   .health-tip__title { font-size: 14px; font-weight: 800; }
   .health-tip__desc { margin-top: 2px; font-size: 12px; color: var(--text-secondary); }
+  [data-tab-panel][hidden] { display: none; }
 </style>
 </head>
 <body>
@@ -138,7 +140,7 @@
       <span class="material-symbols-rounded">arrow_back_ios_new</span>
     </button>
     <h1 class="appbar__title">건강 기록</h1>
-    <button type="button" class="appbar__btn" aria-label="알림"><span class="material-symbols-rounded">notifications</span></button>
+    <a href="26_notification.html" class="appbar__btn" aria-label="알림"><span class="material-symbols-rounded">notifications</span></a>
   </header>
 
   <div class="health-greet">
@@ -154,14 +156,17 @@
 
   <!-- 카테고리 탭 -->
   <div class="health-tabs">
-    <button type="button" class="health-tab is-active">❤️ 요약</button>
-    <button type="button" class="health-tab">🎯 활력 징후</button>
-    <button type="button" class="health-tab">⚖️ 체중</button>
-    <button type="button" class="health-tab">🧪 검사 결과</button>
-    <button type="button" class="health-tab">📋 기록 히스토리</button>
+    <button type="button" class="health-tab is-active" data-view="summary"><span class="material-symbols-rounded" style="color:var(--primary-strong)">favorite</span> 요약</button>
+    <button type="button" class="health-tab" data-view="vital"><span class="material-symbols-rounded" style="color:var(--primary-strong)">ads_click</span> 활력 징후</button>
+    <button type="button" class="health-tab" data-view="weight"><span class="material-symbols-rounded" style="color:#7C5CD6">monitor_weight</span> 체중</button>
+    <button type="button" class="health-tab" data-view="results"><span class="material-symbols-rounded" style="color:var(--primary-strong)">science</span> 검사 결과</button>
+    <button type="button" class="health-tab" data-view="history"><span class="material-symbols-rounded" style="color:#7C5CD6">assignment</span> 기록 히스토리</button>
   </div>
 
   <div class="content">
+
+    <!-- ===== 요약 패널 ===== -->
+    <div data-tab-panel="summary" data-no-reveal>
 
     <!-- 날짜 이동 -->
     <div class="date-nav">
@@ -178,35 +183,35 @@
       </div>
       <div class="vital-grid">
         <div class="vital-item vital-item--pink">
-          <span class="vital-item__icon">❤️</span>
+          <span class="vital-item__icon"><span class="material-symbols-rounded" style="color:var(--primary-strong)">favorite</span></span>
           <p class="vital-item__label">혈압</p>
           <p class="vital-item__value">110/70</p>
           <p class="vital-item__unit">mmHg</p>
           <span class="vital-item__badge">정상</span>
         </div>
         <div class="vital-item vital-item--orange">
-          <span class="vital-item__icon">🍒</span>
+          <span class="vital-item__icon"><span class="material-symbols-rounded" style="color:var(--warning)">water_drop</span></span>
           <p class="vital-item__label">혈당</p>
           <p class="vital-item__value">92</p>
           <p class="vital-item__unit">mg/dL</p>
           <span class="vital-item__badge">정상</span>
         </div>
         <div class="vital-item vital-item--purple">
-          <span class="vital-item__icon">⚖️</span>
+          <span class="vital-item__icon"><span class="material-symbols-rounded" style="color:#7C5CD6">monitor_weight</span></span>
           <p class="vital-item__label">체중</p>
           <p class="vital-item__value">56.2</p>
           <p class="vital-item__unit">kg</p>
           <span class="vital-item__badge">정상</span>
         </div>
         <div class="vital-item vital-item--teal">
-          <span class="vital-item__icon">🌡️</span>
+          <span class="vital-item__icon"><span class="material-symbols-rounded" style="color:#14B8A6">thermostat</span></span>
           <p class="vital-item__label">체온</p>
           <p class="vital-item__value">36.6</p>
           <p class="vital-item__unit">°C</p>
           <span class="vital-item__badge">정상</span>
         </div>
         <div class="vital-item vital-item--blue">
-          <span class="vital-item__icon">🌙</span>
+          <span class="vital-item__icon"><span class="material-symbols-rounded" style="color:#3B82F6">bedtime</span></span>
           <p class="vital-item__label">수면</p>
           <p class="vital-item__value">7시간 30분</p>
           <p class="vital-item__unit">좋음</p>
@@ -270,22 +275,22 @@
           <h3 style="font-size:15px;font-weight:800;">최근 건강 기록</h3>
           <a href="#" class="section__more">더보기 <span class="material-symbols-rounded">chevron_right</span></a>
         </div>
-        <div class="recent-item">
-          <span class="recent-item__icon">💉</span>
+        <div class="recent-item" data-href="23_hospital_detail.html" role="link" tabindex="0">
+          <span class="recent-item__icon"><span class="material-symbols-rounded" style="color:#7C5CD6">vaccines</span></span>
           <div>
             <p class="recent-item__title">독감 예방접종</p>
             <p class="recent-item__meta">2024.06.15 (토) 14:00<br>삼성산부인과</p>
           </div>
         </div>
-        <div class="recent-item">
-          <span class="recent-item__icon" style="background:#FDF0DC;">🧪</span>
+        <div class="recent-item" data-href="22_checkup_detail.html" role="link" tabindex="0">
+          <span class="recent-item__icon" style="background:#FDF0DC;"><span class="material-symbols-rounded" style="color:var(--primary-strong)">science</span></span>
           <div>
             <p class="recent-item__title">정기 혈액검사</p>
             <p class="recent-item__meta">2024.06.10 (월) 10:30<br>삼성산부인과</p>
           </div>
         </div>
-        <div class="recent-item">
-          <span class="recent-item__icon" style="background:#E4F5F2;">📄</span>
+        <div class="recent-item" data-href="22_checkup_detail.html" role="link" tabindex="0">
+          <span class="recent-item__icon" style="background:#E4F5F2;"><span class="material-symbols-rounded" style="color:#14B8A6">description</span></span>
           <div>
             <p class="recent-item__title">초음파 검사</p>
             <p class="recent-item__meta">2024.05.28 (화) 11:00<br>삼성산부인과</p>
@@ -295,22 +300,51 @@
       <div class="card" style="padding:16px;">
         <h3 style="font-size:15px;font-weight:800;" class="mb-12">빠른 기록</h3>
         <div class="quick-grid">
-          <button type="button" class="quick-cell quick-cell--pink"><span class="emoji">💗</span>활력 징후 기록</button>
-          <button type="button" class="quick-cell quick-cell--purple"><span class="emoji">⚖️</span>체중 기록</button>
-          <button type="button" class="quick-cell quick-cell--teal"><span class="emoji">💉</span>혈당 기록</button>
-          <button type="button" class="quick-cell quick-cell--blue"><span class="emoji">🌙</span>수면 기록</button>
+          <button type="button" class="quick-cell quick-cell--pink"><span class="emoji"><span class="material-symbols-rounded" style="color:var(--primary-strong)">favorite</span></span>활력 징후 기록</button>
+          <button type="button" class="quick-cell quick-cell--purple"><span class="emoji"><span class="material-symbols-rounded" style="color:#7C5CD6">monitor_weight</span></span>체중 기록</button>
+          <button type="button" class="quick-cell quick-cell--teal"><span class="emoji"><span class="material-symbols-rounded" style="color:#7C5CD6">vaccines</span></span>혈당 기록</button>
+          <button type="button" class="quick-cell quick-cell--blue"><span class="emoji"><span class="material-symbols-rounded" style="color:#3B82F6">bedtime</span></span>수면 기록</button>
         </div>
       </div>
     </div>
 
     <!-- 건강 팁 -->
     <div class="health-tip">
-      <span class="health-tip__icon">💡</span>
+      <span class="health-tip__icon"><span class="material-symbols-rounded" style="color:var(--warning)">lightbulb</span></span>
       <div class="flex-1">
         <p class="health-tip__title">건강 팁</p>
         <p class="health-tip__desc">철분이 풍부한 식품을 섭취하고, 하루 30분 가벼운 산책을 추천드려요.</p>
       </div>
       <span class="material-symbols-rounded" style="color:var(--primary-strong);">chevron_right</span>
+    </div>
+
+    </div><!-- /요약 패널 -->
+
+    <!-- ===== vital 패널 ===== -->
+    <div data-tab-panel="vital" data-no-reveal hidden>
+      <div class="card mt-16" style="padding:4px 20px;"><div style="display:flex;align-items:center;gap:10px;padding:14px 0;"><span style="flex:1;font-size:14px;font-weight:700;">혈압</span><span style="font-size:15px;font-weight:800;">110/70</span><span class="badge badge--done">정상</span><span style="width:70px;text-align:right;font-size:11px;color:var(--text-secondary);">&lt;120/80</span></div><div style="display:flex;align-items:center;gap:10px;padding:14px 0;border-top:1px solid var(--divider);"><span style="flex:1;font-size:14px;font-weight:700;">심박수</span><span style="font-size:15px;font-weight:800;">72 bpm</span><span class="badge badge--done">정상</span><span style="width:70px;text-align:right;font-size:11px;color:var(--text-secondary);">60~100</span></div><div style="display:flex;align-items:center;gap:10px;padding:14px 0;border-top:1px solid var(--divider);"><span style="flex:1;font-size:14px;font-weight:700;">체온</span><span style="font-size:15px;font-weight:800;">36.6°C</span><span class="badge badge--done">정상</span><span style="width:70px;text-align:right;font-size:11px;color:var(--text-secondary);">36~37.5</span></div><div style="display:flex;align-items:center;gap:10px;padding:14px 0;border-top:1px solid var(--divider);"><span style="flex:1;font-size:14px;font-weight:700;">호흡수</span><span style="font-size:15px;font-weight:800;">16 회</span><span class="badge badge--done">정상</span><span style="width:70px;text-align:right;font-size:11px;color:var(--text-secondary);">12~20</span></div><div style="display:flex;align-items:center;gap:10px;padding:14px 0;border-top:1px solid var(--divider);"><span style="flex:1;font-size:14px;font-weight:700;">산소포화도</span><span style="font-size:15px;font-weight:800;">98%</span><span class="badge badge--done">정상</span><span style="width:70px;text-align:right;font-size:11px;color:var(--text-secondary);">&gt;95</span></div></div>
+    </div>
+
+    <!-- ===== weight 패널 ===== -->
+    <div data-tab-panel="weight" data-no-reveal hidden>
+      <div class="card mt-16">
+        <div class="flex-between">
+          <div><p style="font-size:13px;color:var(--text-secondary);">현재 체중</p><p style="font-size:34px;font-weight:800;color:#7C5CD6;line-height:1;margin-top:4px;">56.2<small style="font-size:15px;">kg</small></p></div>
+          <span class="chip" style="background:var(--ai-purple-light);color:#7C5CD6;">임신 전 대비 ▲ 4.1kg</span>
+        </div>
+        <svg viewBox="0 0 300 110" width="100%" style="margin-top:12px;"><rect x="20" y="28" width="26" height="72" rx="6" fill="#7C5CD6" opacity=".5"/><rect x="58" y="16" width="26" height="84" rx="6" fill="#7C5CD6" opacity=".5"/><rect x="96" y="4" width="26" height="96" rx="6" fill="#7C5CD6" opacity=".5"/><rect x="134" y="-4" width="26" height="104" rx="6" fill="#7C5CD6" opacity=".5"/><rect x="172" y="-16" width="26" height="116" rx="6" fill="#7C5CD6" opacity=".5"/><rect x="210" y="-20" width="26" height="120" rx="6" fill="#7C5CD6" opacity=".5"/><rect x="248" y="-28" width="26" height="128" rx="6" fill="#7C5CD6" opacity="1"/><g font-size="10" fill="#9CA3AF"><text x="20" y="108">5/27</text><text x="250" y="108">6/02</text></g></svg>
+        <p class="warn-note" style="display:flex;align-items:center;gap:6px;margin-top:4px;font-size:12px;color:var(--text-secondary);"><span class="material-symbols-rounded" style="font-size:15px;color:#22A050;">check_circle</span> 임신 중기 권장 증가 범위(주 0.3~0.5kg) 안에서 잘 늘고 있어요.</p>
+      </div>
+    </div>
+
+    <!-- ===== results 패널 ===== -->
+    <div data-tab-panel="results" data-no-reveal hidden>
+      <div class="card mt-16" style="padding:4px 20px;"><div style="display:flex;align-items:center;gap:10px;padding:14px 0;"><span style="flex:1;font-size:14px;font-weight:700;">공복 혈당</span><span style="font-size:15px;font-weight:800;">92</span><span class="badge" style="background:#FEF3E2;color:var(--warning);">주의</span><span style="width:70px;text-align:right;font-size:11px;color:var(--text-secondary);">70~99</span></div><div style="display:flex;align-items:center;gap:10px;padding:14px 0;border-top:1px solid var(--divider);"><span style="flex:1;font-size:14px;font-weight:700;">혈색소</span><span style="font-size:15px;font-weight:800;">12.5</span><span class="badge badge--done">정상</span><span style="width:70px;text-align:right;font-size:11px;color:var(--text-secondary);">12~16</span></div><div style="display:flex;align-items:center;gap:10px;padding:14px 0;border-top:1px solid var(--divider);"><span style="flex:1;font-size:14px;font-weight:700;">총 콜레스테롤</span><span style="font-size:15px;font-weight:800;">205</span><span class="badge" style="background:#FEF3E2;color:var(--warning);">주의</span><span style="width:70px;text-align:right;font-size:11px;color:var(--text-secondary);">&lt;200</span></div><div style="display:flex;align-items:center;gap:10px;padding:14px 0;border-top:1px solid var(--divider);"><span style="flex:1;font-size:14px;font-weight:700;">단백뇨</span><span style="font-size:15px;font-weight:800;">음성</span><span class="badge badge--done">정상</span><span style="width:70px;text-align:right;font-size:11px;color:var(--text-secondary);">음성</span></div></div><a href="22_checkup_detail.html" class="chart-more" style="display:flex;align-items:center;justify-content:center;gap:4px;margin-top:12px;width:100%;font-size:14px;font-weight:700;color:var(--primary-strong);">검진 상세 전체 보기 <span class="material-symbols-rounded" style="font-size:18px;">chevron_right</span></a>
+    </div>
+
+    <!-- ===== history 패널 ===== -->
+    <div data-tab-panel="history" data-no-reveal hidden>
+      <div class="cal-list__group" style="margin-top:4px;"><div class="recent-item" style="padding:14px;background:var(--surface);border-radius:16px;box-shadow:var(--shadow-card);border:0;margin-bottom:10px;"><span class="recent-item__icon" style="background:var(--ai-purple-light);"><span class="material-symbols-rounded" style="color:#7C5CD6">monitor_weight</span></span><div style="flex:1;"><p class="recent-item__title">체중 기록</p><p class="recent-item__meta">06.02 (일)</p></div><span style="font-size:15px;font-weight:800;">56.2kg</span></div><div class="recent-item" style="padding:14px;background:var(--surface);border-radius:16px;box-shadow:var(--shadow-card);border:0;margin-bottom:10px;"><span class="recent-item__icon" style="background:#FDEFF3;"><span class="material-symbols-rounded" style="color:var(--primary-strong)">favorite</span></span><div style="flex:1;"><p class="recent-item__title">혈압 기록</p><p class="recent-item__meta">06.02 (일)</p></div><span style="font-size:15px;font-weight:800;">110/70</span></div><div class="recent-item" style="padding:14px;background:var(--surface);border-radius:16px;box-shadow:var(--shadow-card);border:0;margin-bottom:10px;"><span class="recent-item__icon" style="background:#E9EFFC;"><span class="material-symbols-rounded" style="color:#3B82F6">bedtime</span></span><div style="flex:1;"><p class="recent-item__title">수면 기록</p><p class="recent-item__meta">06.01 (토)</p></div><span style="font-size:15px;font-weight:800;">7h 30m</span></div><div class="recent-item" style="padding:14px;background:var(--surface);border-radius:16px;box-shadow:var(--shadow-card);border:0;margin-bottom:10px;"><span class="recent-item__icon" style="background:#FDF3E4;"><span class="material-symbols-rounded" style="color:var(--warning)">water_drop</span></span><div style="flex:1;"><p class="recent-item__title">혈당 기록</p><p class="recent-item__meta">05.30 (목)</p></div><span style="font-size:15px;font-weight:800;">92</span></div><div class="recent-item" style="padding:14px;background:var(--surface);border-radius:16px;box-shadow:var(--shadow-card);border:0;margin-bottom:10px;"><span class="recent-item__icon" style="background:#FDEFF3;"><span class="material-symbols-rounded" style="color:var(--primary-strong)">science</span></span><div style="flex:1;"><p class="recent-item__title">초음파 검사</p><p class="recent-item__meta">05.28 (화)</p></div><span style="font-size:15px;font-weight:800;">정상</span></div></div>
     </div>
 
   </div>
@@ -331,8 +365,11 @@
     tab.addEventListener('click', function () {
       document.querySelectorAll('.health-tab').forEach(function (t) { t.classList.remove('is-active'); });
       tab.classList.add('is-active');
+      var v = tab.getAttribute('data-view');
+      document.querySelectorAll('[data-tab-panel]').forEach(function (p) { p.hidden = p.getAttribute('data-tab-panel') !== v; });
     });
   });
 </script>
+<script src="../assets/js/motion.js"></script>
 </body>
 </html>

@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..700,0..1,-50..200">
 <link rel="stylesheet" href="../assets/css/common.css">
+<link rel="stylesheet" href="../assets/css/motion.css">
 <style>
   /* 영양제 상세 : 퍼플 톤 */
   .sup-hero { display: flex; gap: 16px; padding: 8px 20px 0; }
@@ -101,6 +102,37 @@
     border: 1.5px solid #7C5CD6; color: #7C5CD6; background: var(--surface);
     font-size: 15px; font-weight: 800;
   }
+
+  /* 탭 패널 */
+  [data-tab-panel][hidden] { display: none; }
+  /* 성분 정보 */
+  .ing-row { display: flex; align-items: center; gap: 12px; padding: 13px 0; }
+  .ing-row + .ing-row { border-top: 1px solid var(--divider); }
+  .ing-row__name { flex: 1; font-size: 14px; font-weight: 600; }
+  .ing-row__amt { font-size: 14px; font-weight: 800; }
+  .ing-row__pct { width: 66px; text-align: right; font-size: 12px; color: var(--text-secondary); }
+  /* 복용 가이드 */
+  .guide-item { display: flex; gap: 12px; padding: 15px 0; align-items: flex-start; }
+  .guide-item + .guide-item { border-top: 1px solid var(--divider); }
+  .guide-item__icon { width: 42px; height: 42px; border-radius: 12px; background: #EFE9FC; color: #7C5CD6; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .guide-item__title { font-size: 14px; font-weight: 700; }
+  .guide-item__desc { margin-top: 3px; font-size: 12.5px; color: var(--text-secondary); line-height: 1.6; }
+  /* 리뷰 */
+  .rating-hero { display: flex; align-items: center; gap: 18px; }
+  .rating-hero__score { font-size: 42px; font-weight: 800; color: #6D4FD0; line-height: 1; }
+  .rating-hero__stars { color: var(--warning); font-size: 15px; }
+  .rating-hero__count { margin-top: 4px; font-size: 12px; color: var(--text-secondary); }
+  .rating-bars { flex: 1; }
+  .rating-bar { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--text-secondary); }
+  .rating-bar__track { flex: 1; height: 6px; border-radius: 999px; background: #EFEFEF; overflow: hidden; }
+  .rating-bar__fill { height: 100%; background: #7C5CD6; border-radius: 999px; }
+  .rev-item { padding: 14px 0; }
+  .rev-item + .rev-item { border-top: 1px solid var(--divider); }
+  .rev-item__top { display: flex; align-items: center; gap: 8px; }
+  .rev-item__stars { color: var(--warning); font-size: 13px; }
+  .rev-item__stars .off { color: #E0E0E0; }
+  .rev-item__meta { margin-left: auto; font-size: 11px; color: var(--text-disabled); }
+  .rev-item__text { margin-top: 8px; font-size: 13px; line-height: 1.6; }
 </style>
 </head>
 <body>
@@ -119,7 +151,7 @@
 
   <!-- 제품 기본 정보 -->
   <div class="sup-hero">
-    <div class="sup-hero__photo" aria-hidden="true">🧴</div>
+    <div class="sup-hero__photo" aria-hidden="true"><span class="material-symbols-rounded" style="color:#7C5CD6">sanitizer</span></div>
     <div class="flex-1">
       <div class="sup-hero__tags">
         <span class="chip chip--line" style="color:#7C5CD6;">인기</span>
@@ -129,9 +161,9 @@
       <p class="sup-hero__sub">EPA 및 DHA 함유 유지</p>
       <p class="sup-hero__rate"><span class="star">⭐</span> 4.8 <a href="#">(124)</a> <span class="buy">|&nbsp;&nbsp;구매 12,345</span></p>
       <div class="sup-effects">
-        <div class="sup-effect"><span class="sup-effect__icon">💧</span><b>혈행 개선</b>도움</div>
-        <div class="sup-effect"><span class="sup-effect__icon">💗</span><b>혈중 중성지질</b>개선 도움</div>
-        <div class="sup-effect"><span class="sup-effect__icon">👁️</span><b>눈 건강</b>도움</div>
+        <div class="sup-effect"><span class="sup-effect__icon"><span class="material-symbols-rounded" style="color:#3B82F6">water_drop</span></span><b>혈행 개선</b>도움</div>
+        <div class="sup-effect"><span class="sup-effect__icon"><span class="material-symbols-rounded" style="color:var(--primary-strong)">favorite</span></span><b>혈중 중성지질</b>개선 도움</div>
+        <div class="sup-effect"><span class="sup-effect__icon"><span class="material-symbols-rounded" style="color:#22A050">visibility</span></span><b>눈 건강</b>도움</div>
       </div>
       <p class="sup-hero__maker">건강기능식품&nbsp;&nbsp;|&nbsp;&nbsp;제조사 닥터웰바이오&nbsp;&nbsp;|&nbsp;&nbsp;국내 제조</p>
     </div>
@@ -142,21 +174,24 @@
     <!-- 퀵 액션 -->
     <div class="card">
       <div class="sup-actions">
-        <button type="button" class="sup-action"><span class="sup-action__icon" style="background:#E8F5EC;">🛡️</span>주요 효능</button>
-        <button type="button" class="sup-action"><span class="sup-action__icon" style="background:#E7F0FB;">💊</span>복용 방법</button>
-        <button type="button" class="sup-action"><span class="sup-action__icon" style="background:#EFE9FC;">🕒</span>복용 시간</button>
-        <button type="button" class="sup-action"><span class="sup-action__icon" style="background:#FDF3E4;">👥</span>권장 대상</button>
+        <button type="button" class="sup-action"><span class="sup-action__icon" style="background:#E8F5EC;"><span class="material-symbols-rounded" style="color:#7C5CD6">verified_user</span></span>주요 효능</button>
+        <button type="button" class="sup-action"><span class="sup-action__icon" style="background:#E7F0FB;"><span class="material-symbols-rounded" style="color:var(--primary-strong)">medication</span></span>복용 방법</button>
+        <button type="button" class="sup-action"><span class="sup-action__icon" style="background:#EFE9FC;"><span class="material-symbols-rounded" style="color:#7C5CD6">schedule</span></span>복용 시간</button>
+        <button type="button" class="sup-action"><span class="sup-action__icon" style="background:#FDF3E4;"><span class="material-symbols-rounded" style="color:#7C5CD6">group</span></span>권장 대상</button>
         <button type="button" class="sup-action"><span class="sup-action__icon" style="background:#F4F4F5;">🔖</span>목록 추가</button>
       </div>
     </div>
 
     <!-- 탭 -->
     <div class="tabs tabs--purple mt-16">
-      <button type="button" class="tabs__btn is-active">상품 정보</button>
-      <button type="button" class="tabs__btn">성분 정보</button>
-      <button type="button" class="tabs__btn">복용 가이드</button>
-      <button type="button" class="tabs__btn">리뷰 (124)</button>
+      <button type="button" class="tabs__btn is-active" data-tab-target="product">상품 정보</button>
+      <button type="button" class="tabs__btn" data-tab-target="ingredient">성분 정보</button>
+      <button type="button" class="tabs__btn" data-tab-target="guide">복용 가이드</button>
+      <button type="button" class="tabs__btn" data-tab-target="review">리뷰 (124)</button>
     </div>
+
+    <!-- ===== 상품 정보 패널 ===== -->
+    <div data-tab-panel="product" data-no-reveal>
 
     <!-- 상품 소개 -->
     <div class="card mt-16">
@@ -174,9 +209,9 @@
         <span class="t-small" style="color:#7C5CD6;font-weight:700;">식약처 기능성 인정</span>
       </div>
       <div class="eff3">
-        <div class="eff3__item"><span class="eff3__icon" style="background:#FDEFF3;">🩸</span>혈행 개선에 도움</div>
-        <div class="eff3__item"><span class="eff3__icon" style="background:#FDF3E4;">💧</span>혈중 중성지질 개선에 도움</div>
-        <div class="eff3__item"><span class="eff3__icon" style="background:#E8F5EC;">👁️</span>건조한 눈을 개선하여 눈 건강에 도움</div>
+        <div class="eff3__item"><span class="eff3__icon" style="background:#FDEFF3;"><span class="material-symbols-rounded" style="color:var(--primary-strong)">bloodtype</span></span>혈행 개선에 도움</div>
+        <div class="eff3__item"><span class="eff3__icon" style="background:#FDF3E4;"><span class="material-symbols-rounded" style="color:#3B82F6">water_drop</span></span>혈중 중성지질 개선에 도움</div>
+        <div class="eff3__item"><span class="eff3__icon" style="background:#E8F5EC;"><span class="material-symbols-rounded" style="color:#22A050">visibility</span></span>건조한 눈을 개선하여 눈 건강에 도움</div>
       </div>
     </div>
 
@@ -190,7 +225,7 @@
           <li><span class="material-symbols-rounded">check_circle</span>눈의 건조함을 자주 느끼시는 분</li>
           <li><span class="material-symbols-rounded">check_circle</span>불규칙한 식습관으로 영양 보충이 필요하신 분</li>
         </ul>
-        <div class="target__illust" aria-hidden="true">👨‍👩‍👧</div>
+        <div class="target__illust" aria-hidden="true"><span class="material-symbols-rounded" style="color:var(--primary-strong)">groups</span></div>
       </div>
     </div>
 
@@ -202,6 +237,81 @@
         <p class="sup-ai__desc">최근 검진 결과를 기반으로 오메가3 제품이 현재 건강 상태에 도움을 줄 수 있어요!</p>
       </div>
       <button type="button" class="sup-ai__btn">맞춤 추천 더보기 <span class="material-symbols-rounded" style="font-size:15px;">chevron_right</span></button>
+    </div>
+
+    </div><!-- /상품 정보 패널 -->
+
+    <!-- ===== 성분 정보 패널 ===== -->
+    <div data-tab-panel="ingredient" data-no-reveal hidden>
+      <div class="card mt-16" style="padding:6px 20px;">
+        <div class="flex-between" style="padding:10px 0 6px;">
+          <h2 class="section__title" style="font-size:16px;">1일 섭취량 (2캡슐) 당</h2>
+          <span class="chip" style="background:#EFE9FC;color:#7C5CD6;">%기준치</span>
+        </div>
+        <div class="ing-row"><span class="ing-row__name">EPA</span><span class="ing-row__amt">600mg</span><span class="ing-row__pct">—</span></div>
+        <div class="ing-row"><span class="ing-row__name">DHA</span><span class="ing-row__amt">400mg</span><span class="ing-row__pct">—</span></div>
+        <div class="ing-row"><span class="ing-row__name">오메가-3 (총합)</span><span class="ing-row__amt">1,200mg</span><span class="ing-row__pct">120%</span></div>
+        <div class="ing-row"><span class="ing-row__name">비타민 E</span><span class="ing-row__amt">11mg</span><span class="ing-row__pct">100%</span></div>
+      </div>
+      <div class="card mt-16">
+        <h2 class="section__title mb-8" style="font-size:16px;">원재료명</h2>
+        <p class="sup-intro__text" style="color:var(--text-secondary);">정제어유(rTG), 비타민E 혼합제제, 젤라틴, 글리세린, 정제수. 대두·어류(멸치) 함유.</p>
+      </div>
+      <p class="warn-note" style="display:flex;align-items:center;gap:6px;margin-top:12px;font-size:12px;color:var(--text-secondary);"><span class="material-symbols-rounded" style="font-size:15px;color:#7C5CD6;">info</span> 알레르기 체질이거나 임신·수유 중이라면 섭취 전 전문가와 상담하세요.</p>
+    </div>
+
+    <!-- ===== 복용 가이드 패널 ===== -->
+    <div data-tab-panel="guide" data-no-reveal hidden>
+      <div class="card mt-16" style="padding:4px 20px;">
+        <div class="guide-item">
+          <span class="guide-item__icon"><span class="material-symbols-rounded">pill</span></span>
+          <div><p class="guide-item__title">섭취량</p><p class="guide-item__desc">1일 1회, 1회 2캡슐을 충분한 물과 함께 섭취하세요.</p></div>
+        </div>
+        <div class="guide-item">
+          <span class="guide-item__icon"><span class="material-symbols-rounded">schedule</span></span>
+          <div><p class="guide-item__title">섭취 시간</p><p class="guide-item__desc">흡수율을 높이려면 식사 직후에 드시는 것이 좋아요.</p></div>
+        </div>
+        <div class="guide-item">
+          <span class="guide-item__icon"><span class="material-symbols-rounded">ac_unit</span></span>
+          <div><p class="guide-item__title">보관 방법</p><p class="guide-item__desc">직사광선을 피해 서늘한 곳에 보관하고, 개봉 후엔 냉장 보관하세요.</p></div>
+        </div>
+        <div class="guide-item">
+          <span class="guide-item__icon"><span class="material-symbols-rounded">warning</span></span>
+          <div><p class="guide-item__title">주의사항</p><p class="guide-item__desc">항응고제 복용 중이라면 의사와 상담하세요. 하루 권장량을 초과하지 마세요.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 리뷰 패널 ===== -->
+    <div data-tab-panel="review" data-no-reveal hidden>
+      <div class="card mt-16 rating-hero">
+        <div style="text-align:center;">
+          <p class="rating-hero__score">4.8</p>
+          <p class="rating-hero__stars">★★★★★</p>
+          <p class="rating-hero__count">124개 리뷰</p>
+        </div>
+        <div class="rating-bars">
+          <div class="rating-bar">5<span class="rating-bar__track"><span class="rating-bar__fill" style="width:82%"></span></span></div>
+          <div class="rating-bar">4<span class="rating-bar__track"><span class="rating-bar__fill" style="width:12%"></span></span></div>
+          <div class="rating-bar">3<span class="rating-bar__track"><span class="rating-bar__fill" style="width:4%"></span></span></div>
+          <div class="rating-bar">2<span class="rating-bar__track"><span class="rating-bar__fill" style="width:1%"></span></span></div>
+          <div class="rating-bar">1<span class="rating-bar__track"><span class="rating-bar__fill" style="width:1%"></span></span></div>
+        </div>
+      </div>
+      <div class="card mt-16" style="padding:4px 20px;">
+        <div class="rev-item">
+          <div class="rev-item__top"><span class="rev-item__stars">★★★★★</span><b style="font-size:13px;">이**</b><span class="rev-item__meta">2024.05.28</span></div>
+          <p class="rev-item__text">비린내가 거의 없어서 매일 챙겨 먹기 좋아요. 캡슐도 크지 않아 삼키기 편해요.</p>
+        </div>
+        <div class="rev-item">
+          <div class="rev-item__top"><span class="rev-item__stars">★★★★<span class="off">★</span></span><b style="font-size:13px;">김**</b><span class="rev-item__meta">2024.05.20</span></div>
+          <p class="rev-item__text">임신 중에 먹으려고 구매했는데 상담 후 잘 복용하고 있어요. 배송도 빨랐습니다.</p>
+        </div>
+        <div class="rev-item">
+          <div class="rev-item__top"><span class="rev-item__stars">★★★★★</span><b style="font-size:13px;">박**</b><span class="rev-item__meta">2024.05.11</span></div>
+          <p class="rev-item__text">가격 대비 함량이 좋아요. 재구매 의사 있습니다!</p>
+        </div>
+      </div>
     </div>
 
   </div>
@@ -223,5 +333,6 @@
 </div>
 <script src="../assets/js/illustrations.js"></script>
 <script src="../assets/js/common.js"></script>
+<script src="../assets/js/motion.js"></script>
 </body>
 </html>

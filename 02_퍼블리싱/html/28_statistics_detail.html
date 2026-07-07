@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..700,0..1,-50..200">
 <link rel="stylesheet" href="../assets/css/common.css">
+<link rel="stylesheet" href="../assets/css/motion.css">
 <style>
   /* 통계 상세 : 퍼플 톤 */
   .tabs--purple .tabs__btn.is-active { color: #6D4FD0; border-bottom-color: #6D4FD0; }
@@ -84,6 +85,7 @@
     color: #6D4FD0; font-size: 13px; font-weight: 700; background: var(--surface);
   }
   .stat-note { margin-top: 16px; font-size: 12px; color: var(--text-disabled); }
+  [data-tab-panel][hidden] { display: none; }
 </style>
 </head>
 <body>
@@ -99,21 +101,24 @@
 
   <!-- 카테고리 탭 -->
   <div class="tabs tabs--purple">
-    <button type="button" class="tabs__btn is-active">종합</button>
-    <button type="button" class="tabs__btn">복약</button>
-    <button type="button" class="tabs__btn">검진</button>
-    <button type="button" class="tabs__btn">활동</button>
-    <button type="button" class="tabs__btn">영양</button>
-    <button type="button" class="tabs__btn">수면</button>
+    <button type="button" class="tabs__btn is-active" data-tab-target="summary">종합</button>
+    <button type="button" class="tabs__btn" data-tab-target="med">복약</button>
+    <button type="button" class="tabs__btn" data-tab-target="checkup">검진</button>
+    <button type="button" class="tabs__btn" data-tab-target="activity">활동</button>
+    <button type="button" class="tabs__btn" data-tab-target="nutrition">영양</button>
+    <button type="button" class="tabs__btn" data-tab-target="sleep">수면</button>
   </div>
 
   <div class="stat-date">
     <button type="button" aria-label="이전 기간"><span class="material-symbols-rounded">chevron_left</span></button>
-    <span>📅 2024.05.13 ~ 2024.05.19 (최근 7일)</span>
+    <span><span class="material-symbols-rounded" style="color:var(--primary-strong)">calendar_month</span> 2024.05.13 ~ 2024.05.19 (최근 7일)</span>
     <button type="button" aria-label="다음 기간"><span class="material-symbols-rounded">chevron_right</span></button>
   </div>
 
   <div class="content">
+
+    <!-- ===== 종합 패널 ===== -->
+    <div data-tab-panel="summary" data-no-reveal>
 
     <!-- 종합 점수 -->
     <div class="card score-card">
@@ -138,31 +143,31 @@
       <div class="section__head"><h2 class="section__title">카테고리별 점수</h2></div>
       <div class="cat-grid">
         <div class="cat-card">
-          <span class="cat-card__icon" style="background:#EFE9FC;">💊</span>
+          <span class="cat-card__icon" style="background:#EFE9FC;"><span class="material-symbols-rounded" style="color:var(--primary-strong)">medication</span></span>
           <p class="cat-card__label">복약</p>
           <p class="cat-card__value">90<small>점</small></p>
           <p class="cat-card__diff diff-up">↑ 10</p>
         </div>
         <div class="cat-card">
-          <span class="cat-card__icon" style="background:#E7F0FB;">📋</span>
+          <span class="cat-card__icon" style="background:#E7F0FB;"><span class="material-symbols-rounded" style="color:#7C5CD6">assignment</span></span>
           <p class="cat-card__label">검진</p>
           <p class="cat-card__value">75<small>점</small></p>
           <p class="cat-card__diff diff-up">↑ 5</p>
         </div>
         <div class="cat-card">
-          <span class="cat-card__icon" style="background:#E8F5EC;">🏃</span>
+          <span class="cat-card__icon" style="background:#E8F5EC;"><span class="material-symbols-rounded" style="color:#22A050">directions_run</span></span>
           <p class="cat-card__label">활동</p>
           <p class="cat-card__value">80<small>점</small></p>
           <p class="cat-card__diff diff-up">↑ 8</p>
         </div>
         <div class="cat-card">
-          <span class="cat-card__icon" style="background:#FDF3E4;">🍽️</span>
+          <span class="cat-card__icon" style="background:#FDF3E4;"><span class="material-symbols-rounded" style="color:var(--warning)">restaurant</span></span>
           <p class="cat-card__label">영양</p>
           <p class="cat-card__value">70<small>점</small></p>
           <p class="cat-card__diff diff-down">↓ 5</p>
         </div>
         <div class="cat-card">
-          <span class="cat-card__icon" style="background:#EFE9FC;">🌙</span>
+          <span class="cat-card__icon" style="background:#EFE9FC;"><span class="material-symbols-rounded" style="color:#3B82F6">bedtime</span></span>
           <p class="cat-card__label">수면</p>
           <p class="cat-card__value">85<small>점</small></p>
           <p class="cat-card__diff diff-up">↑ 12</p>
@@ -220,7 +225,7 @@
       <div class="card" style="padding:4px 16px;">
         <div class="metric-grid">
           <div class="metric-item">
-            <span class="metric-item__icon" style="background:#E8F5EC;">✅</span>
+            <span class="metric-item__icon" style="background:#E8F5EC;"><span class="material-symbols-rounded" style="color:#22A050">check_circle</span></span>
             <div class="flex-1">
               <p class="metric-item__label">복약 순응률 ⓘ</p>
               <p class="metric-item__value">95<small>%</small></p>
@@ -228,7 +233,7 @@
             <span class="metric-item__diff diff-up">↑ 5%</span>
           </div>
           <div class="metric-item">
-            <span class="metric-item__icon" style="background:#E7F0FB;">📋</span>
+            <span class="metric-item__icon" style="background:#E7F0FB;"><span class="material-symbols-rounded" style="color:#7C5CD6">assignment</span></span>
             <div class="flex-1">
               <p class="metric-item__label">검진 완료율 ⓘ</p>
               <p class="metric-item__value">67<small>%</small></p>
@@ -236,7 +241,7 @@
             <span class="metric-item__diff diff-up">↑ 7%</span>
           </div>
           <div class="metric-item">
-            <span class="metric-item__icon" style="background:#E8F5EC;">🏃</span>
+            <span class="metric-item__icon" style="background:#E8F5EC;"><span class="material-symbols-rounded" style="color:#22A050">directions_run</span></span>
             <div class="flex-1">
               <p class="metric-item__label">주간 활동량 ⓘ</p>
               <p class="metric-item__value">7,235 <small>걸음</small></p>
@@ -244,7 +249,7 @@
             <span class="metric-item__diff diff-up">↑ 1,245</span>
           </div>
           <div class="metric-item">
-            <span class="metric-item__icon" style="background:#FDF3E4;">🔥</span>
+            <span class="metric-item__icon" style="background:#FDF3E4;"><span class="material-symbols-rounded" style="color:var(--warning)">local_fire_department</span></span>
             <div class="flex-1">
               <p class="metric-item__label">주간 칼로리 소모 ⓘ</p>
               <p class="metric-item__value">1,856 <small>kcal</small></p>
@@ -252,7 +257,7 @@
             <span class="metric-item__diff diff-up">↑ 210</span>
           </div>
           <div class="metric-item">
-            <span class="metric-item__icon" style="background:#FDF3E4;">🍽️</span>
+            <span class="metric-item__icon" style="background:#FDF3E4;"><span class="material-symbols-rounded" style="color:var(--warning)">restaurant</span></span>
             <div class="flex-1">
               <p class="metric-item__label">영양 균형 점수 ⓘ</p>
               <p class="metric-item__value">70<small>점</small></p>
@@ -260,7 +265,7 @@
             <span class="metric-item__diff diff-down">↓ 5</span>
           </div>
           <div class="metric-item">
-            <span class="metric-item__icon" style="background:#EFE9FC;">🌙</span>
+            <span class="metric-item__icon" style="background:#EFE9FC;"><span class="material-symbols-rounded" style="color:#3B82F6">bedtime</span></span>
             <div class="flex-1">
               <p class="metric-item__label">평균 수면 시간 ⓘ</p>
               <p class="metric-item__value">7시간 12분</p>
@@ -280,11 +285,134 @@
       <a href="13_report.html" class="stat-report__btn"><span class="material-symbols-rounded" style="font-size:17px;">description</span> 리포트 보기 <span class="material-symbols-rounded" style="font-size:15px;">chevron_right</span></a>
     </div>
 
+    </div><!-- /종합 패널 -->
+
+    <!-- ===== 복약 패널 ===== -->
+    <div data-tab-panel="med" data-no-reveal hidden>
+      <div class="card mt-16">
+        <div class="flex-between">
+          <div>
+            <p style="font-size:13px;color:var(--text-secondary);">복약 점수</p>
+            <p style="font-size:34px;font-weight:800;color:#6D4FD0;line-height:1;margin-top:4px;">90<small style="font-size:15px;font-weight:700;">점</small></p>
+          </div>
+          <span class="chip" style="background:#EFE9FC;color:var(--error);">지난주 대비 ▲ 10</span>
+        </div>
+        <svg viewBox="0 0 300 120" width="100%" style="margin-top:12px;"><rect x="20" y="24" width="26" height="76" rx="6" fill="#6D4FD0" opacity=".55"/><text x="33" y="114" font-size="10" fill="#9CA3AF" text-anchor="middle">월</text><rect x="59" y="19" width="26" height="81" rx="6" fill="#6D4FD0" opacity=".55"/><text x="72" y="114" font-size="10" fill="#9CA3AF" text-anchor="middle">화</text><rect x="98" y="28" width="26" height="72" rx="6" fill="#6D4FD0" opacity=".55"/><text x="111" y="114" font-size="10" fill="#9CA3AF" text-anchor="middle">수</text><rect x="137" y="14" width="26" height="86" rx="6" fill="#6D4FD0" opacity=".55"/><text x="150" y="114" font-size="10" fill="#9CA3AF" text-anchor="middle">목</text><rect x="176" y="21" width="26" height="79" rx="6" fill="#6D4FD0" opacity=".55"/><text x="189" y="114" font-size="10" fill="#9CA3AF" text-anchor="middle">금</text><rect x="215" y="17" width="26" height="83" rx="6" fill="#6D4FD0" opacity=".55"/><text x="228" y="114" font-size="10" fill="#9CA3AF" text-anchor="middle">토</text><rect x="254" y="19" width="26" height="81" rx="6" fill="#6D4FD0" opacity="1"/><text x="267" y="114" font-size="10" fill="#9CA3AF" text-anchor="middle">일</text></svg>
+      </div>
+      <div class="card mt-16" style="padding:4px 16px;">
+        <div class="metric-item" style="border-right:0;">
+          <span class="metric-item__icon" style="background:#EFE9FC;"><span class="material-symbols-rounded" style="color:#6D4FD0">check_circle</span></span>
+          <div class="flex-1"><p class="metric-item__label">복약 순응률</p><p class="metric-item__value">95%</p></div>
+        </div>
+        <div class="metric-item" style="border-right:0;border-bottom:0;">
+          <span class="metric-item__icon" style="background:#EFE9FC;"><span class="material-symbols-rounded" style="color:#6D4FD0">cancel</span></span>
+          <div class="flex-1"><p class="metric-item__label">놓친 복약</p><p class="metric-item__value">3회</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 검진 패널 ===== -->
+    <div data-tab-panel="checkup" data-no-reveal hidden>
+      <div class="card mt-16">
+        <div class="flex-between">
+          <div>
+            <p style="font-size:13px;color:var(--text-secondary);">검진 점수</p>
+            <p style="font-size:34px;font-weight:800;color:#6D4FD0;line-height:1;margin-top:4px;">75<small style="font-size:15px;font-weight:700;">점</small></p>
+          </div>
+          <span class="chip" style="background:#EFE9FC;color:var(--error);">지난주 대비 ▲ 5</span>
+        </div>
+        <svg viewBox="0 0 300 120" width="100%" style="margin-top:12px;"><rect x="20" y="46" width="26" height="54" rx="6" fill="#6D4FD0" opacity=".55"/><text x="33" y="114" font-size="10" fill="#9CA3AF" text-anchor="middle">월</text><rect x="59" y="46" width="26" height="54" rx="6" fill="#6D4FD0" opacity=".55"/><text x="72" y="114" font-size="10" fill="#9CA3AF" text-anchor="middle">화</text><rect x="98" y="42" width="26" height="58" rx="6" fill="#6D4FD0" opacity=".55"/><text x="111" y="114" font-size="10" fill="#9CA3AF" text-anchor="middle">수</text><rect x="137" y="37" width="26" height="63" rx="6" fill="#6D4FD0" opacity=".55"/><text x="150" y="114" font-size="10" fill="#9CA3AF" text-anchor="middle">목</text><rect x="176" y="37" width="26" height="63" rx="6" fill="#6D4FD0" opacity=".55"/><text x="189" y="114" font-size="10" fill="#9CA3AF" text-anchor="middle">금</text><rect x="215" y="35" width="26" height="65" rx="6" fill="#6D4FD0" opacity=".55"/><text x="228" y="114" font-size="10" fill="#9CA3AF" text-anchor="middle">토</text><rect x="254" y="32" width="26" height="68" rx="6" fill="#6D4FD0" opacity="1"/><text x="267" y="114" font-size="10" fill="#9CA3AF" text-anchor="middle">일</text></svg>
+      </div>
+      <div class="card mt-16" style="padding:4px 16px;">
+        <div class="metric-item" style="border-right:0;">
+          <span class="metric-item__icon" style="background:#EFE9FC;"><span class="material-symbols-rounded" style="color:#6D4FD0">assignment_turned_in</span></span>
+          <div class="flex-1"><p class="metric-item__label">검진 완료율</p><p class="metric-item__value">67%</p></div>
+        </div>
+        <div class="metric-item" style="border-right:0;border-bottom:0;">
+          <span class="metric-item__icon" style="background:#EFE9FC;"><span class="material-symbols-rounded" style="color:#6D4FD0">event_upcoming</span></span>
+          <div class="flex-1"><p class="metric-item__label">다음 검진</p><p class="metric-item__value">D-8</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 활동 패널 ===== -->
+    <div data-tab-panel="activity" data-no-reveal hidden>
+      <div class="card mt-16">
+        <div class="flex-between">
+          <div>
+            <p style="font-size:13px;color:var(--text-secondary);">활동 점수</p>
+            <p style="font-size:34px;font-weight:800;color:#6D4FD0;line-height:1;margin-top:4px;">80<small style="font-size:15px;font-weight:700;">점</small></p>
+          </div>
+          <span class="chip" style="background:#EFE9FC;color:var(--error);">지난주 대비 ▲ 8</span>
+        </div>
+        <svg viewBox="0 0 300 120" width="100%" style="margin-top:12px;"><rect x="20" y="37" width="26" height="63" rx="6" fill="#6D4FD0" opacity=".55"/><text x="33" y="114" font-size="10" fill="#9CA3AF" text-anchor="middle">월</text><rect x="59" y="32" width="26" height="68" rx="6" fill="#6D4FD0" opacity=".55"/><text x="72" y="114" font-size="10" fill="#9CA3AF" text-anchor="middle">화</text><rect x="98" y="35" width="26" height="65" rx="6" fill="#6D4FD0" opacity=".55"/><text x="111" y="114" font-size="10" fill="#9CA3AF" text-anchor="middle">수</text><rect x="137" y="28" width="26" height="72" rx="6" fill="#6D4FD0" opacity=".55"/><text x="150" y="114" font-size="10" fill="#9CA3AF" text-anchor="middle">목</text><rect x="176" y="30" width="26" height="70" rx="6" fill="#6D4FD0" opacity=".55"/><text x="189" y="114" font-size="10" fill="#9CA3AF" text-anchor="middle">금</text><rect x="215" y="24" width="26" height="76" rx="6" fill="#6D4FD0" opacity=".55"/><text x="228" y="114" font-size="10" fill="#9CA3AF" text-anchor="middle">토</text><rect x="254" y="28" width="26" height="72" rx="6" fill="#6D4FD0" opacity="1"/><text x="267" y="114" font-size="10" fill="#9CA3AF" text-anchor="middle">일</text></svg>
+      </div>
+      <div class="card mt-16" style="padding:4px 16px;">
+        <div class="metric-item" style="border-right:0;">
+          <span class="metric-item__icon" style="background:#EFE9FC;"><span class="material-symbols-rounded" style="color:#6D4FD0">directions_walk</span></span>
+          <div class="flex-1"><p class="metric-item__label">주간 걸음 수</p><p class="metric-item__value">7,235걸음</p></div>
+        </div>
+        <div class="metric-item" style="border-right:0;border-bottom:0;">
+          <span class="metric-item__icon" style="background:#EFE9FC;"><span class="material-symbols-rounded" style="color:#6D4FD0">local_fire_department</span></span>
+          <div class="flex-1"><p class="metric-item__label">칼로리 소모</p><p class="metric-item__value">1,856kcal</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 영양 패널 ===== -->
+    <div data-tab-panel="nutrition" data-no-reveal hidden>
+      <div class="card mt-16">
+        <div class="flex-between">
+          <div>
+            <p style="font-size:13px;color:var(--text-secondary);">영양 점수</p>
+            <p style="font-size:34px;font-weight:800;color:#6D4FD0;line-height:1;margin-top:4px;">70<small style="font-size:15px;font-weight:700;">점</small></p>
+          </div>
+          <span class="chip" style="background:#EFE9FC;color:#3B82F6;">지난주 대비 ▼ 5</span>
+        </div>
+        <svg viewBox="0 0 300 120" width="100%" style="margin-top:12px;"><rect x="20" y="30" width="26" height="70" rx="6" fill="#6D4FD0" opacity=".55"/><text x="33" y="114" font-size="10" fill="#9CA3AF" text-anchor="middle">월</text><rect x="59" y="32" width="26" height="68" rx="6" fill="#6D4FD0" opacity=".55"/><text x="72" y="114" font-size="10" fill="#9CA3AF" text-anchor="middle">화</text><rect x="98" y="35" width="26" height="65" rx="6" fill="#6D4FD0" opacity=".55"/><text x="111" y="114" font-size="10" fill="#9CA3AF" text-anchor="middle">수</text><rect x="137" y="37" width="26" height="63" rx="6" fill="#6D4FD0" opacity=".55"/><text x="150" y="114" font-size="10" fill="#9CA3AF" text-anchor="middle">목</text><rect x="176" y="39" width="26" height="61" rx="6" fill="#6D4FD0" opacity=".55"/><text x="189" y="114" font-size="10" fill="#9CA3AF" text-anchor="middle">금</text><rect x="215" y="35" width="26" height="65" rx="6" fill="#6D4FD0" opacity=".55"/><text x="228" y="114" font-size="10" fill="#9CA3AF" text-anchor="middle">토</text><rect x="254" y="37" width="26" height="63" rx="6" fill="#6D4FD0" opacity="1"/><text x="267" y="114" font-size="10" fill="#9CA3AF" text-anchor="middle">일</text></svg>
+      </div>
+      <div class="card mt-16" style="padding:4px 16px;">
+        <div class="metric-item" style="border-right:0;">
+          <span class="metric-item__icon" style="background:#EFE9FC;"><span class="material-symbols-rounded" style="color:#6D4FD0">restaurant</span></span>
+          <div class="flex-1"><p class="metric-item__label">영양 균형</p><p class="metric-item__value">70점</p></div>
+        </div>
+        <div class="metric-item" style="border-right:0;border-bottom:0;">
+          <span class="metric-item__icon" style="background:#EFE9FC;"><span class="material-symbols-rounded" style="color:#6D4FD0">water_drop</span></span>
+          <div class="flex-1"><p class="metric-item__label">수분 섭취</p><p class="metric-item__value">1.3L</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 수면 패널 ===== -->
+    <div data-tab-panel="sleep" data-no-reveal hidden>
+      <div class="card mt-16">
+        <div class="flex-between">
+          <div>
+            <p style="font-size:13px;color:var(--text-secondary);">수면 점수</p>
+            <p style="font-size:34px;font-weight:800;color:#6D4FD0;line-height:1;margin-top:4px;">85<small style="font-size:15px;font-weight:700;">점</small></p>
+          </div>
+          <span class="chip" style="background:#EFE9FC;color:var(--error);">지난주 대비 ▲ 12</span>
+        </div>
+        <svg viewBox="0 0 300 120" width="100%" style="margin-top:12px;"><rect x="20" y="35" width="26" height="65" rx="6" fill="#6D4FD0" opacity=".55"/><text x="33" y="114" font-size="10" fill="#9CA3AF" text-anchor="middle">월</text><rect x="59" y="30" width="26" height="70" rx="6" fill="#6D4FD0" opacity=".55"/><text x="72" y="114" font-size="10" fill="#9CA3AF" text-anchor="middle">화</text><rect x="98" y="33" width="26" height="67" rx="6" fill="#6D4FD0" opacity=".55"/><text x="111" y="114" font-size="10" fill="#9CA3AF" text-anchor="middle">수</text><rect x="137" y="28" width="26" height="72" rx="6" fill="#6D4FD0" opacity=".55"/><text x="150" y="114" font-size="10" fill="#9CA3AF" text-anchor="middle">목</text><rect x="176" y="26" width="26" height="74" rx="6" fill="#6D4FD0" opacity=".55"/><text x="189" y="114" font-size="10" fill="#9CA3AF" text-anchor="middle">금</text><rect x="215" y="21" width="26" height="79" rx="6" fill="#6D4FD0" opacity=".55"/><text x="228" y="114" font-size="10" fill="#9CA3AF" text-anchor="middle">토</text><rect x="254" y="24" width="26" height="76" rx="6" fill="#6D4FD0" opacity="1"/><text x="267" y="114" font-size="10" fill="#9CA3AF" text-anchor="middle">일</text></svg>
+      </div>
+      <div class="card mt-16" style="padding:4px 16px;">
+        <div class="metric-item" style="border-right:0;">
+          <span class="metric-item__icon" style="background:#EFE9FC;"><span class="material-symbols-rounded" style="color:#6D4FD0">bedtime</span></span>
+          <div class="flex-1"><p class="metric-item__label">평균 수면</p><p class="metric-item__value">7시간 12분</p></div>
+        </div>
+        <div class="metric-item" style="border-right:0;border-bottom:0;">
+          <span class="metric-item__icon" style="background:#EFE9FC;"><span class="material-symbols-rounded" style="color:#6D4FD0">nightlight</span></span>
+          <div class="flex-1"><p class="metric-item__label">깊은 잠 비율</p><p class="metric-item__value">22%</p></div>
+        </div>
+      </div>
+    </div>
+
     <p class="stat-note">※ 통계는 기록된 데이터 기준으로 산출되며, 실제 건강 상태와 다를 수 있습니다.</p>
 
   </div>
 
 </div>
 <script src="../assets/js/common.js"></script>
+<script src="../assets/js/motion.js"></script>
 </body>
 </html>

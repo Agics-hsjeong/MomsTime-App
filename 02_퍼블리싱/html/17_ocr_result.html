@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..700,0..1,-50..200">
 <link rel="stylesheet" href="../assets/css/common.css">
+<link rel="stylesheet" href="../assets/css/motion.css">
 <style>
   /* 인식 성공 배너 */
   .ocr-done { display: flex; align-items: center; gap: 16px; background: #FDEFF3; box-shadow: none; }
@@ -128,7 +129,7 @@
       <h2 class="section__title mb-16" style="font-size:16px;">인식된 정보</h2>
       <div class="rec-grid">
         <div class="rec-item">
-          <span class="rec-item__icon">📅</span>
+          <span class="rec-item__icon"><span class="material-symbols-rounded" style="color:var(--primary-strong)">calendar_month</span></span>
           <span><span class="rec-item__label">처방일</span><br><span class="rec-item__value">2024.06.02</span></span>
         </div>
         <div class="rec-item">
@@ -136,11 +137,11 @@
           <span><span class="rec-item__label">의사명</span><br><span class="rec-item__value">김하나</span></span>
         </div>
         <div class="rec-item">
-          <span class="rec-item__icon">🏥</span>
+          <span class="rec-item__icon"><span class="material-symbols-rounded" style="color:var(--primary-strong)">local_hospital</span></span>
           <span><span class="rec-item__label">병·의원명</span><br><span class="rec-item__value">○○○내과의원</span></span>
         </div>
         <div class="rec-item">
-          <span class="rec-item__icon">📞</span>
+          <span class="rec-item__icon"><span class="material-symbols-rounded" style="color:#22A050">call</span></span>
           <span><span class="rec-item__label">전화번호</span><br><span class="rec-item__value">042-XXX-XXXX</span></span>
         </div>
       </div>
@@ -168,7 +169,7 @@
 
     <!-- 정확도 팁 -->
     <div class="card acc-tip mt-16">
-      <span class="acc-tip__icon" aria-hidden="true">🛡️</span>
+      <span class="acc-tip__icon" aria-hidden="true"><span class="material-symbols-rounded" style="color:#7C5CD6">verified_user</span></span>
       <div>
         <p class="acc-tip__title">정확도를 높이는 팁</p>
         <ul>
@@ -183,13 +184,14 @@
 
   <div class="bottom-cta">
     <div class="ocr-cta">
-      <button type="button" class="btn btn--secondary"><span class="material-symbols-rounded" style="font-size:18px;">photo_camera</span> 다시 촬영하기</button>
-      <button type="button" class="btn btn--primary"><span class="material-symbols-rounded" style="font-size:18px;">check_circle</span> 복약 등록하기</button>
+      <a href="07_register.html" class="btn btn--secondary"><span class="material-symbols-rounded" style="font-size:18px;">photo_camera</span> 다시 촬영하기</a>
+      <a href="06_medication.html" class="btn btn--primary"><span class="material-symbols-rounded" style="font-size:18px;">check_circle</span> 복약 등록하기</a>
     </div>
     <p class="ocr-safe"><span class="material-symbols-rounded">lock</span> OCR로 인식된 정보는 안전하게 처리됩니다.</p>
   </div>
 
 </div>
 <script src="../assets/js/common.js"></script>
+<script src="../assets/js/motion.js"></script>
 </body>
 </html>

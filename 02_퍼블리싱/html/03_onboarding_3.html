@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..700,0..1,-50..200">
 <link rel="stylesheet" href="../assets/css/common.css">
+<link rel="stylesheet" href="../assets/css/motion.css">
 <link rel="stylesheet" href="../assets/css/onboarding.css">
 </head>
 <body>
@@ -25,7 +26,7 @@
     <!-- 일러스트 : 임산부 + 가족 미니카드 -->
     <div class="onb__illust onb__illust--pink" aria-hidden="true">
       <div class="mini-card mini-card--right">
-        <p class="mini-card__title">👨‍👩‍👧 우리 가족</p>
+        <p class="mini-card__title"><span class="material-symbols-rounded" style="color:var(--primary-strong)">groups</span> 우리 가족</p>
         <div class="mini-card__avatars">
           <span>👩🏻</span><span>👨🏻</span><span>👵🏻</span><span>👦🏻</span>
         </div>
@@ -37,14 +38,14 @@
     <!-- 기능 하이라이트 -->
     <div class="onb-highlights">
       <div class="onb-hl">
-        <span class="onb-hl__icon" style="background:var(--primary-light);">👨‍👩‍👧</span>
+        <span class="onb-hl__icon" style="background:var(--primary-light);"><span class="material-symbols-rounded" style="color:var(--primary-strong)">groups</span></span>
         <div>
           <p class="onb-hl__title">가족 공유</p>
           <p class="onb-hl__desc">가족을 초대해 복약 일정과 검진 결과를 함께 챙겨요.</p>
         </div>
       </div>
       <div class="onb-hl">
-        <span class="onb-hl__icon" style="background:#E7F0FB;">📊</span>
+        <span class="onb-hl__icon" style="background:#E7F0FB;"><span class="material-symbols-rounded" style="color:var(--primary-strong)">monitoring</span></span>
         <div>
           <p class="onb-hl__title">건강 리포트</p>
           <p class="onb-hl__desc">복약률과 건강 변화를 리포트로 한눈에 확인해요.</p>
@@ -63,5 +64,6 @@
 </div>
 <script src="../assets/js/illustrations.js"></script>
 <script src="../assets/js/common.js"></script>
+<script src="../assets/js/motion.js"></script>
 </body>
 </html>

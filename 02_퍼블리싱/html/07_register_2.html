@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mom's Time — 07 약 등록 2/4 복용 정보</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..700,0..1,-50..200">
+<link rel="stylesheet" href="../assets/css/common.css">
+<link rel="stylesheet" href="../assets/css/motion.css">
+<link rel="stylesheet" href="../assets/css/register.css">
+</head>
+<body>
+<div class="app">
+
+  <header class="appbar">
+    <button type="button" class="appbar__btn" data-back="07_register.html" aria-label="뒤로가기">
+      <span class="material-symbols-rounded">arrow_back_ios_new</span>
+    </button>
+    <h1 class="appbar__title">약 등록</h1>
+    <button type="button" class="appbar__action">임시저장</button>
+  </header>
+
+  <!-- 스텝 : 1완료 · 2활성 -->
+  <div class="stepper">
+    <div class="stepper__item is-done"><span class="stepper__num"><span class="material-symbols-rounded">check</span></span><span class="stepper__label">기본 정보</span></div>
+    <span class="stepper__line is-done"></span>
+    <div class="stepper__item is-active"><span class="stepper__num">2</span><span class="stepper__label">복용 정보</span></div>
+    <span class="stepper__line"></span>
+    <div class="stepper__item"><span class="stepper__num">3</span><span class="stepper__label">알림 설정</span></div>
+    <span class="stepper__line"></span>
+    <div class="stepper__item"><span class="stepper__num">4</span><span class="stepper__label">확인</span></div>
+  </div>
+
+  <div class="content">
+
+    <!-- 복용 정보 -->
+    <h2 class="form-title">복용 정보</h2>
+    <div class="card form-card">
+      <div class="form-row">
+        <span class="form-row__label">복용 방법 <span class="req">*</span></span>
+        <div class="opt-chips">
+          <button type="button" class="opt-chip is-active">경구 (먹는 약)</button>
+          <button type="button" class="opt-chip">외용 (바르는 약)</button>
+          <button type="button" class="opt-chip">흡입</button>
+          <button type="button" class="opt-chip">기타</button>
+        </div>
+      </div>
+      <div class="form-row">
+        <span class="form-row__label">1회 복용량 <span class="req">*</span></span>
+        <div class="qty">
+          <button type="button" aria-label="감소">−</button>
+          <input type="text" value="1" readonly>
+          <button type="button" aria-label="증가">+</button>
+        </div>
+        <div class="input" style="width:110px;flex:none;height:48px;border-radius:12px;">
+          <select><option>정</option><option>캡슐</option><option>포</option><option>ml</option></select>
+        </div>
+      </div>
+      <div class="form-row">
+        <span class="form-row__label">복용 주기 <span class="req">*</span></span>
+        <div class="input">
+          <select>
+            <option>매일</option>
+            <option>격일</option>
+            <option>요일 지정</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <span class="form-row__label">복용 기간</span>
+        <div class="input"><input type="text" value="2024.06.02"></div>
+        <span style="color:var(--text-secondary);">–</span>
+        <div class="input"><input type="text" value="2024.12.31"></div>
+      </div>
+    </div>
+
+    <!-- 메모 -->
+    <h2 class="form-title">메모 (선택)</h2>
+    <textarea class="textarea" placeholder="메모를 입력해주세요 (예: 식후 30분, 물과 함께)" maxlength="100"></textarea>
+    <p class="memo-count">0/100</p>
+
+  </div>
+
+  <div class="bottom-cta">
+    <div class="reg-cta">
+      <a href="07_register.html" class="btn btn--secondary">이전</a>
+      <a href="07_register_3.html" class="btn btn--primary">다음 <span class="material-symbols-rounded">chevron_right</span></a>
+    </div>
+  </div>
+
+</div>
+<script src="../assets/js/common.js"></script>
+<script>
+  document.querySelectorAll('.opt-chips').forEach(function (group) {
+    group.addEventListener('click', function (e) {
+      var chip = e.target.closest('.opt-chip'); if (!chip) return;
+      group.querySelectorAll('.opt-chip').forEach(function (c) { c.classList.remove('is-active'); });
+      chip.classList.add('is-active');
+    });
+  });
+  document.querySelectorAll('.qty').forEach(function (qty) {
+    var input = qty.querySelector('input');
+    qty.querySelectorAll('button').forEach(function (btn, i) {
+      btn.addEventListener('click', function () {
+        var v = parseInt(input.value, 10) || 1;
+        input.value = Math.max(1, i === 0 ? v - 1 : v + 1);
+      });
+    });
+  });
+</script>
+<script src="../assets/js/motion.js"></script>
+</body>
+</html>

@@ -3,10 +3,12 @@
    ============================================================ */
 
 document.addEventListener('DOMContentLoaded', function () {
-  // 뒤로가기 버튼
+  // 뒤로가기 버튼 (히스토리 없으면 홈 또는 지정 화면으로 폴백)
   document.querySelectorAll('[data-back]').forEach(function (btn) {
     btn.addEventListener('click', function () {
-      history.back();
+      var fallback = btn.getAttribute('data-back') || '05_home.html';
+      if (window.history.length > 1) history.back();
+      else window.location.href = fallback;
     });
   });
 
@@ -51,4 +53,20 @@ document.addEventListener('DOMContentLoaded', function () {
       if (dlg) dlg.hidden = true;
     });
   });
+});
+
+/* ---- 행 전체를 상세 화면으로 연결 (내부 컨트롤 클릭은 제외) ---- */
+document.addEventListener('click', function (e) {
+  var row = e.target.closest('[data-href]');
+  if (!row) return;
+  if (e.target.closest('a, button, input, label, select, textarea, .switch, .check-circle')) return;
+  window.location.href = row.getAttribute('data-href');
+});
+document.addEventListener('keydown', function (e) {
+  if (e.key !== 'Enter' && e.key !== ' ') return;
+  var el = e.target;
+  if (el && el.getAttribute && el.getAttribute('data-href')) {
+    e.preventDefault();
+    window.location.href = el.getAttribute('data-href');
+  }
 });

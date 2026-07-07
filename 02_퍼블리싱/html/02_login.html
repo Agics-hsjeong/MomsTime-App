@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..700,0..1,-50..200">
 <link rel="stylesheet" href="../assets/css/common.css">
+<link rel="stylesheet" href="../assets/css/motion.css">
 <style>
   .login__brand { text-align: center; padding: 72px 0 40px; }
   .login__logo { width: 88px; height: 88px; margin: 0 auto; }
@@ -56,10 +57,38 @@
   }
   .signup { margin: 28px 0 40px; text-align: center; font-size: 14px; color: var(--text-secondary); }
   .signup a { font-weight: 700; color: var(--primary-strong); }
+
+  /* 배경 앰비언트 (구름 + 하트) */
+  .app { background: linear-gradient(180deg, #FFF6F8 0%, #FEEDF2 60%, #FCE3EB 100%); }
+  .login-decor { position: absolute; inset: 0; overflow: hidden; z-index: 0; pointer-events: none; }
+  .login-decor .cloud {
+    position: absolute; border-radius: 100px;
+    background: radial-gradient(60% 100% at 50% 50%, rgba(255,255,255,.7), rgba(255,255,255,0) 70%);
+  }
+  .login-decor .c1 { width: 220px; height: 110px; top: 40px;  left: -60px; }
+  .login-decor .c2 { width: 180px; height: 90px;  top: 96px;  right: -50px; }
+  .login-decor .c3 { width: 160px; height: 80px;  bottom: 120px; left: -50px; opacity: .8; }
+  .login-decor .heart { position: absolute; color: #F7B9CC; opacity: .55; }
+  .login-decor .heart svg { display: block; width: 100%; height: 100%; }
+  .login-decor .d1 { width: 20px; top: 120px; left: 40px; }
+  .login-decor .d2 { width: 14px; top: 74px;  right: 54px; }
+  .login-decor .d3 { width: 16px; top: 150px; right: 34px; opacity: .4; }
+  .content { position: relative; z-index: 1; }
 </style>
 </head>
 <body>
 <div class="app">
+
+  <!-- 배경 앰비언트 -->
+  <div class="login-decor" aria-hidden="true">
+    <span class="cloud c1"></span>
+    <span class="cloud c2"></span>
+    <span class="cloud c3"></span>
+    <span class="heart d1"><svg viewBox="0 0 24 22"><path fill="currentColor" d="M12 21C6 16.5 2 13 2 8.5A5.5 5.5 0 0 1 12 5 5.5 5.5 0 0 1 22 8.5C22 13 18 16.5 12 21Z"/></svg></span>
+    <span class="heart d2"><svg viewBox="0 0 24 22"><path fill="currentColor" d="M12 21C6 16.5 2 13 2 8.5A5.5 5.5 0 0 1 12 5 5.5 5.5 0 0 1 22 8.5C22 13 18 16.5 12 21Z"/></svg></span>
+    <span class="heart d3"><svg viewBox="0 0 24 22"><path fill="currentColor" d="M12 21C6 16.5 2 13 2 8.5A5.5 5.5 0 0 1 12 5 5.5 5.5 0 0 1 22 8.5C22 13 18 16.5 12 21Z"/></svg></span>
+  </div>
+
   <div class="content">
 
     <div class="login__brand">
@@ -116,5 +145,6 @@
 </div>
 <script src="../assets/js/illustrations.js"></script>
 <script src="../assets/js/common.js"></script>
+<script src="../assets/js/motion.js"></script>
 </body>
 </html>

@@ -112,6 +112,69 @@ var MT_ILLUST = {
       '<path d="M60 44 C52 30 34 32 40 42 C44 48 54 46 60 44 Z" fill="#F58BB0"/>' +
       '<path d="M60 44 C68 30 86 32 80 42 C76 48 66 46 60 44 Z" fill="#F58BB0"/>' +
       '<circle cx="60" cy="42" r="6" fill="#F2547F"/>' +
+    '</svg>',
+
+  /* ---------- 단계: 임신 준비 중 (테스트기) ---------- */
+  stagePrep:
+    '<svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="width:100%;height:100%">' +
+      '<path d="M30 120 C28 92 40 76 60 76 C80 76 92 92 90 120Z" fill="#F2A7C0"/>' +
+      '<rect x="53" y="66" width="14" height="16" rx="6" fill="#EDBBA0"/>' +
+      '<path d="M36 44 C38 20 84 20 86 44 C90 66 84 84 78 90 L42 90 C36 84 30 66 36 44Z" fill="#6E4B3B"/>' +
+      '<ellipse cx="60" cy="48" rx="20" ry="22" fill="#F6C9AE"/>' +
+      '<path d="M38 50 C38 26 82 26 82 50 C82 34 72 28 60 28 C48 28 38 34 38 50Z" fill="#5F4030"/>' +
+      '<path d="M39 52 C37 34 47 36 52 50 L46 78 C36 70 37 60 39 52Z" fill="#6E4B3B"/>' +
+      '<path d="M81 52 C83 34 73 36 68 50 L74 78 C84 70 83 60 81 52Z" fill="#6E4B3B"/>' +
+      '<path d="M48 50 q5 5 10 0" stroke="#4A3222" stroke-width="2.5" stroke-linecap="round"/>' +
+      '<path d="M62 50 q5 5 10 0" stroke="#4A3222" stroke-width="2.5" stroke-linecap="round"/>' +
+      '<path d="M54 61 q6 4 12 0" stroke="#C97B6E" stroke-width="2.5" stroke-linecap="round"/>' +
+      '<ellipse cx="46" cy="57" rx="5" ry="3" fill="#F0A0A8" opacity=".6"/>' +
+      '<ellipse cx="74" cy="57" rx="5" ry="3" fill="#F0A0A8" opacity=".6"/>' +
+      '<rect x="55" y="74" width="10" height="30" rx="4" fill="#FFFFFF" stroke="#EAD9E0" stroke-width="1.5"/>' +
+      '<rect x="58" y="80" width="4" height="3" rx="1" fill="#F2547F"/>' +
+      '<rect x="58" y="86" width="4" height="3" rx="1" fill="#F2547F"/>' +
+      '<ellipse cx="49" cy="94" rx="9" ry="7" fill="#F6C9AE"/>' +
+      '<ellipse cx="71" cy="94" rx="9" ry="7" fill="#F6C9AE"/>' +
+    '</svg>',
+
+  /* ---------- 단계: 임신 중 (배 강조) ---------- */
+  stagePregnant:
+    '<svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="width:100%;height:100%">' +
+      '<path d="M24 120 C20 82 34 58 60 58 C86 58 100 82 96 120Z" fill="#F2A7C0"/>' +
+      '<path d="M40 40 C42 22 78 22 80 40 C83 58 78 72 73 76 L47 76 C42 72 37 58 40 40Z" fill="#6E4B3B"/>' +
+      '<rect x="54" y="52" width="12" height="14" rx="5" fill="#EDBBA0"/>' +
+      '<ellipse cx="60" cy="40" rx="16" ry="18" fill="#F6C9AE"/>' +
+      '<path d="M44 42 C44 22 76 22 76 42 C76 28 68 24 60 24 C52 24 44 28 44 42Z" fill="#5F4030"/>' +
+      '<path d="M45 44 C43 30 51 32 55 43 L50 66 C42 60 43 52 45 44Z" fill="#6E4B3B"/>' +
+      '<path d="M75 44 C77 30 69 32 65 43 L70 66 C78 60 77 52 75 44Z" fill="#6E4B3B"/>' +
+      '<path d="M50 43 q4 4 8 0" stroke="#4A3222" stroke-width="2.2" stroke-linecap="round"/>' +
+      '<path d="M62 43 q4 4 8 0" stroke="#4A3222" stroke-width="2.2" stroke-linecap="round"/>' +
+      '<path d="M55 52 q5 3 10 0" stroke="#C97B6E" stroke-width="2.2" stroke-linecap="round"/>' +
+      '<ellipse cx="48" cy="49" rx="4.5" ry="3" fill="#F0A0A8" opacity=".6"/>' +
+      '<ellipse cx="72" cy="49" rx="4.5" ry="3" fill="#F0A0A8" opacity=".6"/>' +
+      '<ellipse cx="50" cy="102" rx="12" ry="9" fill="#F6C9AE"/>' +
+      '<ellipse cx="70" cy="102" rx="12" ry="9" fill="#F6C9AE"/>' +
+    '</svg>',
+
+  /* ---------- 단계: 출산 후 (아기 안은 엄마) ---------- */
+  stageBaby:
+    '<svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="width:100%;height:100%">' +
+      '<path d="M22 120 C20 86 32 64 58 64 C84 64 96 86 94 120Z" fill="#F2A7C0"/>' +
+      '<path d="M40 42 C42 24 78 24 80 42 C83 60 78 74 73 78 L47 78 C42 74 37 60 40 42Z" fill="#6E4B3B"/>' +
+      '<rect x="54" y="54" width="12" height="14" rx="5" fill="#EDBBA0"/>' +
+      '<ellipse cx="60" cy="42" rx="16" ry="18" fill="#F6C9AE"/>' +
+      '<path d="M44 44 C44 24 76 24 76 44 C76 30 68 26 60 26 C52 26 44 30 44 44Z" fill="#5F4030"/>' +
+      '<path d="M45 46 C43 32 51 34 55 45 L50 68 C42 62 43 54 45 46Z" fill="#6E4B3B"/>' +
+      '<path d="M75 46 C77 32 69 34 65 45 L70 68 C78 62 77 54 75 46Z" fill="#6E4B3B"/>' +
+      '<path d="M50 45 q4 4 8 0" stroke="#4A3222" stroke-width="2.2" stroke-linecap="round"/>' +
+      '<path d="M62 45 q4 4 8 0" stroke="#4A3222" stroke-width="2.2" stroke-linecap="round"/>' +
+      '<ellipse cx="48" cy="51" rx="4.5" ry="3" fill="#F0A0A8" opacity=".6"/>' +
+      '<ellipse cx="72" cy="51" rx="4.5" ry="3" fill="#F0A0A8" opacity=".6"/>' +
+      '<path d="M40 108 C40 96 52 90 66 92 C82 94 90 104 86 116 L44 116 C40 114 40 110 40 108Z" fill="#E7F0FB"/>' +
+      '<circle cx="52" cy="99" r="10" fill="#F6C9AE"/>' +
+      '<path d="M44 96 q8 -7 16 0" stroke="#E7C6A8" stroke-width="2" fill="none"/>' +
+      '<path d="M49 100 q1.4 1.4 2.8 0" stroke="#7A5B44" stroke-width="1.6" stroke-linecap="round"/>' +
+      '<path d="M55 100 q1.4 1.4 2.8 0" stroke="#7A5B44" stroke-width="1.6" stroke-linecap="round"/>' +
+      '<path d="M40 113 C48 119 72 119 86 112" stroke="#F2A7C0" stroke-width="10" stroke-linecap="round"/>' +
     '</svg>'
 };
 

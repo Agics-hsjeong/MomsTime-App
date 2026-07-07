@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..700,0..1,-50..200">
 <link rel="stylesheet" href="../assets/css/common.css">
+<link rel="stylesheet" href="../assets/css/motion.css">
 <style>
   .fam-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; padding: 8px 20px 0; }
   .fam-head__hello { font-size: 24px; font-weight: 800; }
@@ -123,7 +124,7 @@
   <header class="appbar">
     <span class="appbar__spacer"></span>
     <h1 class="appbar__title">가족 관리</h1>
-    <button type="button" class="appbar__btn" aria-label="알림"><span class="material-symbols-rounded">notifications</span></button>
+    <a href="26_notification.html" class="appbar__btn" aria-label="알림"><span class="material-symbols-rounded">notifications</span></a>
   </header>
 
   <div class="fam-head">
@@ -173,7 +174,7 @@
         </button>
       </div>
       <div class="fam-note">
-        <span class="emoji">💗</span>
+        <span class="emoji"><span class="material-symbols-rounded" style="color:var(--primary-strong)">favorite</span></span>
         <span class="flex-1">가족을 추가하면 복약 일정, 검진 결과, 알림을 함께 관리할 수 있어요.</span>
         <span class="material-symbols-rounded" style="color:var(--primary-strong);">chevron_right</span>
       </div>
@@ -248,17 +249,17 @@
       </div>
       <div class="fam-alerts">
         <div class="fam-alert fam-alert--pink">
-          <div class="fam-alert__top"><span class="fam-alert__icon">💊</span><span class="fam-alert__who">👨🏻</span></div>
+          <div class="fam-alert__top"><span class="fam-alert__icon"><span class="material-symbols-rounded" style="color:var(--primary-strong)">medication</span></span><span class="fam-alert__who">👨🏻</span></div>
           <p class="fam-alert__title">민준님의 약 복용 시간이에요</p>
           <p class="fam-alert__meta">혈압약 1정<br>오전 9:00</p>
         </div>
         <div class="fam-alert fam-alert--orange">
-          <div class="fam-alert__top"><span class="fam-alert__icon">📅</span><span class="fam-alert__who">👵🏻</span></div>
+          <div class="fam-alert__top"><span class="fam-alert__icon"><span class="material-symbols-rounded" style="color:var(--primary-strong)">calendar_month</span></span><span class="fam-alert__who">👵🏻</span></div>
           <p class="fam-alert__title">어머니의 검사 예정일</p>
           <p class="fam-alert__meta">정기 혈액검사<br>2024.06.10 (월)</p>
         </div>
         <div class="fam-alert fam-alert--purple">
-          <div class="fam-alert__top"><span class="fam-alert__icon">💜</span><span class="fam-alert__who">👩🏻</span></div>
+          <div class="fam-alert__top"><span class="fam-alert__icon"><span class="material-symbols-rounded" style="color:#7C5CD6">favorite</span></span><span class="fam-alert__who">👩🏻</span></div>
           <p class="fam-alert__title">혜선님의 약 리필 필요</p>
           <p class="fam-alert__meta">엽산 400mcg 외 1종<br>3일 남음</p>
         </div>
@@ -288,5 +289,6 @@
 </div>
 <script src="../assets/js/illustrations.js"></script>
 <script src="../assets/js/common.js"></script>
+<script src="../assets/js/motion.js"></script>
 </body>
 </html>

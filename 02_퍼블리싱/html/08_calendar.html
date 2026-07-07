@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..700,0..1,-50..200">
 <link rel="stylesheet" href="../assets/css/common.css">
+<link rel="stylesheet" href="../assets/css/motion.css">
 <style>
   /* 달력/목록 토글 */
   .cal-toggle {
@@ -102,6 +103,24 @@
   }
   .month-summary__label { margin-top: 8px; font-size: 11px; color: var(--text-secondary); }
   .month-summary__value { margin-top: 2px; font-size: 13px; font-weight: 800; }
+
+  /* 뷰 전환 */
+  .cal-view[hidden] { display: none; }
+  /* 목록 뷰 */
+  .cal-list__group { margin-top: 20px; }
+  .cal-list__group:first-child { margin-top: 12px; }
+  .cal-list__date {
+    display: flex; align-items: center; gap: 8px;
+    padding-left: 4px; margin-bottom: 2px;
+    font-size: 14px; font-weight: 800;
+  }
+  .cal-list__date .dow { color: var(--text-secondary); font-weight: 600; }
+  .cal-list__date .badge-today {
+    font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 999px;
+    background: var(--primary-strong); color: #fff;
+  }
+  .cal-list__group .day-item:first-of-type { margin-top: 8px; }
+  .cal-list__tag { height: 26px; padding: 0 10px; border-radius: 999px; font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; }
 </style>
 </head>
 <body>
@@ -119,8 +138,8 @@
 
     <!-- 달력 / 목록 -->
     <div class="cal-toggle">
-      <button type="button" class="cal-toggle__btn is-active"><span class="material-symbols-rounded">calendar_month</span> 달력</button>
-      <button type="button" class="cal-toggle__btn"><span class="material-symbols-rounded">list</span> 목록</button>
+      <button type="button" class="cal-toggle__btn is-active" data-view="cal"><span class="material-symbols-rounded">calendar_month</span> 달력</button>
+      <button type="button" class="cal-toggle__btn" data-view="list"><span class="material-symbols-rounded">list</span> 목록</button>
     </div>
 
     <!-- 월 이동 -->
@@ -129,6 +148,9 @@
       <h2 class="cal-month__title">2024년 6월</h2>
       <button type="button" aria-label="다음 달"><span class="material-symbols-rounded">chevron_right</span></button>
     </div>
+
+    <!-- ===== 달력 뷰 ===== -->
+    <div class="cal-view" id="view-cal">
 
     <!-- 범례 -->
     <div class="cal-legend">
@@ -207,8 +229,8 @@
         <button type="button" class="add-sched"><span class="material-symbols-rounded" style="font-size:16px;">add_circle</span> 일정 추가</button>
       </div>
 
-      <div class="day-item">
-        <span class="day-item__icon">💊</span>
+      <div class="day-item" data-href="16_medication_detail.html" role="link" tabindex="0">
+        <span class="day-item__icon"><span class="material-symbols-rounded" style="color:var(--primary-strong)">medication</span></span>
         <div class="flex-1">
           <p class="day-item__time">09:00</p>
           <p class="day-item__title">엽산 400mcg</p>
@@ -218,8 +240,8 @@
         <span class="material-symbols-rounded" style="color:var(--text-disabled);font-size:20px;">chevron_right</span>
       </div>
 
-      <div class="day-item">
-        <span class="day-item__icon day-item__icon--orange">🧪</span>
+      <div class="day-item" data-href="22_checkup_detail.html" role="link" tabindex="0">
+        <span class="day-item__icon day-item__icon--orange"><span class="material-symbols-rounded" style="color:var(--primary-strong)">science</span></span>
         <div class="flex-1">
           <p class="day-item__time day-item__time--orange">13:00</p>
           <p class="day-item__title">정기 혈액검사</p>
@@ -229,8 +251,8 @@
         <span class="material-symbols-rounded" style="color:var(--text-disabled);font-size:20px;">chevron_right</span>
       </div>
 
-      <div class="day-item">
-        <span class="day-item__icon day-item__icon--purple">💉</span>
+      <div class="day-item" data-href="23_hospital_detail.html" role="link" tabindex="0">
+        <span class="day-item__icon day-item__icon--purple"><span class="material-symbols-rounded" style="color:#7C5CD6">vaccines</span></span>
         <div class="flex-1">
           <p class="day-item__time day-item__time--purple">14:00</p>
           <p class="day-item__title">독감 예방접종</p>
@@ -246,12 +268,12 @@
     <!-- 이번 달 요약 -->
     <div class="card mt-16">
       <div class="flex-between">
-        <h2 class="section__title" style="font-size:16px;">📈 이번 달 요약</h2>
+        <h2 class="section__title" style="font-size:16px;"><span class="material-symbols-rounded" style="color:var(--primary-strong)">monitoring</span> 이번 달 요약</h2>
         <a href="28_statistics_detail.html" class="section__more" style="color:var(--primary-strong);font-weight:700;">상세 보기 <span class="material-symbols-rounded">chevron_right</span></a>
       </div>
       <div class="month-summary">
         <div class="month-summary__item">
-          <span class="month-summary__icon">🩸</span>
+          <span class="month-summary__icon"><span class="material-symbols-rounded" style="color:var(--primary-strong)">bloodtype</span></span>
           <p class="month-summary__label">생리 예정</p>
           <p class="month-summary__value">19일 ~ 22일</p>
         </div>
@@ -261,22 +283,135 @@
           <p class="month-summary__value">12일</p>
         </div>
         <div class="month-summary__item">
-          <span class="month-summary__icon" style="background:#E9F7EA;">💊</span>
+          <span class="month-summary__icon" style="background:#E9F7EA;"><span class="material-symbols-rounded" style="color:var(--primary-strong)">medication</span></span>
           <p class="month-summary__label">복약 일정</p>
           <p class="month-summary__value">8일</p>
         </div>
         <div class="month-summary__item">
-          <span class="month-summary__icon" style="background:#FDF0DC;">🧪</span>
+          <span class="month-summary__icon" style="background:#FDF0DC;"><span class="material-symbols-rounded" style="color:var(--primary-strong)">science</span></span>
           <p class="month-summary__label">검사 일정</p>
           <p class="month-summary__value">2일</p>
         </div>
         <div class="month-summary__item">
-          <span class="month-summary__icon" style="background:#E4EEFC;">📅</span>
+          <span class="month-summary__icon" style="background:#E4EEFC;"><span class="material-symbols-rounded" style="color:var(--primary-strong)">calendar_month</span></span>
           <p class="month-summary__label">기타 일정</p>
           <p class="month-summary__value">3일</p>
         </div>
       </div>
     </div>
+
+    </div><!-- /달력 뷰 -->
+
+    <!-- ===== 목록 뷰 ===== -->
+    <div class="cal-view" id="view-list" hidden>
+
+      <div class="cal-list__group">
+        <p class="cal-list__date">06.03 <span class="dow">(월)</span></p>
+        <div class="day-item" data-href="16_medication_detail.html" role="link" tabindex="0">
+          <span class="day-item__icon"><span class="material-symbols-rounded" style="color:var(--primary-strong)">medication</span></span>
+          <div class="flex-1">
+            <p class="day-item__time">09:00</p>
+            <p class="day-item__title">엽산 400mcg</p>
+            <p class="day-item__meta">1정&nbsp;&nbsp;|&nbsp;&nbsp;식후 30분</p>
+          </div>
+          <span class="day-item__done"><span class="material-symbols-rounded">check</span></span>
+          <span class="material-symbols-rounded" style="color:var(--text-disabled);font-size:20px;">chevron_right</span>
+        </div>
+      </div>
+
+      <div class="cal-list__group">
+        <p class="cal-list__date">06.10 <span class="dow">(월)</span></p>
+        <div class="day-item" data-href="22_checkup_detail.html" role="link" tabindex="0">
+          <span class="day-item__icon day-item__icon--orange"><span class="material-symbols-rounded" style="color:var(--warning)">science</span></span>
+          <div class="flex-1">
+            <p class="day-item__time day-item__time--orange">10:30</p>
+            <p class="day-item__title">정기 혈액검사</p>
+            <p class="day-item__meta">삼성산부인과</p>
+          </div>
+          <span class="cal-list__tag" style="background:#FEF3E2;color:var(--warning);">검사</span>
+          <span class="material-symbols-rounded" style="color:var(--text-disabled);font-size:20px;">chevron_right</span>
+        </div>
+      </div>
+
+      <div class="cal-list__group">
+        <p class="cal-list__date">06.12 <span class="dow">(수)</span></p>
+        <div class="day-item">
+          <span class="day-item__icon day-item__icon--purple"><span class="material-symbols-rounded" style="color:#7C5CD6">radio_button_checked</span></span>
+          <div class="flex-1">
+            <p class="day-item__time day-item__time--purple">하루 종일</p>
+            <p class="day-item__title">배란 예정일</p>
+            <p class="day-item__meta">가임기 안내</p>
+          </div>
+          <span class="cal-list__tag" style="background:var(--ai-purple-light);color:#7C5CD6;">배란</span>
+        </div>
+      </div>
+
+      <div class="cal-list__group">
+        <p class="cal-list__date">06.15 <span class="dow">(토)</span></p>
+        <div class="day-item" data-href="23_hospital_detail.html" role="link" tabindex="0">
+          <span class="day-item__icon day-item__icon--purple"><span class="material-symbols-rounded" style="color:#7C5CD6">vaccines</span></span>
+          <div class="flex-1">
+            <p class="day-item__time day-item__time--purple">14:00</p>
+            <p class="day-item__title">독감 예방접종</p>
+            <p class="day-item__meta">삼성산부인과</p>
+          </div>
+          <span class="cal-list__tag" style="background:#E4EEFC;color:#3B82F6;">기타</span>
+          <span class="material-symbols-rounded" style="color:var(--text-disabled);font-size:20px;">chevron_right</span>
+        </div>
+      </div>
+
+      <div class="cal-list__group">
+        <p class="cal-list__date">06.19 ~ 22 <span class="dow">(수~토)</span></p>
+        <div class="day-item">
+          <span class="day-item__icon"><span class="material-symbols-rounded" style="color:var(--primary-strong)">bloodtype</span></span>
+          <div class="flex-1">
+            <p class="day-item__time">4일간</p>
+            <p class="day-item__title">생리 예정</p>
+            <p class="day-item__meta">주기 관리</p>
+          </div>
+          <span class="cal-list__tag" style="background:var(--primary-light);color:var(--primary-strong);">생리</span>
+        </div>
+      </div>
+
+      <div class="cal-list__group">
+        <p class="cal-list__date">06.26 <span class="dow">(수)</span> <span class="badge-today">오늘</span></p>
+        <div class="day-item" data-href="16_medication_detail.html" role="link" tabindex="0">
+          <span class="day-item__icon"><span class="material-symbols-rounded" style="color:var(--primary-strong)">medication</span></span>
+          <div class="flex-1">
+            <p class="day-item__time">09:00</p>
+            <p class="day-item__title">엽산 400mcg</p>
+            <p class="day-item__meta">1정&nbsp;&nbsp;|&nbsp;&nbsp;식후 30분</p>
+          </div>
+          <span class="day-item__done"><span class="material-symbols-rounded">check</span></span>
+          <span class="material-symbols-rounded" style="color:var(--text-disabled);font-size:20px;">chevron_right</span>
+        </div>
+        <div class="day-item" data-href="22_checkup_detail.html" role="link" tabindex="0">
+          <span class="day-item__icon day-item__icon--orange"><span class="material-symbols-rounded" style="color:var(--warning)">science</span></span>
+          <div class="flex-1">
+            <p class="day-item__time day-item__time--orange">13:00</p>
+            <p class="day-item__title">정기 혈액검사</p>
+            <p class="day-item__meta">삼성산부인과</p>
+          </div>
+          <span class="chip chip--warning">예정</span>
+          <span class="material-symbols-rounded" style="color:var(--text-disabled);font-size:20px;">chevron_right</span>
+        </div>
+      </div>
+
+      <div class="cal-list__group">
+        <p class="cal-list__date">06.28 <span class="dow">(금)</span></p>
+        <div class="day-item" data-href="16_medication_detail.html" role="link" tabindex="0">
+          <span class="day-item__icon"><span class="material-symbols-rounded" style="color:var(--primary-strong)">medication</span></span>
+          <div class="flex-1">
+            <p class="day-item__time">19:00</p>
+            <p class="day-item__title">종합비타민</p>
+            <p class="day-item__meta">1정&nbsp;&nbsp;|&nbsp;&nbsp;식후</p>
+          </div>
+          <span class="cal-list__tag" style="background:#E9F7EA;color:var(--success);">복약</span>
+          <span class="material-symbols-rounded" style="color:var(--text-disabled);font-size:20px;">chevron_right</span>
+        </div>
+      </div>
+
+    </div><!-- /목록 뷰 -->
 
   </div>
 
@@ -291,13 +426,17 @@
 </div>
 <script src="../assets/js/common.js"></script>
 <script>
-  // 달력/목록 토글
+  // 달력/목록 뷰 전환
   document.querySelectorAll('.cal-toggle__btn').forEach(function (btn) {
     btn.addEventListener('click', function () {
       document.querySelectorAll('.cal-toggle__btn').forEach(function (b) { b.classList.remove('is-active'); });
       btn.classList.add('is-active');
+      var view = btn.getAttribute('data-view'); // 'cal' | 'list'
+      document.getElementById('view-cal').hidden  = (view !== 'cal');
+      document.getElementById('view-list').hidden = (view !== 'list');
     });
   });
 </script>
+<script src="../assets/js/motion.js"></script>
 </body>
 </html>

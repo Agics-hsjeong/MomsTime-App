@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..700,0..1,-50..200">
 <link rel="stylesheet" href="../assets/css/common.css">
+<link rel="stylesheet" href="../assets/css/motion.css">
 <style>
   .rep-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; padding: 8px 20px 0; }
   .rep-head__hello { font-size: 24px; font-weight: 800; }
@@ -94,7 +95,7 @@
       <span class="material-symbols-rounded">arrow_back_ios_new</span>
     </button>
     <h1 class="appbar__title">복약 리포트</h1>
-    <button type="button" class="appbar__btn" aria-label="알림"><span class="material-symbols-rounded">notifications</span></button>
+    <a href="26_notification.html" class="appbar__btn" aria-label="알림"><span class="material-symbols-rounded">notifications</span></a>
   </header>
 
   <div class="rep-head">
@@ -125,10 +126,10 @@
         <p class="rate-mid__caption">복약 잘 지키고 있어요!</p>
       </div>
       <div class="rate-stats">
-        <div class="rate-stat"><span class="emoji">✅</span><span class="label">복용 완료</span><b>55회</b></div>
-        <div class="rate-stat"><span class="emoji">🕒</span><span class="label">복용 예정</span><b>5회</b></div>
+        <div class="rate-stat"><span class="emoji"><span class="material-symbols-rounded" style="color:#22A050">check_circle</span></span><span class="label">복용 완료</span><b>55회</b></div>
+        <div class="rate-stat"><span class="emoji"><span class="material-symbols-rounded" style="color:#7C5CD6">schedule</span></span><span class="label">복용 예정</span><b>5회</b></div>
         <div class="rate-stat"><span class="emoji">❌</span><span class="label">복용 놓침</span><b>3회</b></div>
-        <div class="rate-stat"><span class="emoji">📅</span><span class="label">총 복약 횟수</span><b>60회</b></div>
+        <div class="rate-stat"><span class="emoji"><span class="material-symbols-rounded" style="color:var(--primary-strong)">calendar_month</span></span><span class="label">총 복약 횟수</span><b>60회</b></div>
       </div>
     </div>
 
@@ -190,8 +191,8 @@
         <a href="#" class="section__more" style="color:var(--primary-strong);font-weight:700;">전체 약 보기 <span class="material-symbols-rounded">chevron_right</span></a>
       </div>
       <div class="card" style="padding:4px 20px;">
-        <div class="drug-row">
-          <span class="drug-row__icon" style="background:#FDEFF3;">💊</span>
+        <div class="drug-row" data-href="16_medication_detail.html" role="link" tabindex="0">
+          <span class="drug-row__icon" style="background:#FDEFF3;"><span class="material-symbols-rounded" style="color:var(--primary-strong)">medication</span></span>
           <div style="width:112px;">
             <p class="drug-row__name">엽산 400mcg</p>
             <p class="drug-row__sub">1정 · 하루 1회 (아침)</p>
@@ -200,8 +201,8 @@
           <span class="drug-row__pct" style="color:#F2547F;">100%</span>
           <span class="drug-row__cnt">30/30회</span>
         </div>
-        <div class="drug-row">
-          <span class="drug-row__icon" style="background:#FDF3E4;">💊</span>
+        <div class="drug-row" data-href="16_medication_detail.html" role="link" tabindex="0">
+          <span class="drug-row__icon" style="background:#FDF3E4;"><span class="material-symbols-rounded" style="color:var(--primary-strong)">medication</span></span>
           <div style="width:112px;">
             <p class="drug-row__name">철분제</p>
             <p class="drug-row__sub">1정 · 하루 1회 (저녁)</p>
@@ -210,8 +211,8 @@
           <span class="drug-row__pct" style="color:#F59E0B;">93%</span>
           <span class="drug-row__cnt">28/30회</span>
         </div>
-        <div class="drug-row">
-          <span class="drug-row__icon" style="background:var(--ai-purple-light);">💊</span>
+        <div class="drug-row" data-href="16_medication_detail.html" role="link" tabindex="0">
+          <span class="drug-row__icon" style="background:var(--ai-purple-light);"><span class="material-symbols-rounded" style="color:var(--primary-strong)">medication</span></span>
           <div style="width:112px;">
             <p class="drug-row__name">비타민 D</p>
             <p class="drug-row__sub">1정 · 하루 1회 (식후)</p>
@@ -220,8 +221,8 @@
           <span class="drug-row__pct" style="color:#A78BFA;">90%</span>
           <span class="drug-row__cnt">27/30회</span>
         </div>
-        <div class="drug-row">
-          <span class="drug-row__icon" style="background:#E9EFFC;">💊</span>
+        <div class="drug-row" data-href="16_medication_detail.html" role="link" tabindex="0">
+          <span class="drug-row__icon" style="background:#E9EFFC;"><span class="material-symbols-rounded" style="color:var(--primary-strong)">medication</span></span>
           <div style="width:112px;">
             <p class="drug-row__name">칼슘제</p>
             <p class="drug-row__sub">1정 · 하루 1회 (취침 전)</p>
@@ -246,7 +247,7 @@
           <p class="insight__desc">복약률이 지난 달보다 5% 향상되었어요.<br>놓친 복약 시간은 주로 저녁 시간대입니다.</p>
         </div>
       </div>
-      <p class="insight__tip">💡 알림 시간을 저녁 1시간 앞당기면 복약률을 더 높일 수 있어요!</p>
+      <p class="insight__tip"><span class="material-symbols-rounded" style="color:var(--warning)">lightbulb</span> 알림 시간을 저녁 1시간 앞당기면 복약률을 더 높일 수 있어요!</p>
     </div>
 
     <!-- 복약 놓침 기록 -->
@@ -256,21 +257,21 @@
         <a href="#" class="section__more" style="color:var(--primary-strong);font-weight:700;">전체 보기 <span class="material-symbols-rounded">chevron_right</span></a>
       </div>
       <div class="card" style="padding:4px 20px;">
-        <div class="missed-row">
+        <div class="missed-row" data-href="16_medication_detail.html" role="link" tabindex="0">
           <span class="missed-row__date">6.15 (토) 20:00</span>
           <span class="missed-row__name">철분제</span>
           <span class="missed-row__tag" style="background:#FDEFF3;color:var(--primary-strong);">저녁</span>
           <span class="missed-row__reason">약 깜빡함</span>
           <span class="material-symbols-rounded" style="color:var(--text-disabled);font-size:18px;">chevron_right</span>
         </div>
-        <div class="missed-row">
+        <div class="missed-row" data-href="16_medication_detail.html" role="link" tabindex="0">
           <span class="missed-row__date">6.11 (화) 21:30</span>
           <span class="missed-row__name">비타민 D</span>
           <span class="missed-row__tag" style="background:var(--ai-purple-light);color:var(--ai-purple);">식후</span>
           <span class="missed-row__reason">외출 중</span>
           <span class="material-symbols-rounded" style="color:var(--text-disabled);font-size:18px;">chevron_right</span>
         </div>
-        <div class="missed-row">
+        <div class="missed-row" data-href="16_medication_detail.html" role="link" tabindex="0">
           <span class="missed-row__date">6.05 (수) 20:10</span>
           <span class="missed-row__name">칼슘제</span>
           <span class="missed-row__tag" style="background:#E9EFFC;color:#3B82F6;">취침 전</span>
@@ -301,5 +302,6 @@
     });
   });
 </script>
+<script src="../assets/js/motion.js"></script>
 </body>
 </html>

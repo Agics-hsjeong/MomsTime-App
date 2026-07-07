@@ -1,0 +1,53 @@
+/* ============================================================
+   Mom's Time — Motion System
+   로드/스크롤 리빌 · 버튼 리플 · 마이크로 인터랙션
+   접근성: prefers-reduced-motion 존중. 리빌 초기 숨김은 JS가
+   .mt-reveal 를 부여할 때만 적용되므로 JS 미작동 시 항상 노출.
+   ============================================================ */
+
+@media (prefers-reduced-motion: no-preference) {
+
+  /* ---------- 스크롤/로드 리빌 ---------- */
+  .mt-reveal { opacity: 0; transform: translateY(16px); will-change: opacity, transform; }
+  .mt-reveal.mt-in {
+    opacity: 1;
+    transform: none;
+    transition: opacity .55s ease, transform .6s cubic-bezier(.22,.68,.24,1);
+  }
+
+  /* ---------- 버튼/탭 리플 ---------- */
+  .mt-ripple { position: relative; overflow: hidden; }
+  .mt-rip {
+    position: absolute;
+    border-radius: 50%;
+    transform: scale(0);
+    background: currentColor;
+    opacity: .16;
+    pointer-events: none;
+    animation: mtRip .6s ease-out forwards;
+  }
+  @keyframes mtRip { to { transform: scale(2.6); opacity: 0; } }
+
+  /* 버튼 눌림 반응(공통 :active 보강) */
+  .btn, .sns-btn, .quick-menu__item, .stage-card,
+  .plan-row, .cpn-card, .method-row, .inv-method, .mode-card {
+    transition: transform .16s ease, box-shadow .16s ease;
+  }
+  .quick-menu__item:active, .stage-card:active,
+  .plan-row:active, .method-row:active { transform: scale(.985); }
+
+  /* 하단 탭 활성 아이콘 팝 */
+  .bottom-nav__item.is-active .material-symbols-rounded { animation: mtPop .45s ease; }
+  @keyframes mtPop { 0%{transform:scale(.7)} 55%{transform:scale(1.18)} 100%{transform:scale(1)} }
+
+  /* 원형 체크(복약 완료 등) 체크 인 */
+  .check-circle.is-checked { animation: mtCheck .3s ease; }
+  @keyframes mtCheck { 0%{transform:scale(.8)} 60%{transform:scale(1.12)} 100%{transform:scale(1)} }
+
+  /* 리스트 카드 데스크톱 호버 리프트(터치기기엔 미적용) */
+  @media (hover: hover) {
+    .tile:hover, .med-item:hover, .menu-list__item:hover,
+    .history-card:hover, .prod-card:hover { transform: translateY(-2px); }
+    .tile, .med-item, .menu-list__item, .history-card, .prod-card { transition: transform .18s ease; }
+  }
+}

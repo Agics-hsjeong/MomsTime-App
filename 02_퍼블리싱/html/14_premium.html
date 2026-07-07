@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..700,0..1,-50..200">
 <link rel="stylesheet" href="../assets/css/common.css">
+<link rel="stylesheet" href="../assets/css/motion.css">
 <style>
   .prm-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; padding: 8px 20px 0; }
   .prm-head__hello { font-size: 24px; font-weight: 800; }
@@ -133,7 +134,7 @@
       <span class="material-symbols-rounded">arrow_back_ios_new</span>
     </button>
     <h1 class="appbar__title">프리미엄</h1>
-    <button type="button" class="appbar__btn" aria-label="알림"><span class="material-symbols-rounded">notifications</span></button>
+    <a href="26_notification.html" class="appbar__btn" aria-label="알림"><span class="material-symbols-rounded">notifications</span></a>
   </header>
 
   <div class="prm-head">
@@ -141,7 +142,7 @@
       <h2 class="prm-head__hello">안녕하세요, 혜선님 ❤️</h2>
       <p class="prm-head__sub">더 스마트한 복약·건강 관리를 경험해 보세요.</p>
     </div>
-    <button type="button" class="gift-btn">🎁 선물하기</button>
+    <button type="button" class="gift-btn"><span class="material-symbols-rounded" style="color:var(--primary-strong)">card_giftcard</span> 선물하기</button>
   </div>
 
   <div class="content">
@@ -169,22 +170,22 @@
           <p class="benefit-item__desc">나에게 딱 맞는 건강 관리 제안</p>
         </div>
         <div class="benefit-item">
-          <span class="benefit-item__icon" style="background:var(--ai-purple-light);">📅</span>
+          <span class="benefit-item__icon" style="background:var(--ai-purple-light);"><span class="material-symbols-rounded" style="color:var(--primary-strong)">calendar_month</span></span>
           <p class="benefit-item__title">캘린더 고급 기능</p>
           <p class="benefit-item__desc">복약/검진 일정 무제한 등록</p>
         </div>
         <div class="benefit-item">
-          <span class="benefit-item__icon" style="background:#FDF3E4;">📊</span>
+          <span class="benefit-item__icon" style="background:#FDF3E4;"><span class="material-symbols-rounded" style="color:var(--primary-strong)">monitoring</span></span>
           <p class="benefit-item__title">상세 리포트</p>
           <p class="benefit-item__desc">더 깊이 분석된 건강 리포트 제공</p>
         </div>
         <div class="benefit-item">
-          <span class="benefit-item__icon" style="background:#E4F5F2;">📥</span>
+          <span class="benefit-item__icon" style="background:#E4F5F2;"><span class="material-symbols-rounded" style="color:#14B8A6">download</span></span>
           <p class="benefit-item__title">데이터 내보내기</p>
           <p class="benefit-item__desc">건강 데이터를 파일로 저장</p>
         </div>
         <div class="benefit-item">
-          <span class="benefit-item__icon" style="background:#E9EFFC;">👨‍👩‍👧</span>
+          <span class="benefit-item__icon" style="background:#E9EFFC;"><span class="material-symbols-rounded" style="color:var(--primary-strong)">groups</span></span>
           <p class="benefit-item__title">가족 관리 확장</p>
           <p class="benefit-item__desc">가족 맞춤 관리 파제한 추가</p>
         </div>
@@ -203,7 +204,7 @@
           <p class="plan-card__name">월간 플랜</p>
           <p class="plan-card__price">₩6,900 <small>/월</small></p>
           <p class="plan-card__note">부가세 포함</p>
-          <button type="button" class="plan-card__btn plan-card__btn--fill">선택하기</button>
+          <a href="30_payment.html" class="plan-card__btn plan-card__btn--fill">선택하기</a>
           <p class="plan-card__foot">7일 무료 체험 후 결제</p>
         </div>
         <div class="plan-card">
@@ -212,7 +213,7 @@
           <p class="plan-card__price">₩62,000 <small>/년</small></p>
           <p class="plan-card__was">₩82,800</p>
           <p class="plan-card__note">월 평균 ₩5,166</p>
-          <button type="button" class="plan-card__btn plan-card__btn--line">선택하기</button>
+          <a href="30_payment.html" class="plan-card__btn plan-card__btn--line">선택하기</a>
           <p class="plan-card__foot">7일 무료 체험 후 결제</p>
         </div>
         <div class="plan-card">
@@ -220,11 +221,11 @@
           <span class="plan-card__off">60% 할인</span>
           <p class="plan-card__price">₩149,000</p>
           <p class="plan-card__was">₩372,000</p>
-          <button type="button" class="plan-card__btn plan-card__btn--gray">선택하기</button>
+          <a href="30_payment.html" class="plan-card__btn plan-card__btn--gray">선택하기</a>
         </div>
       </div>
       <div class="safe-pay">
-        <span class="emoji">🛡️</span>
+        <span class="emoji"><span class="material-symbols-rounded" style="color:#7C5CD6">verified_user</span></span>
         <span class="flex-1"><b>안전한 결제</b>구독은 언제든지 취소할 수 있으며, 취소 시 다음 결제부터 적용됩니다.</span>
         <span class="material-symbols-rounded" style="color:var(--text-disabled);">chevron_right</span>
       </div>
@@ -245,22 +246,22 @@
               <td class="cmp-prem"><span class="material-symbols-rounded ico-fill">check_circle</span> 고급 케어</td>
             </tr>
             <tr>
-              <td><div class="cmp-feature"><span class="icon">📅</span><span><b>캘린더 일정 등록</b><small>복약, 검진, 병원 일정 등록</small></span></div></td>
+              <td><div class="cmp-feature"><span class="icon"><span class="material-symbols-rounded" style="color:var(--primary-strong)">calendar_month</span></span><span><b>캘린더 일정 등록</b><small>복약, 검진, 병원 일정 등록</small></span></div></td>
               <td class="cmp-free">최대 10개</td>
               <td class="cmp-prem"><span class="material-symbols-rounded ico-fill">check_circle</span> 무제한</td>
             </tr>
             <tr>
-              <td><div class="cmp-feature"><span class="icon">📊</span><span><b>건강 리포트</b><small>복약/건강 데이터 분석 리포트</small></span></div></td>
+              <td><div class="cmp-feature"><span class="icon"><span class="material-symbols-rounded" style="color:var(--primary-strong)">monitoring</span></span><span><b>건강 리포트</b><small>복약/건강 데이터 분석 리포트</small></span></div></td>
               <td class="cmp-free">기본 리포트</td>
               <td class="cmp-prem"><span class="material-symbols-rounded ico-fill">check_circle</span> 상세 리포트</td>
             </tr>
             <tr>
-              <td><div class="cmp-feature"><span class="icon">📥</span><span><b>데이터 내보내기</b><small>건강 데이터를 파일로 저장</small></span></div></td>
+              <td><div class="cmp-feature"><span class="icon"><span class="material-symbols-rounded" style="color:#14B8A6">download</span></span><span><b>데이터 내보내기</b><small>건강 데이터를 파일로 저장</small></span></div></td>
               <td class="cmp-free">—</td>
               <td class="cmp-prem"><span class="material-symbols-rounded ico-fill">check_circle</span> 지원</td>
             </tr>
             <tr>
-              <td><div class="cmp-feature"><span class="icon">👨‍👩‍👧</span><span><b>가족 관리</b><small>가족 구성원 추가 및 관리</small></span></div></td>
+              <td><div class="cmp-feature"><span class="icon"><span class="material-symbols-rounded" style="color:var(--primary-strong)">groups</span></span><span><b>가족 관리</b><small>가족 구성원 추가 및 관리</small></span></div></td>
               <td class="cmp-free">최대 3명</td>
               <td class="cmp-prem"><span class="material-symbols-rounded ico-fill">check_circle</span> 무제한</td>
             </tr>
@@ -302,5 +303,6 @@
 </div>
 <script src="../assets/js/illustrations.js"></script>
 <script src="../assets/js/common.js"></script>
+<script src="../assets/js/motion.js"></script>
 </body>
 </html>

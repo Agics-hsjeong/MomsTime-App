@@ -1,0 +1,81 @@
+/* ============================================================
+   Mom's Time — 설정 화면 공용 스타일 (계정·언어·도움말·앱정보)
+   ============================================================ */
+
+.set-lead { padding: 4px 20px 0; font-size: 13px; color: var(--text-secondary); }
+
+/* 설정 리스트 */
+.set-list { background: var(--surface); border-radius: var(--radius-card); box-shadow: var(--shadow-card); overflow: hidden; }
+.set-row { display: flex; align-items: center; gap: 14px; width: 100%; padding: 15px 18px; text-align: left; font-size: 15px; background: none; }
+.set-row + .set-row { border-top: 1px solid var(--divider); }
+.set-row__icon {
+  width: 40px; height: 40px; border-radius: 12px; background: var(--primary-light);
+  display: flex; align-items: center; justify-content: center; color: var(--primary-strong); flex-shrink: 0;
+}
+.set-row__icon .material-symbols-rounded { font-size: 22px; }
+.set-row__body { flex: 1; min-width: 0; }
+.set-row__title { display: block; font-size: 15px; font-weight: 600; }
+.set-row__sub { display: block; margin-top: 2px; font-size: 12.5px; color: var(--text-secondary); line-height: 1.5; }
+.set-row__value { font-size: 13px; color: var(--text-secondary); white-space: nowrap; }
+.set-row__arrow { color: var(--text-disabled); font-size: 20px; flex-shrink: 0; }
+
+/* 옵션(라디오) 리스트 */
+.opt-list { background: var(--surface); border-radius: var(--radius-card); box-shadow: var(--shadow-card); overflow: hidden; }
+.opt-row { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 16px 18px; text-align: left; font-size: 15px; }
+.opt-row + .opt-row { border-top: 1px solid var(--divider); }
+.opt-row.is-sel { color: var(--primary-strong); font-weight: 700; }
+.opt-row .check { color: var(--primary-strong); font-size: 22px; opacity: 0; }
+.opt-row.is-sel .check { opacity: 1; }
+.opt-row__sub { display: block; font-size: 12px; color: var(--text-secondary); font-weight: 400; margin-top: 2px; }
+
+/* 위험 액션 */
+.set-danger { display: flex; gap: 8px; margin-top: 24px; }
+.set-danger button {
+  flex: 1; height: 50px; border-radius: 14px;
+  border: 1px solid var(--border); background: var(--surface);
+  font-size: 14px; font-weight: 700; color: var(--text-secondary);
+}
+.set-danger .is-danger { color: var(--error); border-color: #F6D4D4; }
+
+.set-note { display: flex; align-items: center; gap: 8px; margin-top: 16px; font-size: 12px; color: var(--text-disabled); padding: 0 4px; }
+.set-note .material-symbols-rounded { font-size: 16px; }
+
+/* 앱 정보 히어로 */
+.appinfo-hero { text-align: center; padding: 24px 0 8px; }
+.appinfo-hero__logo { width: 84px; height: 84px; margin: 0 auto; }
+.appinfo-hero__name { margin-top: 14px; font-size: 22px; font-weight: 800; color: var(--primary-strong); }
+.appinfo-hero__ver { margin-top: 6px; font-size: 13px; color: var(--text-secondary); }
+.appinfo-hero__latest { display: inline-flex; align-items: center; gap: 4px; margin-top: 10px; padding: 5px 12px; border-radius: 999px; background: #E9F7EA; color: var(--success); font-size: 12px; font-weight: 700; }
+.appinfo-hero__latest .material-symbols-rounded { font-size: 15px; }
+
+.biz-info { padding: 6px 20px; }
+.biz-row { display: flex; gap: 14px; padding: 8px 0; font-size: 13px; }
+.biz-row + .biz-row { border-top: 1px dashed var(--divider); }
+.biz-row .k { width: 84px; color: var(--text-secondary); flex-shrink: 0; }
+.biz-row .v { color: var(--text-primary); }
+.copyright { text-align: center; margin-top: 20px; font-size: 11px; color: var(--text-disabled); line-height: 1.7; }
+
+/* 도움말 FAQ */
+.faq-search { display: flex; align-items: center; gap: 10px; height: 52px; padding: 0 18px; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; }
+.faq-search .material-symbols-rounded { color: var(--text-disabled); }
+.faq-search input { flex: 1; border: 0; outline: 0; background: transparent; font-size: 15px; }
+.faq-cats { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; }
+.faq-cats::-webkit-scrollbar { display: none; }
+.faq-cat { height: 38px; padding: 0 16px; flex-shrink: 0; border: 1px solid var(--border); border-radius: 999px; background: var(--surface); font-size: 13px; font-weight: 600; color: var(--text-secondary); }
+.faq-cat.is-active { border-color: var(--primary-strong); color: var(--primary-strong); background: #FFF3F7; font-weight: 700; }
+.faq { background: var(--surface); border-radius: var(--radius-card); box-shadow: var(--shadow-card); overflow: hidden; }
+.faq__item { border-bottom: 1px solid var(--divider); }
+.faq__item:last-child { border-bottom: 0; }
+.faq__q { display: flex; align-items: center; gap: 10px; width: 100%; padding: 16px 18px; text-align: left; font-size: 14px; font-weight: 600; }
+.faq__q .q { color: var(--primary-strong); font-weight: 800; }
+.faq__q .material-symbols-rounded { margin-left: auto; color: var(--text-disabled); transition: transform .2s; }
+.faq__item[open] .faq__q .material-symbols-rounded { transform: rotate(180deg); }
+.faq__a { padding: 0 18px 16px 40px; font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+.faq__q::-webkit-details-marker { display: none; }
+
+.contact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.contact-card { background: var(--surface); border: 1px solid var(--divider); border-radius: 16px; padding: 18px 8px; text-align: center; }
+.contact-card__icon { width: 46px; height: 46px; margin: 0 auto; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.contact-card__icon .material-symbols-rounded { font-size: 22px; }
+.contact-card__title { margin-top: 10px; font-size: 13px; font-weight: 700; }
+.contact-card__sub { margin-top: 2px; font-size: 11px; color: var(--text-secondary); }

@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..700,0..1,-50..200">
 <link rel="stylesheet" href="../assets/css/common.css">
+<link rel="stylesheet" href="../assets/css/motion.css">
 <style>
   /* 알림 : 퍼플 톤 */
   .tabs--purple .tabs__btn.is-active { color: #7C5CD6; border-bottom-color: #7C5CD6; }
@@ -43,6 +44,7 @@
   .noti-foot .log { display: inline-flex; align-items: center; gap: 2px; color: #7C5CD6; font-weight: 700; }
 
   .bottom-nav--purple .bottom-nav__item.is-active { color: #7C5CD6; }
+  .noti-item[hidden], .noti-group[hidden] { display: none; }
 </style>
 </head>
 <body>
@@ -56,11 +58,11 @@
 
   <!-- 카테고리 탭 -->
   <div class="tabs tabs--purple">
-    <button type="button" class="tabs__btn is-active">전체</button>
-    <button type="button" class="tabs__btn">복약</button>
-    <button type="button" class="tabs__btn">검진</button>
-    <button type="button" class="tabs__btn">예약</button>
-    <button type="button" class="tabs__btn">공지</button>
+    <button type="button" class="tabs__btn is-active" data-filter="all">전체</button>
+    <button type="button" class="tabs__btn" data-filter="med">복약</button>
+    <button type="button" class="tabs__btn" data-filter="checkup">검진</button>
+    <button type="button" class="tabs__btn" data-filter="booking">예약</button>
+    <button type="button" class="tabs__btn" data-filter="notice">공지</button>
   </div>
 
   <div class="content">
@@ -75,8 +77,8 @@
     <!-- 오늘 -->
     <div class="noti-group">
       <p class="noti-group__title">오늘</p>
-      <div class="noti-item">
-        <span class="noti-item__icon" style="background:#E8F5EC;">💊</span>
+      <div class="noti-item" data-cat="med">
+        <span class="noti-item__icon" style="background:#E8F5EC;"><span class="material-symbols-rounded" style="color:var(--primary-strong)">medication</span></span>
         <div class="flex-1">
           <p class="noti-item__title">복약 시간이에요</p>
           <p class="noti-item__desc">아목시실린정 250mg 외 2개 약 복용 시간입니다.</p>
@@ -84,8 +86,8 @@
         </div>
         <div class="noti-item__meta"><span class="noti-item__time">오전 9:00</span><br><span class="noti-item__dot"></span></div>
       </div>
-      <div class="noti-item">
-        <span class="noti-item__icon" style="background:#E7F0FB;">📋</span>
+      <div class="noti-item" data-cat="booking">
+        <span class="noti-item__icon" style="background:#E7F0FB;"><span class="material-symbols-rounded" style="color:#7C5CD6">assignment</span></span>
         <div class="flex-1">
           <p class="noti-item__title">오늘 건강검진이 예정되어 있어요</p>
           <p class="noti-item__desc">삼성서울병원 건강검진 예약이 오전 10:30에 있습니다.</p>
@@ -93,8 +95,8 @@
         </div>
         <div class="noti-item__meta"><span class="noti-item__time">오전 8:30</span><br><span class="noti-item__dot"></span></div>
       </div>
-      <div class="noti-item">
-        <span class="noti-item__icon" style="background:#FDEFF3;">💗</span>
+      <div class="noti-item" data-cat="care">
+        <span class="noti-item__icon" style="background:#FDEFF3;"><span class="material-symbols-rounded" style="color:var(--primary-strong)">favorite</span></span>
         <div class="flex-1">
           <p class="noti-item__title">AI 브리핑이 준비되었어요</p>
           <p class="noti-item__desc">오늘의 건강 브리핑을 확인해보세요.</p>
@@ -107,8 +109,8 @@
     <!-- 어제 -->
     <div class="noti-group">
       <p class="noti-group__title">어제</p>
-      <div class="noti-item">
-        <span class="noti-item__icon" style="background:#EFE9FC;">🛡️</span>
+      <div class="noti-item" data-cat="care">
+        <span class="noti-item__icon" style="background:#EFE9FC;"><span class="material-symbols-rounded" style="color:#7C5CD6">verified_user</span></span>
         <div class="flex-1">
           <p class="noti-item__title">면역 관리가 필요할 수 있어요</p>
           <p class="noti-item__desc">최근 수면 시간이 줄어들었어요. 충분한 휴식을 취하세요.</p>
@@ -116,23 +118,23 @@
         </div>
         <div class="noti-item__meta"><span class="noti-item__time">어제 오후 9:15</span></div>
       </div>
-      <div class="noti-item">
-        <span class="noti-item__icon" style="background:#E8F5EC;">✅</span>
+      <div class="noti-item" data-cat="med">
+        <span class="noti-item__icon" style="background:#E8F5EC;"><span class="material-symbols-rounded" style="color:#22A050">check_circle</span></span>
         <div class="flex-1">
           <p class="noti-item__title">복약 기록이 완료되었어요</p>
           <p class="noti-item__desc">오늘 모든 약 복용을 완료했어요. 꾸준히 유지해 주세요!</p>
         </div>
         <div class="noti-item__meta"><span class="noti-item__time">어제 오후 8:05</span></div>
       </div>
-      <div class="noti-item">
-        <span class="noti-item__icon" style="background:#E7F0FB;">🏃</span>
+      <div class="noti-item" data-cat="care">
+        <span class="noti-item__icon" style="background:#E7F0FB;"><span class="material-symbols-rounded" style="color:#22A050">directions_run</span></span>
         <div class="flex-1">
           <p class="noti-item__title">활동 목표 달성!</p>
           <p class="noti-item__desc">오늘 7,000걸음을 달성했어요!👍</p>
         </div>
         <div class="noti-item__meta"><span class="noti-item__time">어제 오후 6:30</span></div>
       </div>
-      <div class="noti-item">
+      <div class="noti-item" data-cat="med">
         <span class="noti-item__icon" style="background:#FDF3E4;">⭐</span>
         <div class="flex-1">
           <p class="noti-item__title">영양제 복용을 잊지 마세요</p>
@@ -146,7 +148,7 @@
     <!-- 이번 주 -->
     <div class="noti-group">
       <p class="noti-group__title">이번 주</p>
-      <div class="noti-item">
+      <div class="noti-item" data-cat="notice">
         <span class="noti-item__icon" style="background:#EFE9FC;">📢</span>
         <div class="flex-1">
           <p class="noti-item__title">[공지] 시스템 점검 안내</p>
@@ -154,8 +156,8 @@
         </div>
         <div class="noti-item__meta"><span class="noti-item__time">06.08 (토)</span></div>
       </div>
-      <div class="noti-item" style="border-bottom:0;">
-        <span class="noti-item__icon" style="background:#E4F5F2;">📄</span>
+      <div class="noti-item" style="border-bottom:0;" data-cat="checkup">
+        <span class="noti-item__icon" style="background:#E4F5F2;"><span class="material-symbols-rounded" style="color:#14B8A6">description</span></span>
         <div class="flex-1">
           <p class="noti-item__title">검진 결과가 등록되었어요</p>
           <p class="noti-item__desc">2024.06.02 건강검진 결과를 확인할 수 있습니다.</p>
@@ -182,5 +184,24 @@
 
 </div>
 <script src="../assets/js/common.js"></script>
+<script>
+  (function(){
+    var tabs=document.querySelectorAll('.tabs__btn[data-filter]');
+    tabs.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        tabs.forEach(function(b){ b.classList.remove('is-active'); });
+        btn.classList.add('is-active');
+        var f=btn.getAttribute('data-filter');
+        document.querySelectorAll('.noti-item').forEach(function(it){
+          it.hidden = !(f==='all' || it.getAttribute('data-cat')===f);
+        });
+        document.querySelectorAll('.noti-group').forEach(function(g){
+          g.hidden = !g.querySelector('.noti-item:not([hidden])');
+        });
+      });
+    });
+  })();
+</script>
+<script src="../assets/js/motion.js"></script>
 </body>
 </html>

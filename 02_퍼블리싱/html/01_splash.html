@@ -7,82 +7,133 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..700,0..1,-50..200">
 <link rel="stylesheet" href="../assets/css/common.css">
+<link rel="stylesheet" href="../assets/css/motion.css">
 <style>
   .splash {
-    justify-content: space-between;
-    background: linear-gradient(180deg, #FFF8F9 0%, #FFF1F4 55%, #FDDDE6 100%);
-  }
-  .splash__brand {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding-top: 80px;
-  }
-  .splash__logo { width: 140px; height: 140px; }
-  .splash__name {
-    margin-top: 24px;
-    font-size: 40px;
-    font-weight: 800;
-    color: var(--primary-strong);
-    letter-spacing: -0.5px;
-  }
-  .splash__slogan { margin-top: 8px; font-size: 15px; color: var(--text-secondary); }
-  /* 하단 일러스트 영역 (이미지 에셋 교체 예정) */
-  .splash__illust {
-    position: relative;
-    height: 340px;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
+    background: linear-gradient(180deg, #FFF9FA 0%, #FEEFF3 44%, #FBD9E4 100%);
     overflow: hidden;
   }
-  .splash__illust .blob {
-    position: absolute;
-    bottom: -140px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 620px;
-    height: 340px;
-    background: radial-gradient(ellipse at center, #F9BFD0 0%, #FBD3DF 55%, transparent 75%);
-    border-radius: 50%;
+  .splash__enter { position: absolute; inset: 0; z-index: 9; }
+
+  /* 상단 브랜드 */
+  .splash__brand {
+    padding-top: 76px;
+    text-align: center;
+    animation: fadeUp .8s ease both;
   }
-  .splash__illust .figure {
+  .splash__logo { width: 116px; height: 116px; margin: 0 auto; }
+  .splash__name {
+    margin-top: 22px;
+    font-size: 42px; font-weight: 800; letter-spacing: -0.5px;
+    color: var(--primary-strong);
+  }
+  .splash__slogan { margin-top: 8px; font-size: 15px; color: var(--text-secondary); }
+
+  /* 하단 일러스트 장면 */
+  .splash__scene {
     position: relative;
-    width: 220px;
-    height: 300px;
-    padding-bottom: 20px;
+    flex: 1;
+    min-height: 360px;
+    margin-top: 8px;
   }
-  .splash__illust .heart { position: absolute; color: #F7A6BE; }
-  .splash__illust .heart--1 { top: 40px; left: 15%; font-size: 22px; }
-  .splash__illust .heart--2 { top: 90px; right: 18%; font-size: 16px; }
-  .splash__enter { position:absolute; inset:0; z-index:9; }
-  .splash__hint { position:absolute; left:0; right:0; bottom:36px; z-index:10; text-align:center; font-size:13px; color:var(--text-secondary); }
+  /* 핑크 언덕 */
+  .scene__hill {
+    position: absolute; left: -12%; right: -12%; bottom: 0;
+    height: 252px;
+    background: radial-gradient(120% 150% at 50% 100%, #F3B7CC 0%, #F8CADA 48%, rgba(251,217,228,0) 74%);
+  }
+  .scene__hill::after {
+    content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 150px;
+    background: radial-gradient(90% 120% at 50% 100%, #F3B2C8 0%, rgba(243,178,200,0) 70%);
+  }
+  /* 임산부 */
+  .scene__figure {
+    position: absolute; left: 50%; bottom: 0;
+    transform: translateX(-50%);
+    width: 250px; height: 318px;
+    z-index: 3;
+    filter: drop-shadow(0 8px 18px rgba(214, 120, 150, .18));
+    animation: fadeUp 1s .15s ease both;
+  }
+  /* 보태니컬(잎·튤립) */
+  .scene__flora { position: absolute; bottom: 24px; z-index: 2; opacity: .95; }
+  .scene__flora--left  { left: 6px;  width: 118px; transform: rotate(-4deg); }
+  .scene__flora--right { right: 4px; width: 128px; transform: scaleX(-1) rotate(-4deg); }
+  /* 하트 */
+  .scene__heart { position: absolute; z-index: 4; color: #F585A8; }
+  .scene__heart svg { width: 100%; height: 100%; display: block; }
+  .h1 { top: 20%;  left: 15%;  width: 26px; animation: floaty 4s ease-in-out infinite; }
+  .h2 { top: 12%;  right: 18%; width: 18px; animation: floaty 5s .4s ease-in-out infinite; }
+  .h3 { top: 40%;  right: 12%; width: 14px; color: #F7A9C1; animation: floaty 4.5s .8s ease-in-out infinite; }
+  .h4 { top: 46%;  left: 10%;  width: 16px; color: #F7A9C1; animation: floaty 5.5s .2s ease-in-out infinite; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  .scene__figure.fu { animation-name: fadeUpX; }
+  @keyframes fadeUpX { from { opacity: 0; transform: translateX(-50%) translateY(16px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+  @keyframes floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+  @media (prefers-reduced-motion: reduce) {
+    .splash__brand, .scene__figure, .scene__heart { animation: none !important; }
+  }
 </style>
 </head>
 <body>
 <div class="app splash">
   <a href="03_onboarding.html" class="splash__enter" aria-label="시작하기"></a>
-  <p class="splash__hint">화면을 탭하여 시작하기</p>
 
+  <!-- 브랜드 -->
   <div class="splash__brand">
-    <!-- 로고 : 하트 + 엄마 라인 일러스트 -->
     <span class="splash__logo" data-illust="logo" aria-label="Mom's Time 로고"></span>
     <h1 class="splash__name">Mom&rsquo;s Time</h1>
     <p class="splash__slogan">엄마의 건강한 하루를 위한 동반자</p>
   </div>
 
-  <!-- 일러스트 영역 : 실제 에셋(임산부 일러스트)으로 교체 -->
-  <div class="splash__illust" aria-hidden="true">
-    <div class="blob"></div>
-    <span class="heart heart--1">💗</span>
-    <span class="heart heart--2">💗</span>
-    <div class="figure" data-illust="pregnant"></div>
+  <!-- 하단 장면 -->
+  <div class="splash__scene" aria-hidden="true">
+    <div class="scene__hill"></div>
+
+    <!-- 보태니컬 (핑크 잎 + 튤립) -->
+    <svg class="scene__flora scene__flora--left" viewBox="0 0 120 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M60 190 C58 150 54 120 44 96" stroke="#EFA9C0" stroke-width="3" stroke-linecap="round"/>
+      <path d="M60 190 C64 156 74 132 92 112" stroke="#F3BBcf" stroke-width="3" stroke-linecap="round"/>
+      <g fill="#F6C4D6">
+        <path d="M44 96 C30 92 22 80 24 66 C40 68 50 80 44 96 Z"/>
+        <path d="M52 128 C38 126 30 114 32 100 C48 102 58 114 52 128 Z"/>
+        <path d="M92 112 C104 104 106 90 100 78 C86 84 82 100 92 112 Z"/>
+        <path d="M78 140 C90 134 94 120 88 108 C74 114 70 130 78 140 Z"/>
+      </g>
+      <g fill="#F7D3DF">
+        <path d="M60 150 C50 146 44 136 46 124 C58 128 66 138 60 150 Z"/>
+      </g>
+      <!-- 튤립 -->
+      <path d="M28 150 C28 130 22 120 22 120 C22 120 16 130 16 150" fill="#F29BB8"/>
+      <path d="M28 150 C28 132 34 122 34 122 C34 122 40 132 40 150" fill="#F5AEC6"/>
+      <path d="M22 150 L22 168" stroke="#EFA9C0" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+
+    <svg class="scene__flora scene__flora--right" viewBox="0 0 120 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M60 190 C58 150 54 120 44 96" stroke="#EFA9C0" stroke-width="3" stroke-linecap="round"/>
+      <path d="M60 190 C64 156 74 132 92 112" stroke="#F3BBcf" stroke-width="3" stroke-linecap="round"/>
+      <g fill="#F6C4D6">
+        <path d="M44 96 C30 92 22 80 24 66 C40 68 50 80 44 96 Z"/>
+        <path d="M52 128 C38 126 30 114 32 100 C48 102 58 114 52 128 Z"/>
+        <path d="M92 112 C104 104 106 90 100 78 C86 84 82 100 92 112 Z"/>
+        <path d="M78 140 C90 134 94 120 88 108 C74 114 70 130 78 140 Z"/>
+      </g>
+    </svg>
+
+    <!-- 하트 -->
+    <span class="scene__heart h1"><svg viewBox="0 0 24 22"><path fill="currentColor" d="M12 21C6 16.5 2 13 2 8.5A5.5 5.5 0 0 1 12 5 5.5 5.5 0 0 1 22 8.5C22 13 18 16.5 12 21Z"/></svg></span>
+    <span class="scene__heart h2"><svg viewBox="0 0 24 22"><path fill="currentColor" d="M12 21C6 16.5 2 13 2 8.5A5.5 5.5 0 0 1 12 5 5.5 5.5 0 0 1 22 8.5C22 13 18 16.5 12 21Z"/></svg></span>
+    <span class="scene__heart h3"><svg viewBox="0 0 24 22"><path fill="currentColor" d="M12 21C6 16.5 2 13 2 8.5A5.5 5.5 0 0 1 12 5 5.5 5.5 0 0 1 22 8.5C22 13 18 16.5 12 21Z"/></svg></span>
+    <span class="scene__heart h4"><svg viewBox="0 0 24 22"><path fill="currentColor" d="M12 21C6 16.5 2 13 2 8.5A5.5 5.5 0 0 1 12 5 5.5 5.5 0 0 1 22 8.5C22 13 18 16.5 12 21Z"/></svg></span>
+
+    <!-- 임산부 -->
+    <span class="scene__figure fu" data-illust="pregnant"></span>
   </div>
 
 </div>
 <script src="../assets/js/illustrations.js"></script>
 <script src="../assets/js/common.js"></script>
+<script src="../assets/js/motion.js"></script>
 </body>
 </html>

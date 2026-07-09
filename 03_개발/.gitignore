@@ -43,3 +43,17 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Local env (API keys)
+.env
+.env.*
+
+# Firebase config (avoid accidental key leakage in public repos)
+android/app/google-services.json
+ios/Runner/GoogleService-Info.plist
+
+# Firebase tools / Functions
+functions/node_modules/
+.firebase/
+firebase-debug.log
+firestore-debug.log

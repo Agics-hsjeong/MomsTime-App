@@ -1,0 +1,33 @@
+{
+  "firestore": { "rules": "firestore.rules" },
+  "functions": { "source": "functions" },
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "momstime-app",
+          "appId": "1:164422916379:android:3ada268c96a67a9d321bbe",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "ios": {
+        "default": {
+          "projectId": "momstime-app",
+          "appId": "1:164422916379:ios:0f928d75eeef8da9321bbe",
+          "uploadDebugSymbols": false,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "momstime-app",
+          "configurations": {
+            "android": "1:164422916379:android:3ada268c96a67a9d321bbe",
+            "ios": "1:164422916379:ios:0f928d75eeef8da9321bbe",
+            "web": "1:164422916379:web:c98f4bd2be0e0bcc321bbe"
+          }
+        }
+      }
+    }
+  }
+}

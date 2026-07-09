@@ -13,10 +13,14 @@ Mom's Time의 모든 주요 변경 사항을 기록합니다.
 - **Flutter 프로젝트 스캐폴드** (`03_개발/`, `mom_time`, Material 3) — `pubspec` `0.4.0+31`
 - **디자인 토큰 Dart 이식** — `AppColors` · `AppTypography` · `AppRadius`/`AppSpacing` · `AppTheme` (`common.css` 1:1 대응)
 - **feature-first 폴더 구조** — `core/`(theme·router·constants) · `features/`(splash~mypage) · `shared/widgets/`
-- 디자인 토큰 검증용 `DesignShowcasePage` + 위젯 테스트 (`flutter analyze` 0 issues, test 통과)
+- **go_router 라우팅** — `core/router/`(`app_router`·`app_routes`), 흐름: Splash → Onboarding → Login → Stage → Home
+- **첫 화면 구현** — Splash(자동/탭 이동), Onboarding(3P PageView·인디케이터), Login(이메일·소셜), Stage(단계 선택), Home(Today Care + 하단 네비 5탭)
+- **공통 위젯** — `BrandLogo`(CustomPainter 하트 로고)·`BrandLockup`, `PrimaryButton`(그라데이션)·`SecondaryButton`
+- 화면 전환 위젯 테스트 (Splash→Onboarding) — `flutter analyze` 0 issues, test 통과
 
 ### Changed
 - 폴더 재정렬: `03_개발` 추가에 따라 릴리즈노트를 `05_릴리즈노트/`로 이동
+- 앱 진입을 `DesignShowcasePage` → **go_router 라우팅**으로 전환
 
 ### Fixed
 - (수정 예정)

@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 // Mom's Time 디자인 시스템 — Radius / Spacing 토큰
 // `common.css` 의 --radius-* 와 8pt Grid Spacing 에 대응합니다.
 
@@ -29,4 +31,15 @@ abstract final class AppSpacing {
 /// 그림자 (Y4 / Blur12 / 8%)
 abstract final class AppElevation {
   static const double card = 4;
+}
+
+/// 카드 그림자 (`common.css` --shadow-card)
+abstract final class AppShadows {
+  static const List<BoxShadow> card = [
+    BoxShadow(
+      color: Color(0x14F47C9C),
+      blurRadius: 12,
+      offset: Offset(0, 4),
+    ),
+  ];
 }
